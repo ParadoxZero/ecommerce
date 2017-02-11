@@ -1,0 +1,53 @@
+.multi_input_block {
+  border: 1px solid #dfdfdf;
+  radius: 10px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.multi_input_block_manupulate {
+  float: right;
+  margin: 2px !important;
+}
+
+.button-primary {
+    background: none repeat scroll 0 0 #0085ba;
+    border-color: #0073aa #006799 #006799;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    height: 28px;
+    line-height: 26px;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    padding: 0 10px 1px;
+    text-decoration: none;
+    white-space: nowrap;
+    color:#fff;
+}
+
+.button-secondary {
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    height: 28px;
+    line-height: 26px;
+    margin: 0;
+    padding: 0 10px 1px;
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+.multi_input_holder p { margin:5px 0;}
