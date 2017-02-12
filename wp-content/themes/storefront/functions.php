@@ -57,30 +57,40 @@ if ( is_admin() ) {
 
 function wooc_extra_register_fields() {?>
        
-       <p class="form-row form-row-first">
-       <label for="reg_billing_first_name"><?php _e( 'First name', 'woocommerce' ); ?><span class="required">*</span></label>
-       <input type="text" class="input-text" name="billing_first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr_e( $_POST['billing_first_name'] ); ?>" />
-       </p>
-       <p class="form-row form-row-last">
-       <label for="reg_billing_last_name"><?php _e( 'Last name', 'woocommerce' ); ?><span class="required">*</span></label>
-       <input type="text" class="input-text" name="billing_last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
-       </p>
-<p class="form-row form-row-wide">
-       <label for="reg_billing_phone"><?php _e( 'Phone', 'woocommerce' ); ?><span class="required">*</span></label>
-       <input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php esc_attr_e( $_POST['billing_phone'] ); ?>" />
+       <p class="form-row form-row-wide">
+       	<label for="reg_billing_phone"><?php _e( 'Phone', 'woocommerce' ); ?><span class="required">*</span></label>
+       	<input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php esc_attr_e( $_POST['billing_phone'] ); ?>" />
        </p>
        <div class="clear"></div>
        <?php
  }
  add_action( 'woocommerce_register_form_start', 'wooc_extra_register_fields' );
 
+/*
+* ========================================================
+*			Custom Shortcodes
+*=========================================================
+*/
 
-/* shortcode to get current user */
+/* get current user */
 add_shortcode( 'current-username' , 'ss_get_current_username' );
 function ss_get_current_username(){
     $user = wp_get_current_user();
     return $user->display_name;
 }
+
+add_shortcode('new_then_sign_up','trymake_generate_signup_string');
+function trymake_generate_signup_string(){
+	if(!is_user_logged_in()){
+		echo '<a href="http://www.kraker.ml/sign-up"><strong>New here?Sign-up</strong></a>';
+	}
+	else{
+	}
+}
+
+/*
+*==================================================================
+*/
 
 /**
  * Adds a top bar to Storefront, before the header.
@@ -88,6 +98,13 @@ function ss_get_current_username(){
 function storefront_add_topbar() {
     ?>
 	<!-- HTML code Before header -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+			$('.col-full').show();
+});
+	</script>
     <?php
 }
 add_action( 'storefront_before_header', 'storefront_add_topbar' );
