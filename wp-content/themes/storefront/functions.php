@@ -55,13 +55,15 @@ if ( is_admin() ) {
 
 
 
-function wooc_extra_register_fields() {?>
-       
-       <p class="form-row form-row-wide">
-       	<label for="reg_billing_phone"><?php _e( 'Phone', 'woocommerce' ); ?><span class="required">*</span></label>
-       	<input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php esc_attr_e( $_POST['billing_phone'] ); ?>" />
-       </p>
-       <div class="clear"></div>
+function wooc_extra_register_fields() {
+	?>
+        	<p class="form-row form-row-wide">
+       			<label for="reg_billing_phone">
+	<?php _e( 'Phone', 'woocommerce' ); ?>
+			<span class="required">*</span></label>
+       			<input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php esc_attr_e( $_POST['billing_phone'] ); ?>" />
+       		</p>
+       		<div class="clear"></div>
        <?php
  }
  add_action( 'woocommerce_register_form_start', 'wooc_extra_register_fields' );
@@ -79,14 +81,15 @@ function ss_get_current_username(){
     return $user->display_name;
 }
 
+/* show sign up for logged out visitor */
 add_shortcode('new_then_sign_up','trymake_generate_signup_string');
 function trymake_generate_signup_string(){
 	if(!is_user_logged_in()){
 		echo '<a href="http://www.kraker.ml/sign-up"><strong>New here?Sign-up</strong></a>';
 	}
-	else{
-	}
+
 }
+
 
 /*
 *==================================================================
@@ -97,23 +100,27 @@ function trymake_generate_signup_string(){
  */
 function storefront_add_topbar() {
     ?>
-	<!-- HTML code Before header -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script>
-
-		$(document).ready(function() {
-			$('.col-full').show();
-});
-	</script>
+	<!-- HTML Content to add before body -->
     <?php
+	echo '<div class="tm-sticky-search-bar" style="display: none">';
+	echo do_shortcode('[wcas-search-form]');
+	echo '</div>';
 }
 add_action( 'storefront_before_header', 'storefront_add_topbar' );
 
+add_action( 'tm_inside_head', 'add_to_head' );
+function add_to_head(){
+	echo '<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>';
+	echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>';
+	//echo '<script src="http://kraker.ml/wp-content/themes/storefront/myjs.js"></script>';
+}
 /* add searchbar */
 
 add_action( 'storefront_header', 'SID_add_searchbar');
 function SID_add_searchbar(){
+	echo '<div class="tm-mainsearch-bar">';
 	echo do_shortcode('[wcas-search-form]');
+	echo '</div>';
 }
 
 /* remove breadcrumbs */

@@ -92,3 +92,59 @@ animation- animation-iteration-count: 1;
 animation-delay:0.5s
 
 }
+
+@media ( max-width:700px){
+	ul.products li.product{
+		list-style: none;
+    		margin-left: 0;
+    		margin-bottom: 4.235801032em;
+    		text-align: center;
+    		position: relative;
+    		font-size: smaller;
+    		width: 45%;
+    		float: left;
+    		margin-right: 3%;
+	}	
+}
+.tm-mainsearch-bar{
+	display:inline;	
+}
+@media(max-width:700px){
+	.tm-mainsearch-bar{
+		display:none;
+	}
+}
+@media(min-width:700px){
+	.tm-mobile-search-bar{
+		display:none;
+	}
+}
+
+.tm-mobile-search-bar{
+	max-width:70%;
+}
+
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label{
+  top: 8px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.input-text {
+  font-size: 14px;
+  width: 200px;
+  height: 35px;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 20px;
+  top: 18px;
+  transition: 0.2s ease all;
+}
+
