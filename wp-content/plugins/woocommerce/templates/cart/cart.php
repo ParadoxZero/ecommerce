@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <?php
 /**
  * Cart Page
@@ -16,6 +17,7 @@
  * @version 2.3.8
  */
 
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -24,7 +26,7 @@ wc_print_notices();
 
 do_action( 'woocommerce_before_cart' ); ?>
 
-<form action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+<form action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" id="tm_cart">
 
 <?php do_action( 'woocommerce_before_cart_table' ); ?>
 
@@ -103,13 +105,14 @@ do_action( 'woocommerce_before_cart' ); ?>
 					<td class="product-quantity" data-title="<?php _e( 'Quantity', 'woocommerce' ); ?>">
 						<?php
 							if ( $_product->is_sold_individually() ) {
-								$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
+								$product_quantity = sprintf( '1 <input type="hidden" id="tm_update_cart" name="cart[%s][qty]" value="1" />', $cart_item_key );
 							} else {
 								$product_quantity = woocommerce_quantity_input( array(
 									'input_name'  => "cart[{$cart_item_key}][qty]",
 									'input_value' => $cart_item['quantity'],
 									'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
-									'min_value'   => '0'
+									'min_value'   => '0',
+									'id'	      => "tm_update_cart"
 								), $_product, false );
 							}
 
@@ -134,14 +137,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 				<?php if ( wc_coupons_enabled() ) { ?>
 					<div class="coupon">
-
 						<label for="coupon_code"><?php _e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply Coupon', 'woocommerce' ); ?>" />
 
 						<?php do_action( 'woocommerce_cart_coupon' ); ?>
 					</div>
 				<?php } ?>
 
-				<input type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'woocommerce' ); ?>" />
+				<input type="submit" id="tm_submit_update_cart"  class="button" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'woocommerce' ); ?>" />
 
 				<?php do_action( 'woocommerce_cart_actions' ); ?>
 
@@ -164,3 +166,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 
 <?php do_action( 'woocommerce_after_cart' ); ?>
+
+
+
+
+
+        	
+
+
+

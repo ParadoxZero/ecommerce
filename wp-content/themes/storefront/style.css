@@ -44,18 +44,21 @@ body{
 	font-family: 'Fira Sans',sans-serif;
 }
 .main-navigation ul li:hover {
-background-color: #565656;
+background-color: #0a6682;
 }
 
 
 .main-navigation ul li:active {
-    background-color: #505050;
+    background-color: #0a6682;
 }
 .secondary-navigation ul.menu a {
     transition: 0.35s ease-in-out;
 }
 .secondary-navigation ul.menu a:hover {
-    background-color: #1b7693;
+    background-color: #0a6682 !important;
+}
+.storefront-primary-navigation{
+    background: rgba(0,0,0,.2) !important;
 }
 
 @keyframes dropHeader {
@@ -94,6 +97,26 @@ animation- animation-iteration-count: 1;
 animation-delay:0.5s
 
 }
+.site-search{
+	display:none;
+}
+
+@media(min-width:700px){
+	.tm-sticky-search-bar{
+		display:none;
+	}
+	.tm-mobile-search-bar{
+		display:none;
+	}
+	.tm-mainsearch-bar{
+		display:inline;
+	}
+	.site-search{
+		display:none !important;
+	}
+}
+
+
 
 @media ( max-width:700px){
 	ul.products li.product{
@@ -138,18 +161,66 @@ animation-delay:0.5s
 
 	.site-branding .site-title {
 	    margin-top: -.49em !important;
+	    margin-left: 0px !important;
 	}
 	button.menu-toggle {
 	    border: none;
 	}
-.tm-mainsearch-bar{
-	display:inline;	
-}
-@media(max-width:700px){
 	.tm-mainsearch-bar{
-		display:none;
+	display:inline;	
+	margin-left: 20%;
 	}
-}
+	button.menu-toggle {
+    		cursor: pointer;
+    		text-align: left;
+    		float: left;
+    		position: relative;
+    		border: 2px solid transparent;
+    		box-shadow: none;
+    		border-radius: 2px;
+	    	padding: 0 0.3em 1.3px 1.717924em;    		
+		font-size: .875em;
+	}
+	.beta.site-title {
+    		display: block;
+		width: 100vw;
+	}
+	.dgwt-wcas-search-wrapp {
+	    display: initial !important;
+	}
+	.dgwt-wcas-search-form {
+	    display: inherit !important;
+	}
+	.dgwt-wcas-sf-wrapp {
+	    zoom: 0.7 !important;
+	    width: 100vw !important;
+	    display: inline-block !important;
+	}
+	.dgwt-wcas-suggestions-wrapp.dgwt-wcas-has-img.dgwt-wcas-has-price.dgwt-wcas-has-desc {
+	    position: absolute;
+	    max-height: 100vh;
+	    z-index: 9999;
+	    width: 375px;
+	    zoom: 0.6;
+	}
+	button.menu-toggle span:before, button.menu-toggle:after, button.menu-toggle:before {
+	    content: "";
+	    display: block;
+	    height: 2px;
+	    width: 14px;
+	    position: absolute;
+	    top: 50%;
+	    left: .1em;
+	    margin-top: -1px;
+	    -webkit-transition: all,ease,.2s;
+	    -moz-transition: all,ease,.2s;
+	    transition: all,ease,.2s;
+	    border-radius: 3px;
+	}
+	.site-header{
+		padding-bottom: 3px !important;
+	}
+
 @media(min-width:700px){
 	.tm-mobile-search-bar{
 		display:none;

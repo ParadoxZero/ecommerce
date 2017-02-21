@@ -218,6 +218,9 @@ if ( ! function_exists( 'storefront_site_title_or_logo' ) ) {
 	}
 }
 
+
+
+
 if ( ! function_exists( 'storefront_primary_navigation' ) ) {
 	/**
 	 * Display Primary Navigation
@@ -248,6 +251,8 @@ if ( ! function_exists( 'storefront_primary_navigation' ) ) {
 		<?php
 	}
 }
+
+
 
 if ( ! function_exists( 'storefront_secondary_navigation' ) ) {
 	/**
