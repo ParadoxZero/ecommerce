@@ -113,16 +113,6 @@ function add_to_head(){
 	echo '<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>';
 	echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>';
 	//echo '<script src="http://kraker.ml/wp-content/themes/storefront/myjs.js"></script>';
-	?>
-	<script>
-	$(document).ready(function(){
-        	$('input').change(function () {
-                	$("#tm_submit_update_cart").trigger('click');
-
-	 	});
-	});
-	</script>
-	<?php
 }
 
 /* add searchbar */
@@ -134,6 +124,18 @@ function SID_add_searchbar(){
 }
 
 
+add_action( 'wp_footer', 'cart_update_qty_script' );
+function cart_update_qty_script() {
+  if (is_cart()) :
+   	?>
+    		<script>
+        		jQuery('div.woocommerce').on('change', '.qty', function(){
+           			jQuery("[name='update_cart']").trigger("click"); 
+        		});
+   		</script>
+	<?php
+	endif;
+}
 
 /* remove breadcrumbs */
 add_filter( 'woocommerce_get_breadcrumb', '__return_false' );

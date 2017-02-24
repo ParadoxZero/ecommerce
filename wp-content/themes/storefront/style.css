@@ -192,13 +192,13 @@ animation-delay:0.5s
 	    display: inherit !important;
 	}
 	.dgwt-wcas-sf-wrapp {
-	    zoom: 0.7 !important;
+	    zoom: 0.6 !important;
 	    width: 100vw !important;
 	    display: inline-block !important;
 	}
 	.dgwt-wcas-suggestions-wrapp.dgwt-wcas-has-img.dgwt-wcas-has-price.dgwt-wcas-has-desc {
 	    position: absolute;
-	    max-height: 100vh;
+	    max-height: 100vh !important;
 	    z-index: 9999;
 	    width: 375px;
 	    zoom: 0.6;
@@ -219,6 +219,19 @@ animation-delay:0.5s
 	}
 	.site-header{
 		padding-bottom: 3px !important;
+	}
+	.wpcs_product_carousel_slider{
+		font-family: inherit;
+	}
+	.wpcs_product_carousel_slider .title{
+		margin-bottom: 8px;
+    		margin-top: 13px;
+	}
+	.owl-carousel .owl-wrapper-outer{
+		 zoom: 0.5;
+	}
+	.wpcs_product_carousel_slider .another_carousel_header i{
+		    top: 45%;
 	}
 
 @media(min-width:700px){
