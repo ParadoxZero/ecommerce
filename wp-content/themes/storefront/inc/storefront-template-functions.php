@@ -163,6 +163,11 @@ if ( ! function_exists( 'storefront_site_branding' ) ) {
 		<div class="site-branding">
 			<?php storefront_site_title_or_logo(); ?>
 		</div>
+		<div class="tm_details">
+
+			<a href="/my-account" style="float: right; margin-left: 20px;"><i class="fa fa-user " aria-hidden="true"></i></a>
+			<a href="/cart" style="float: right;"><i class="fa fa-shopping-cart " aria-hidden="true"></i></a>
+		</div>
 		<?php
 	}
 }

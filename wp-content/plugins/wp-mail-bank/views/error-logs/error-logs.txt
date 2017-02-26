@@ -800,3 +800,305 @@ Stack trace:
 [23-Feb-2017 19:35:42 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
 [23-Feb-2017 19:35:42 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
 [23-Feb-2017 19:35:42 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 12:16:10 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 12:16:10 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 12:16:10 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 12:16:10 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 12:45:15 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'A9, `product_ids` = 711' at line 1 for query insert into wp_wcmp_products_map set `product_title` = Zuhu A9, `product_ids` = 711  made by wp_untrash_post, do_action('untrash_post'), WP_Hook->do_action, WP_Hook->apply_filters, WCMp_Product->restore_multiple_seller_mapping
+[24-Feb-2017 14:02:58 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 14:02:58 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 14:02:58 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 14:02:58 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:01:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:01:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:01:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:01:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:17:59 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:17:59 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:17:59 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[24-Feb-2017 15:17:59 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:27:52 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:27:53 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:27:53 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:27:53 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:36:28 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:36:29 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:36:29 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:36:29 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:51:35 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:51:35 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:51:35 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:51:35 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:56:30 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:56:30 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:56:30 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 09:56:30 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:05:24 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:05:24 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:05:24 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:05:24 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:09:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:09:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:09:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:09:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:43:07 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:43:07 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:43:07 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:43:07 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:51:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:51:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:51:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 10:51:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 11:19:59 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 11:20:00 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 11:20:00 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 11:20:00 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 12:54:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 12:54:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 12:54:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 12:54:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 13:07:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:10:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:11:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:12:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:16:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:16:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:21:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:22:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:27:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:35:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:39:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:39:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:39:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:45:58 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 13:57:09 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 13:57:09 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 13:57:10 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 13:57:10 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 13:59:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 14:04:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 14:15:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 14:16:03 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 14:16:03 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 14:16:03 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 14:16:03 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 15:33:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 15:34:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 15:34:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 15:36:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 15:36:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 15:37:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_foot() in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php:98
+Stack trace:
+#0 /var/www/html/wordpress/wp-includes/class-wp-hook.php(298): wp_ajax_flickity_preview('')
+#1 /var/www/html/wordpress/wp-includes/class-wp-hook.php(323): WP_Hook->apply_filters('', Array)
+#2 /var/www/html/wordpress/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /var/www/html/wordpress/wp-admin/admin-ajax.php(91): do_action('wp_ajax_flickit...')
+#4 {main}
+  thrown in /var/www/html/wordpress/wp-content/plugins/wp-flickity/wp-flickity-functions.php on line 98
+[25-Feb-2017 16:02:01 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:02:01 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:02:01 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:02:01 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:18:15 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:18:15 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:18:15 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:18:15 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:22:45 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:22:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:22:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:22:46 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:29:50 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:29:51 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:29:51 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 16:29:51 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 19:39:24 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 19:39:25 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 19:39:25 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 19:39:25 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 20:48:17 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 20:48:18 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 20:48:18 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[25-Feb-2017 20:48:18 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 06:23:16 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:23:16 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:24:26 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:24:47 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:25:24 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:25:47 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:25:56 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:25:56 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:26:20 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:27:25 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:28:51 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:28:52 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:29:25 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:31:24 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 169
+[26-Feb-2017 06:31:29 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 178
+[26-Feb-2017 06:31:31 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 178
+[26-Feb-2017 06:31:34 UTC] PHP Parse error:  syntax error, unexpected '<' in /var/www/html/wordpress/wp-content/themes/storefront/functions.php on line 178
+[26-Feb-2017 07:23:21 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 07:23:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 07:23:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 07:23:22 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:49:05 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:49:06 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:49:06 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:49:06 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:51:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:51:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:51:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[26-Feb-2017 11:51:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181

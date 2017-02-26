@@ -189,15 +189,19 @@ class WooCommerce_Simple_Registration {
 			return;
 		}
 		?>
-		<p class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-first">
-			<label for="reg_sr_firstname"><?php _e( 'First Name', 'woocommerce-simple-registration' ); ?></label>
-			<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="sr_firstname" id="reg_sr_firstname" value="<?php if ( ! empty( $_POST['sr_firstname'] ) ) echo esc_attr( $_POST['sr_firstname'] ); ?>" />
-		</p>
+		<!--<p class="woocommerce-FormRow woocommerce-FormRow- -first form-row form-row-first">
+			<label for="reg_sr_firstname"><?php //_e( 'First Name', 'woocommerce-simple-registration' ); ?></label>
+		<input type="text" class="woocommerce-Input woocommerce-Input- -text input-text" name="sr_firstname" id="reg_sr_firstname" value="<?php //if ( ! empty( $_POST['sr_firstname'] ) ) echo esc_attr( $_POST['sr_firstname'] ); ?>" />
+		</p>-->
+		<div style="margin-bottom: 25px" class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                      <input id="red_sr_firstname" type="text" class="form-control" name="sr_firstname" value="" placeholder="Full Name" value="<?php if ( ! empty( $_POST['sr_firstname'] ) ) echo esc_attr( $_POST['sr_firstname'] ); ?>" style="font-style: italic;">
+                </div>
 
-		<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
-			<label for="reg_sr_lastname"><?php _e( 'Last Name', 'woocommerce-simple-registration' ); ?></label>
-			<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="sr_lastname" id="reg_sr_lastname" value="<?php if ( ! empty( $_POST['sr_lastname'] ) ) echo esc_attr( $_POST['sr_lastname'] ); ?>" />
-		</p>
+		<!--<p class="woocommerce-FormRow woocommerce-FormRow- -last form-row form-row-last">
+			<label for="reg_sr_lastname"><?php //_e( 'Last Name', 'woocommerce-simple-registration' ); ?></label>
+			<input type="text" class="woocommerce-Input woocommerce-Input- - text input-text" name="sr_lastname" id="reg_sr_lastname" value="<?php //if ( ! empty( $_POST['sr_lastname'] ) ) echo esc_attr( $_POST['sr_lastname'] ); ?>" />
+		</p>-->
 		<?php
 	}
 

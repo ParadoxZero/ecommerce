@@ -158,7 +158,7 @@ a.button.product_type_simple.add_to_cart_button.ajax_add_to_cart::after {
     font-size: 28px;
     line-height: 35px;
     text-align: center;
-    z-index: 999;
+    z-index: 990;
     border: 0;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;

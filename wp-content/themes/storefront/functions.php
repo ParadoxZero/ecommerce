@@ -53,20 +53,10 @@ if ( is_admin() ) {
  * https://github.com/woocommerce/theme-customisations
  */
 
+/*=================================================================
+ *    Email verification
+ *=================================================================*/
 
-
-function wooc_extra_register_fields() {
-	?>
-        	<p class="form-row form-row-wide">
-       			<label for="reg_billing_phone">
-	<?php _e( 'Phone', 'woocommerce' ); ?>
-			<span class="required">*</span></label>
-       			<input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php esc_attr_e( $_POST['billing_phone'] ); ?>" />
-       		</p>
-       		<div class="clear"></div>
-       <?php
- }
- add_action( 'woocommerce_register_form_start', 'wooc_extra_register_fields' );
 
 /*
 * ========================================================
@@ -111,8 +101,17 @@ add_action( 'storefront_before_header', 'storefront_add_topbar' ,20);
 add_action( 'tm_inside_head', 'add_to_head' );
 function add_to_head(){
 	echo '<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>';
-	echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>';
-	//echo '<script src="http://kraker.ml/wp-content/themes/storefront/myjs.js"></script>';
+	?> <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+<script>
+	// Wait for window load
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
+</script> 
+<div class="se-pre-con"></div><?php
+
 }
 
 /* add searchbar */
