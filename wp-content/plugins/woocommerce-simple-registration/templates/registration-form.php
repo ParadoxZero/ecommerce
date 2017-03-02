@@ -13,6 +13,7 @@ wp_enqueue_script( 'wc-password-strength-meter' );
 ?><div class="registration-form woocommerce">
 <script src="https://use.fontawesome.com/f774f0b233.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<?php wc_print_notices(); ?>
     <div class="container">
@@ -37,7 +38,7 @@ wp_enqueue_script( 'wc-password-strength-meter' );
 				<label for="reg_username"><?php // _e( 'Username', 'woocommerce' ); ?> <span class="required">*</span></label>
 				<input type="text" class="woocommerce-Input woocommerce-Input- -text input-text" name="username" id="reg_username" placeholder="Username" value="<?php //if ( ! empty( $_POST['username'] ) ) echo esc_attr( $_POST['username'] ); ?>" />
 			</p>-->
-                       <div style="margin-bottom: 25px" class="input-group">
+                       <div style="margin-bottom: 25px ; display:none;" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="reg_username" type="text" class="form-control" name="username" value=""<?php if ( ! empty( $_POST['username'] ) ) echo esc_attr( $_POST['username'] ); ?> placeholder="username" style="font-style: italic;">
                         </div>
@@ -84,3 +85,8 @@ wp_enqueue_script( 'wc-password-strength-meter' );
 	</form>
 
 </div>
+	<script>
+		$('#reg_email').change(function() {
+		$('#reg_username').val($(this).val());
+		});
+	</script>
