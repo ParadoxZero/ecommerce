@@ -142,4 +142,34 @@ function cart_update_qty_script() {
 /* remove breadcrumbs */
 add_filter( 'woocommerce_get_breadcrumb', '__return_false' );
 
+/*----------------------------------------------
+   REdirect checkout loged out users
+----------------------------------------------*/
+add_action( 'template_redirect', 'checkout_redirect_non_logged_to_login_access');
+function checkout_redirect_non_logged_to_login_access() {
+
+    // Here the conditions (woocommerce checkout page and unlogged user)
+    if( is_checkout() && !is_user_logged_in()){
+
+        // Redirecting to your custom login area
+        wp_redirect( get_permalink( get_option('woocommerce_myaccount_page_id') ) );
+
+        // always use exit after wp_redirect() function.
+        exit;
+    }
+}
+// Displaying a message on cart page for non logged users (Optional)
+add_action( 'woocommerce_before_cart', 'customer_redirected_displaying_message');
+function customer_redirected_displaying_message() {
+    if( !is_user_logged_in() ){
+        // HERE Type your displayed message and text button
+        $message = __('To access checkout, you need first to be logged in', 'woocommerce');
+        $button_text = __('Login area', 'woocommerce');
+
+        $cart_link = get_permalink( get_option('woocommerce_myaccount_page_id') );
+
+        wc_add_notice(  $message . '<a href="' . $cart_link . '" class="button wc-forward">' . $button_text . '</a>', 'notice' );
+    }
+}
+
 
