@@ -1432,3 +1432,13 @@ Stack trace:
 [12-Mar-2017 15:20:36 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
 [12-Mar-2017 15:20:36 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
 [12-Mar-2017 15:20:36 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[12-Mar-2017 18:43:47 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[12-Mar-2017 18:43:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[12-Mar-2017 18:43:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[12-Mar-2017 18:43:48 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[13-Mar-2017 13:15:57 UTC] Aq_Resize.process() error: $url parameter is required
+[13-Mar-2017 13:16:02 UTC] Aq_Resize.process() error: $url parameter is required
+[13-Mar-2017 13:16:16 UTC] Aq_Resize.process() error: $url parameter is required
+[13-Mar-2017 13:16:31 UTC] Aq_Resize.process() error: $url parameter is required
+[13-Mar-2017 13:17:28 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
+[13-Mar-2017 14:17:09 UTC] PHP Warning:  in_array() expects parameter 2 to be array, string given in /var/www/html/wordpress/wp-content/plugins/woocommerce-category-widget/woocommerce-category-widget.php on line 181
