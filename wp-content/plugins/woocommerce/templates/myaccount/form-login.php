@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="u-columns col2-set" id="customer_login">
 
-	<div class="u-column1 col-1">
+	<div class="u-column1 col-5">
 
 <?php endif; ?>
         <div id="loginbox" style="margin-top:50px;padding-right: 0px !important;padding-left: 0px !important;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div>
 
-	<div class="u-column2 col-2">
+	<div class="u-column2 col-2" style="display:none">
 
 		<h2><?php _e( 'Register', 'woocommerce' ); ?></h2>
 
