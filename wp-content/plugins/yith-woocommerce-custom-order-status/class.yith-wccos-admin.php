@@ -24,66 +24,34 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
         /**
          * Single instance of the class
          *
-         * @var \YITH_WCQV_Admin
+         * @var YITH_WCCOS_Admin
          * @since 1.0.0
          */
-        protected static $instance;
+        protected static $_instance;
 
-        /**
-         * Plugin options
-         *
-         * @var array
-         * @access public
-         * @since  1.0.0
-         */
-        public $options = array();
-
-        /**
-         * Plugin version
-         *
-         * @var string
-         * @since 1.0.0
-         */
-        public $version = YITH_WCCOS_VERSION;
-
-        /**
-         * @var $_panel Panel Object
-         */
+        /** @var $_panel Panel Object */
         protected $_panel;
 
-        /**
-         * @var string Premium version landing link
-         */
+        /** @var string Premium version landing link */
         protected $_premium_landing = 'https://yithemes.com/themes/plugins/yith-woocommerce-custom-order-status/';
 
-        /**
-         * @var string Quick View panel page
-         */
+        /**@var string Quick View panel page */
         protected $_panel_page = 'yith_wccos_panel';
 
-        /**
-         * Various links
-         *
-         * @var string
-         * @access public
-         * @since  1.0.0
-         */
+        /** @var string Plugin Documentation URL */
         public $doc_url = 'http://yithemes.com/docs-plugins/yith-woocommerce-custom-order-status/';
 
-        public $templates = array();
 
         /**
          * Returns single instance of the class
          *
-         * @return \YITH_WCCOS
+         * @return YITH_WCCOS_Admin
          * @since 1.0.0
          */
         public static function get_instance() {
-            if ( is_null( self::$instance ) ) {
-                self::$instance = new self();
-            }
+            $self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-            return self::$instance;
+            return !is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
         }
 
         /**
@@ -92,13 +60,11 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
          * @access public
          * @since  1.0.0
          */
-        public function __construct() {
-
-            if ( is_admin() ){
+        protected function __construct() {
+            if ( is_admin() ) {
                 add_action( 'admin_menu', array( $this, 'register_panel' ), 5 );
 
                 //Add action links
-
                 add_filter( 'plugin_action_links_' . plugin_basename( YITH_WCCOS_DIR . '/' . basename( YITH_WCCOS_FILE ) ), array( $this, 'action_links' ) );
                 add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
 
@@ -153,10 +119,10 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
             if ( in_array( $status, $wc_statuses ) )
                 return;
 
-            $o_count = wc_orders_count( $status );
+            $order_count = wc_orders_count( $status );
 
-            if ( $o_count > 0 ) {
-                $o_args = array(
+            if ( $order_count > 0 ) {
+                $args      = array(
                     'posts_per_page' => -1,
                     'post_type'      => 'shop_order',
                     'tax_query'      => array(
@@ -165,14 +131,15 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
                             'field'    => 'slug',
                             'terms'    => array( $status )
                         )
-                    )
+                    ),
+                    'fields'         => 'ids'
                 );
-                $orders = get_posts( $o_args );
+                $order_ids = get_posts( $args );
 
-                foreach ( $orders as $order ) {
-                    $o = wc_get_order( $order->ID );
-                    if ( $o ) {
-                        $o->update_status( 'on-hold', sprintf( __( 'Status changed because of the deletion of "%s" custom status', 'yith-woocommerce-custom-order-status' ), $post->post_title ) );
+                foreach ( $order_ids as $order_id ) {
+                    $order = wc_get_order( $order_id );
+                    if ( $order ) {
+                        $order->update_status( 'on-hold', sprintf( __( 'Status changed because of the deletion of "%s" custom status', 'yith-woocommerce-custom-order-status' ), $post->post_title ) );
                     }
                 }
             }
@@ -205,18 +172,22 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
         /**
          * Add Button Actions in Order list
          *
-         * @return   void
+         * @param array    $actions
+         * @param WC_Order $the_order
+         *
          * @since    1.0
          * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+         *
+         * @return array
          */
         function add_submit_to_order_admin_actions( $actions, $the_order ) {
             global $post;
 
             $status_posts = get_posts( array(
-                'posts_per_page' => -1,
-                'post_type'      => 'yith-wccos-ostatus',
-                'post_status'    => 'publish'
-            ) );
+                                           'posts_per_page' => -1,
+                                           'post_type'      => 'yith-wccos-ostatus',
+                                           'post_status'    => 'publish'
+                                       ) );
             $status_names = array();
 
             foreach ( $status_posts as $sp ) {
@@ -272,10 +243,10 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
          */
         public function get_custom_statuses( $statuses ) {
             $status_posts = get_posts( array(
-                'posts_per_page' => -1,
-                'post_type'      => 'yith-wccos-ostatus',
-                'post_status'    => 'publish'
-            ) );
+                                           'posts_per_page' => -1,
+                                           'post_type'      => 'yith-wccos-ostatus',
+                                           'post_status'    => 'publish'
+                                       ) );
             foreach ( $status_posts as $sp ) {
                 $statuses[ 'wc-' . get_post_meta( $sp->ID, 'slug', true ) ] = $sp->post_title;
             }
@@ -292,10 +263,10 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
          */
         function register_my_new_order_statuses() {
             $status_posts = get_posts( array(
-                'posts_per_page' => -1,
-                'post_type'      => 'yith-wccos-ostatus',
-                'post_status'    => 'publish'
-            ) );
+                                           'posts_per_page' => -1,
+                                           'post_type'      => 'yith-wccos-ostatus',
+                                           'post_status'    => 'publish'
+                                       ) );
             foreach ( $status_posts as $sp ) {
                 $label = $sp->post_title;
                 $slug  = 'wc-' . get_post_meta( $sp->ID, 'slug', true );
@@ -332,7 +303,7 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
 
             $args = array(
                 'labels'              => $labels,
-                'public'              => true,
+                'public'              => false,
                 'show_ui'             => true,
                 'menu_position'       => 10,
                 'exclude_from_search' => true,
@@ -394,12 +365,11 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
          */
         public function action_links( $links ) {
 
-            $settings_uri = defined( 'YITH_WCCOS_FREE_INIT' ) ?
-                add_query_arg( array( 'page' => $this->_panel_page ), admin_url( "admin.php" ) ) : add_query_arg( array( 'post_type' => 'yith-wccos-ostatus' ), admin_url( 'edit.php' ) );
+            $settings_uri = defined( 'YITH_WCCOS_FREE_INIT' ) ? add_query_arg( array( 'page' => $this->_panel_page ), admin_url( "admin.php" ) ) : add_query_arg( array( 'post_type' => 'yith-wccos-ostatus' ), admin_url( 'edit.php' ) );
 
             $links[] = '<a href="' . $settings_uri . '">' . __( 'Settings', 'yith-woocommerce-custom-order-status' ) . '</a>';
             if ( defined( 'YITH_WCCOS_FREE_INIT' ) ) {
-                $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'ywcm' ) . '</a>';
+                $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-custom-order-status' ) . '</a>';
             }
 
             return $links;
@@ -444,7 +414,6 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
             }
 
             $admin_tabs_free = array(
-                //'settings'      => __( 'Settings', 'yith-woocommerce-custom-order-status' ),
                 'premium' => __( 'Premium Version', 'yith-woocommerce-custom-order-status' )
             );
 
@@ -464,7 +433,7 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
             );
 
             /* === Fixed: not updated theme  === */
-            if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
+            if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
                 require_once( 'plugin-fw/lib/yit-plugin-panel-wc.php' );
             }
 
@@ -475,18 +444,18 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
         }
 
         public function admin_enqueue_scripts() {
-            wp_enqueue_style( 'yith-wccos-admin-styles', YITH_WCCOS_ASSETS_URL . '/css/admin.css' );
-            wp_enqueue_style( 'wp-color-picker' );
-            wp_enqueue_script( 'wp-color-picker' );
-            wp_enqueue_script( 'jquery-ui-tabs' );
-            wp_enqueue_style( 'jquery-ui-style-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css' );
-            wp_enqueue_style( 'googleFontsOpenSans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
+            wp_enqueue_style( 'yith-wccos-admin-styles', YITH_WCCOS_ASSETS_URL . '/css/admin.css', array(), YITH_WCCOS_VERSION );
 
             $screen     = get_current_screen();
             $metabox_js = defined( 'YITH_WCCOS_PREMIUM' ) ? 'metabox_options_premium.js' : 'metabox_options.js';
 
             if ( 'yith-wccos-ostatus' == $screen->id ) {
-                wp_enqueue_script( 'yith_wccos_metabox_options', YITH_WCCOS_ASSETS_URL . '/js/' . $metabox_js, array( 'jquery', 'wp-color-picker' ), '1.0.0', true );
+                wp_enqueue_style( 'wp-color-picker' );
+                wp_enqueue_script( 'wp-color-picker' );
+                wp_enqueue_script( 'jquery-ui-tabs' );
+                wp_enqueue_style( 'jquery-ui-style-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css' );
+
+                wp_enqueue_script( 'yith_wccos_metabox_options', YITH_WCCOS_ASSETS_URL . '/js/' . $metabox_js, array( 'jquery', 'wp-color-picker' ), YITH_WCCOS_VERSION, true );
             }
 
             wp_add_inline_style( 'yith-wccos-admin-styles', $this->get_status_inline_css() );
@@ -504,16 +473,16 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
         public function get_status_inline_css() {
             $css          = '';
             $status_posts = get_posts( array(
-                'posts_per_page' => -1,
-                'post_type'      => 'yith-wccos-ostatus',
-                'post_status'    => 'publish'
-            ) );
+                                           'posts_per_page' => -1,
+                                           'post_type'      => 'yith-wccos-ostatus',
+                                           'post_status'    => 'publish',
+                                           'fields'         => 'ids'
+                                       ) );
 
-            foreach ( $status_posts as $sp ) {
-                $name = get_post_meta( $sp->ID, 'slug', true );
+            foreach ( $status_posts as $id ) {
+                $name = get_post_meta( $id, 'slug', true );
                 $meta = array(
-                    'label' => $sp->post_title,
-                    'color' => get_post_meta( $sp->ID, 'color', true )
+                    'color' => get_post_meta( $id, 'color', true )
                 );
 
                 $css .= '.widefat .column-order_status mark.' . $name . '::after, .yith_status_icon mark.' . $name . '::after{
@@ -593,11 +562,9 @@ if ( !class_exists( 'YITH_WCCOS_Admin' ) ) {
 /**
  * Unique access to instance of YITH_WCCOS_Admin class
  *
- * @return \YITH_WCCOS_Admin
+ * @return YITH_WCCOS_Admin|YITH_WCCOS_Admin_Premium
  * @since 1.0.0
  */
 function YITH_WCCOS_Admin() {
     return YITH_WCCOS_Admin::get_instance();
 }
-
-?>

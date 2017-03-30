@@ -1,4 +1,4 @@
-/*! Custom Sidebars - v3.0.0.1
+/*! Custom Sidebars - v3.0.2
  * https://premium.wpmudev.org/project/custom-sidebars-pro/
  * Copyright (c) 2017; * Licensed GPLv2+ */
 /*global window:false */
@@ -1418,6 +1418,21 @@ window.csSidebars = null;
 			ui.position.top = - $('#widgets-right').css('top');
 		});
 	});
+	/**
+	 * add new sidebar placeholder
+	 */
+	jQuery(document).ready( function($) {
+		window.setTimeout( function() {
+			if ( 0 === $(".sidebars-column-1 .inner .widgets-holder-wrap").length ) {
+				var template = wp.template('custom-sidebars-new');
+				$(".sidebars-column-1 .inner").before( template() );
+				$(".custom-sidebars-new").on( "click", function() {
+					$( "button.btn-create-sidebar" ).click();
+					$(this).detach();
+				});
+			}
+		}, 1000);
+	});
 })(jQuery);
 
 /**
@@ -1487,3 +1502,4 @@ jQuery.fn.sortElements = (function(){
     };
 
 })();
+

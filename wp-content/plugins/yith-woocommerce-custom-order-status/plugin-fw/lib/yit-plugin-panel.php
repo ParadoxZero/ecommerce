@@ -324,7 +324,7 @@ if ( ! class_exists( 'YIT_Plugin_Panel' ) ) {
             }
             ?>
             <div id="icon-themes" class="icon32"><br /></div>
-            <h2 class="nav-tab-wrapper">
+            <h2 class="yith nav-tab-wrapper">
                 <?php echo $tabs ?>
             </h2>
             <?php

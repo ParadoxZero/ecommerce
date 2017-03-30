@@ -7,9 +7,11 @@
  * @version 1.1.1
  */
 
-if ( ! defined( 'YITH_WCCOS' ) ) { exit; } // Exit if accessed directly
+if ( !defined( 'YITH_WCCOS' ) ) {
+    exit;
+} // Exit if accessed directly
 
-if( ! class_exists( 'YITH_WCCOS_Frontend' ) ) {
+if ( !class_exists( 'YITH_WCCOS_Frontend' ) ) {
     /**
      * Frontend class.
      * The class manage all the Frontend behaviors.
@@ -22,24 +24,10 @@ if( ! class_exists( 'YITH_WCCOS_Frontend' ) ) {
         /**
          * Single instance of the class
          *
-         * @var \YITH_WCQV_Frontend
+         * @var YITH_WCCOS_Frontend
          * @since 1.0.0
          */
-        protected static $instance;
-
-        /**
-         * Plugin version
-         *
-         * @var string
-         * @since 1.0.0
-         */
-        public $version = YITH_WCCOS_VERSION;
-
-
-        public $this_is_product = NULL;
-
-        public $templates = array();
-
+        protected static $_instance;
 
         /**
          * Constructor
@@ -47,31 +35,28 @@ if( ! class_exists( 'YITH_WCCOS_Frontend' ) ) {
          * @access public
          * @since 1.0.0
          */
-        public function __construct() {
+        protected function __construct() {
         }
 
         /**
          * Returns single instance of the class
          *
-         * @return \YITH_WCQV_Frontend
+         * @return \YITH_WCCOS_Frontend
          * @since 1.0.0
          */
-        public static function get_instance(){
-            if( is_null( self::$instance ) ){
-                self::$instance = new self();
-            }
+        public static function get_instance() {
+            $self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-            return self::$instance;
+            return !is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
         }
     }
 }
 /**
  * Unique access to instance of YITH_WCCOS_Frontend class
  *
- * @return \YITH_WCCOS_Frontend
+ * @return YITH_WCCOS_Frontend|YITH_WCCOS_Frontend_Premium
  * @since 1.0.0
  */
-function YITH_WCCOS_Frontend(){
+function YITH_WCCOS_Frontend() {
     return YITH_WCCOS_Frontend::get_instance();
 }
-?>

@@ -2,7 +2,7 @@
 /**
  * Main class
  *
- * @author  Yithemes
+ * @author Yithemes
  * @package YITH WooCommerce Custom Order Status
  * @version 1.0.0
  */
@@ -23,58 +23,43 @@ if ( !class_exists( 'YITH_WCCOS' ) ) {
         /**
          * Single instance of the class
          *
-         * @var \YITH_WCCOS
+         * @var YITH_WCCOS
          * @since 1.0.0
          */
-        protected static $instance;
+        protected static $_instance;
 
-        /**
-         * Plugin version
-         *
-         * @var string
-         * @since 1.0.0
-         */
-        public $version = YITH_WCCOS_VERSION;
+        /** @var YITH_WCCOS_Admin|YITH_WCCOS_Admin_Premium */
+        public $admin;
 
-        /**
-         * Plugin object
-         *
-         * @var string
-         * @since 1.0.0
-         */
-        public $obj = NULL;
+        /** @var YITH_WCCOS_Frontend|YITH_WCCOS_Frontend_Premium */
+        public $frontend;
+
 
         /**
          * Returns single instance of the class
          *
-         * @return \YITH_WCCOS
+         * @return YITH_WCCOS|YITH_WCCOS_Premium
          * @since 1.0.0
          */
         public static function get_instance() {
-            if ( is_null( self::$instance ) ) {
-                self::$instance = new self();
-            }
+            $self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-            return self::$instance;
+            return !is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
         }
 
         /**
          * Constructor
          *
-         * @return mixed| YITH_WCCOS_Admin | YITH_WCCOS_Frontend
+         * @return YITH_WCCOS
          * @since 1.0.0
          */
-        public function __construct() {
+        protected function __construct() {
 
             // Load Plugin Framework
             add_action( 'plugins_loaded', array( $this, 'plugin_fw_loader' ), 15 );
 
-            // Class admin
-            YITH_WCCOS_Admin();
-            // Class frontend
-            if ( !is_admin() ) {
-                YITH_WCCOS_Frontend();
-            }
+            $this->admin    = YITH_WCCOS_Admin();
+            $this->frontend = YITH_WCCOS_Frontend();
         }
 
 
@@ -101,11 +86,9 @@ if ( !class_exists( 'YITH_WCCOS' ) ) {
 /**
  * Unique access to instance of YITH_WCCOS class
  *
- * @return \YITH_WCCOS
+ * @return YITH_WCCOS|YITH_WCCOS_Premium
  * @since 1.0.0
  */
 function YITH_WCCOS() {
     return YITH_WCCOS::get_instance();
 }
-
-?>

@@ -9,7 +9,7 @@ require_once CSB_INC_DIR . 'class-custom-sidebars-visibility.php';
 require_once CSB_INC_DIR . 'class-custom-sidebars-export.php';
 require_once CSB_INC_DIR . 'class-custom-sidebars-explain.php';
 
-require_once CSB_INC_DIR . 'class-custom-sidebars-advertisement.php';
+require_once CSB_INC_DIR . 'class-custom-sidebars-checkup-notification.php';
 
 
 /**
@@ -105,6 +105,7 @@ class CustomSidebars {
 
 		// We don't support accessibility mode. Display a note to the user.
 		if ( true === self::$accessibility_mode ) {
+			$nonce = wp_create_nonce( 'widgets-access' );
 			lib3()->ui->admin_message(
 				sprintf(
 					__(
@@ -114,7 +115,7 @@ class CustomSidebars {
 						'custom-sidebars'
 					),
 					$plugin_title,
-					admin_url( 'widgets.php?widgets-access=off' )
+					admin_url( 'widgets.php?widgets-access=off&_wpnonce='.urlencode( $nonce ) )
 				),
 				'err',
 				'widgets'
@@ -150,13 +151,14 @@ class CustomSidebars {
 					lib3()->ui->admin_message( $msg );
 				}
 			}
-
 		}
 
 		/**
 		* add links on plugin page.
 		*/
 		add_filter( 'plugin_action_links_' . plugin_basename( CSB_PLUGIN ), array( $this, 'add_action_links' ), 10, 4 );
+
+		add_action( 'admin_footer', array( $this, 'print_templates' ) );
 	}
 
 
@@ -909,4 +911,24 @@ class CustomSidebars {
 		);
 		return $actions;
 	}
+
+	/**
+	 * Print JavaScript template.
+	 *
+	 * @since 3.0.1
+	 */
+    public function print_templates() {
+		wp_enqueue_script( 'wp-util' );
+?>
+	<script type="text/html" id="tmpl-custom-sidebars-new">
+		
+		<div class="custom-sidebars-add-new">
+			
+			<p><?php esc_html_e( 'Create a custom sidebar to get started.', 'custom-sidebars' ); ?></p>
+			
+		</div>
+		
+	</script>
+<?php
+    }
 };

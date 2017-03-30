@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: custom, order, status, statuses, custom order, custom status, custom order status, custom statuses, status custom, custom order statuses, woocommerce, products, themes, yit, e-commerce, shop, yith, premium, yithemes
 Requires at least: 3.5.1
-Tested up to: 4.7
-Stable tag: 1.0.9
+Tested up to: 4.7.3
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,10 @@ YITH WooCommerce Custom Order Status adds:
 5. Customer: custom order status on recent orders
 
 == Changelog ==
+
+= Version 1.1.0 - Released: 13 Mar 2017 =
+
+* New - support to WooCommerce 2.7.0-RC1
 
 = Version 1.0.9 - Released: Jan 12, 2017 =
 
