@@ -66,7 +66,7 @@ if ( ! class_exists( 'YITH_WCAN_Reset_Navigation_Widget' ) ) {
 
                 else{
                     //Start filter from Product category Page
-                    $term = get_term_by( 'id', $_GET['source_id'], 'product_cat' );
+                    $term = get_term_by( 'id', $_GET['source_id'], $_GET['source_tax'] );
                     $link = get_term_link( $term, $term->taxonomy  );
                 }
 

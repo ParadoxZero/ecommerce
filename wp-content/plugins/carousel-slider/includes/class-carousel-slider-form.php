@@ -8,11 +8,6 @@ if( ! class_exists('Carousel_Slider_Form') ):
 
 class Carousel_Slider_Form
 {
-	/**
-	 * Generate text input field
-	 *
-	 * @param array $args
-	 */
 	public function text( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -23,12 +18,6 @@ class Carousel_Slider_Form
 		echo sprintf( '<input type="text" class="sp-input-text" value="%1$s" id="%2$s" name="%3$s">', $value, $args['id'], $name);
 		echo $this->field_after();
 	}
-
-	/**
-	 * Generate textarea input field
-	 *
-	 * @param array $args
-	 */
 	public function textarea( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -42,11 +31,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate color input field
-	 *
-	 * @param array $args
-	 */
 	public function color( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -59,11 +43,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate date input field
-	 *
-	 * @param array $args
-	 */
 	public function date( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -76,10 +55,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate number input field
-	 * @param array $args
-	 */
 	public function number( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -93,11 +68,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate checkbox input field
-	 *
-	 * @param array $args
-	 */
 	public function checkbox( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -112,11 +82,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate select input field
-	 *
-	 * @param $args
-	 */
 	public function select( $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -135,11 +100,6 @@ class Carousel_Slider_Form
         echo $this->field_after();
 	}
 
-	/**
-	 * Generate select field for post list
-	 *
-	 * @param $args
-	 */
 	public function posts_list( $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -147,10 +107,11 @@ class Carousel_Slider_Form
 		list($name, $value)  	= $this->field_common( $args );
 		$value = explode(',', $value);
         $multiple = isset($args['multiple']) ? 'multiple' : '';
+        $post_type = isset($args['post_type']) ? $args['post_type'] : 'post';
 
         echo $this->field_before( $args );
 		echo sprintf('<select name="%1$s" id="%2$s" class="select2 sp-input-text" %3$s>',$name, $args['id'], $multiple);
-		$posts = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => -1 ) );
+		$posts = get_posts( array( 'post_type' => $post_type, 'post_status' => 'publish', 'posts_per_page' => -1 ) );
 
         foreach( $posts as $post ){
             $selected = in_array($post->ID, $value) ? ' selected="selected"' : '';
@@ -160,11 +121,6 @@ class Carousel_Slider_Form
         echo $this->field_after();
 	}
 
-	/**
-	 * Generate field for image galleries
-	 *
-	 * @param $args
-	 */
 	public function images_gallery( $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -191,11 +147,6 @@ class Carousel_Slider_Form
 		echo $html;
 	}
 
-	/**
-	 * Generate gallery from images url
-	 *
-	 * @param array $args
-	 */
 	public function images_url( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -208,9 +159,7 @@ class Carousel_Slider_Form
 		$html .= '<ul class="carousel_slider_url_images_list">';
 		if ( is_array($value) && count($value) > 0){
 			foreach ($value as $image ) {
-				if (filter_var($image['url'], FILTER_VALIDATE_URL)) {
-					$html .= sprintf('<li><img src="%s" alt="%s" width="75" height="75"></li>', esc_url($image['url']), $image['alt']);
-				}
+				$html .= sprintf('<li><img src="%s" alt="%s" width="75" height="75"></li>', $image['url'], $image['alt']);
 			}
 		}
 		$html .= '</ul>';
@@ -218,10 +167,6 @@ class Carousel_Slider_Form
 		echo $html;
 	}
 
-	/**
-	 * Generate field for file
-	 * @param array $args
-	 */
 	public function file( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -234,11 +179,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate select field for available image sizes
-	 *
-	 * @param array $args
-	 */
 	public function image_sizes( array $args )
 	{
 		if( ! isset( $args['id'], $args['name'] ) ) return;
@@ -281,11 +221,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate field for post terms
-	 *
-	 * @param array $args
-	 */
 	public function post_terms( array $args )
 	{
 		global $wp_version;
@@ -319,13 +254,6 @@ class Carousel_Slider_Form
 		echo $this->field_after();
 	}
 
-	/**
-	 * Generate name for value for input fields
-	 *
-	 * @param $args
-	 *
-	 * @return array
-	 */
 	private function field_common( $args )
 	{
 		global $post;
@@ -346,13 +274,6 @@ class Carousel_Slider_Form
 		return array( $name, $value );
 	}
 
-	/**
-	 * Generate field before content
-	 *
-	 * @param $args
-	 *
-	 * @return string
-	 */
 	private function field_before( $args )
 	{
 		$table  = sprintf( '<div class="sp-input-group" id="field-%s">', $args['id'] );
@@ -366,11 +287,6 @@ class Carousel_Slider_Form
 		return $table;
 	}
 
-	/**
-	 * Generate field after content
-	 *
-	 * @return string
-	 */
 	private function field_after()
 	{
 		return '</div></div>';

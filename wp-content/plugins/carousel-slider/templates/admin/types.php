@@ -18,7 +18,8 @@
 			<option value="video-carousel"<?php echo $slide_type == 'video-carousel' ? 'selected': ''; ?>>
 				<?php _e('Video Carousel', 'carousel-slider'); ?>
 			</option>
-			<option value="product-carousel" disabled>
+			<?php $disabled = $this->is_woocommerce_active() ? '' : 'disabled'; ?>
+			<option value="product-carousel" <?php echo $slide_type == 'product-carousel' ? 'selected': ''; ?> <?php echo $disabled; ?>>
 				<?php _e('WooCommerce Product Carousel', 'carousel-slider'); ?>
 			</option>
 		</select>

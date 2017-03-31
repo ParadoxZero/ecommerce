@@ -170,7 +170,7 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
                     );
                 }
 
-                $this->unfiltered_product_ids = get_posts( $unfiltered_args );
+                $this->unfiltered_product_ids = apply_filters( 'yith_wcan_unfiltered_product_ids', get_posts( $unfiltered_args ), $query, $current_wp_query );
                 $this->filtered_product_ids   = $queried_post_ids;
 
                 // Also store filtered posts ids...

@@ -177,12 +177,13 @@ class Carousel_Slider_Admin
 		
 		global $post;
 		$slide_type = get_post_meta( $post->ID, '_slide_type', true );
-		$slide_type = in_array($slide_type, array('image-carousel', 'post-carousel', 'image-carousel-url', 'video-carousel')) ? $slide_type : 'image-carousel';
+		$slide_type = in_array($slide_type, array('image-carousel', 'post-carousel', 'image-carousel-url', 'video-carousel', 'product-carousel')) ? $slide_type : 'image-carousel';
 
 		require_once $this->plugin_path . '/templates/admin/types.php';
 		require_once $this->plugin_path . '/templates/admin/images-media.php';
 		require_once $this->plugin_path . '/templates/admin/images-url.php';
 		require_once $this->plugin_path . '/templates/admin/post-carousel.php';
+		require_once $this->plugin_path . '/templates/admin/product-carousel.php';
 		require_once $this->plugin_path . '/templates/admin/video-carousel.php';
 		require_once $this->plugin_path . '/templates/admin/images-settings.php';
 		require_once $this->plugin_path . '/templates/admin/general.php';
@@ -392,6 +393,16 @@ class Carousel_Slider_Admin
 	    }
 
 	    return $post;
+	}
+
+	private function is_woocommerce_active()
+	{
+		if(in_array('woocommerce/woocommerce.php', get_option('active_plugins'))) {
+
+			return true;
+		}
+
+		return false;
 	}
 }
 
