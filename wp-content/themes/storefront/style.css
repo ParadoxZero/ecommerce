@@ -4960,6 +4960,7 @@ span.onsale {
     }
 }
 
+
 @media ( max-width: 1024px) {
     .dgwt-wcas-st > span {
         font-size: 1.6em;
@@ -5118,6 +5119,7 @@ span.onsale {
         }
     }
 
+
     .tm-mobile-search-bar {
         max-width: 70%;
     }
@@ -5133,6 +5135,10 @@ span.onsale {
     .main-navigation ul li:hover {
         background-color: #0a6682;
     }
+}
+.wpcs_product_carousel_slider .title{
+color:yellow !important;
+}
 
 //------------------//
 
