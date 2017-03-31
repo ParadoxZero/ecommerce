@@ -23,13 +23,13 @@
 define('DB_NAME', 'trymake');
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', 'Forerunner');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', 'Firstalwayswins');
 
 /** MySQL hostname */
-define('DB_HOST', '127.0.0.1:3306');
+define('DB_HOST', 'trymakedb.cqxyt3g0hlpp.us-west-2.rds.amazonaws.com');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');

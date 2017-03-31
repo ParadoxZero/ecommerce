@@ -16,6 +16,7 @@ $_nav_active_color  = get_post_meta( $id, '_nav_active_color', true );
 $_lazy_load_image  = get_post_meta( $id, '_lazy_load_image', true );
 $_show_attachment_title  = get_post_meta( $id, '_show_attachment_title', true );
 $_show_attachment_caption  = get_post_meta( $id, '_show_attachment_caption', true );
+$_show_lightbox  = get_post_meta( $id, '_image_lightbox', true );
 ?>
 <style>
     #id-<?php echo $id; ?> .owl-dots .owl-dot span {
@@ -79,7 +80,12 @@ $_show_attachment_caption  = get_post_meta( $id, '_show_attachment_caption', tru
                 $image   = wp_get_attachment_image( $image_id, $_image_size, false, array( 'alt' => $image_alt_text ) );
             }
 
-			if ( filter_var( $image_link_url, FILTER_VALIDATE_URL) ) {
+            if ( $_show_lightbox == 'on' ) {
+                wp_enqueue_script( 'magnific-popup' );
+                $image_src = wp_get_attachment_image_src( $image_id, 'full' );
+                echo sprintf('<a href="%1$s" class="magnific-popup">%2$s%3$s</a>', esc_url($image_src[0]), $image, $full_caption, $id );
+            }
+            elseif ( filter_var( $image_link_url, FILTER_VALIDATE_URL) ) {
 
                 echo sprintf('<a href="%1$s" target="%4$s">%2$s%3$s</a>', esc_url($image_link_url), $image, $full_caption, $_image_target);
                 

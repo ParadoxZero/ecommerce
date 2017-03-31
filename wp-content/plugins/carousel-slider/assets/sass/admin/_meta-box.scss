@@ -158,3 +158,12 @@
 #field-_post_in {
 	display: none;
 }
+
+// Hide Post carousel fields
+// Related fields will be open by jQuery
+#field-_product_query,
+#field-_product_categories,
+#field-_product_tags,
+#field-_product_in {
+	display: none;
+}

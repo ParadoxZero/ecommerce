@@ -44,7 +44,7 @@ class Carousel_Slider_Shortcode
 		if ( ! $id ) return;
 
 		$slide_type = get_post_meta( $id, '_slide_type', true );
-		$slide_type = in_array($slide_type, array('image-carousel', 'post-carousel', 'image-carousel-url', 'video-carousel')) ? $slide_type : 'image-carousel';
+		$slide_type = in_array($slide_type, array('image-carousel', 'post-carousel', 'image-carousel-url', 'video-carousel', 'product-carousel')) ? $slide_type : 'image-carousel';
 
 		if ($slide_type == 'post-carousel') {
 			ob_start();
@@ -76,6 +76,14 @@ class Carousel_Slider_Shortcode
 		    $html = ob_get_contents();
 		    ob_end_clean();
 		    return apply_filters( 'carousel_slider_gallery_images_carousel', $html, $id );
+		}
+		
+		if ($slide_type == 'product-carousel') {
+			ob_start();
+		    require $this->plugin_path . '/templates/product-carousel.php';
+		    $html = ob_get_contents();
+		    ob_end_clean();
+		    return apply_filters( 'carousel_slider_product_carousel', $html, $id );
 		}
 
 		return;

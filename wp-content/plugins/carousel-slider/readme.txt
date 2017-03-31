@@ -1,27 +1,29 @@
 === Carousel Slider ===
 Contributors: sayful
-Tags: widget, shortcode, images, carousel, carousel slider, image carousel, slider, owl carousel
+Tags: woocommerce, shortcode, images, carousel, carousel slider, image carousel, product carousel, slider, owl carousel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
-Requires at least: 3.5
+Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.6.3
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Touch enabled wordpress plugin that lets you create beautiful multipurpose responsive carousel slider.
+The Easiest Way to Create Image, Logo, Video, Post and Product Carousel.
 
 == Description ==
 
-**The Easiest Way to Create Image, Video and Post Carousel.**
+**The Easiest Way to Create Image, Logo, Video, Post and Product Carousel.**
 Carousel Slider is a touch enabled WordPress plugin that lets you create highly customizable, stylish responsive carousel slider. With Carousel Slider, you can create image carousel using media gallery or custom url, post carousel, video carousel. We have integrated [Owl Carousel 2](http://www.owlcarousel.owlgraphic.com/) into our plugin for the ultimate device support.
 
 **If you like this plugin, please give us [5 star](https://wordpress.org/support/plugin/carousel-slider/reviews/?rate=5#new-post) to encourage for future improvement.**
 
 = Full Feature Set =
 
-* **Multiple types carousel**, images from media gallery, images from URL, videos from youtube and vimeo, and posts carousel
+* **Multiple types carousel**, images from media gallery, images from URL, videos from youtube and vimeo, posts, and WooCommerce products carousel slider
 * **Posts carousel**, support Specific posts, Post Categories, Post Tags, Posts per page, Date range query and ordering
 * **Video carousel**, support custom height and width (Currently only support video from Youtube and Vimeo)
+* **WooCommerce Product carousel**, support Product Categories, Product Tags, Specific Products, Featured Products, Recent Products, Sale Products, Best-Selling Products, Top Rated Products
+* Options to hide/show product Title, Rating, Price, Cart Button, Sale Tag, Wishlist Button, Quick View button and options to change color for Title, Button Background, Button text
 * **Fully responsive**, configure the number of items to display for desktop, small desktop, tablet and mobile devices
 * **Lightweight**, only loads stuff when carousel is used
 * **Navigation and pagination**, choose what type of navigation is displayed for your carousel with unlimited colors option
@@ -41,6 +43,9 @@ https://www.youtube.com/watch?v=a7hqn1yNzwM
 
 = Posts Carousel =
 https://www.youtube.com/watch?v=ImJB946azy0
+
+= WooCommerce Products Carousel =
+https://www.youtube.com/watch?v=yiAkvXyfakg
 
 = With Page Builder by SiteOrigin =
 https://www.youtube.com/watch?v=-OaYQZfr1RM
@@ -71,8 +76,18 @@ Do you have questions or issues with Carousel Slider? [Ask for support here](htt
 2. Front-end example of posts carousel slider.
 3. Front-end example of videos carousel slider.
 4. Front-end example of images carousel slider.
+5. Front-end example of products carousel slider.
+6. Front-end example of products Quick View.
+7. Front-end example of image lightbox.
 
 == Changelog ==
+
+= version 1.7.0 - 2017-03-12 =
+* Added - WooCommerce Product carousel.
+* Added - WooCommerce Product Quick View button.
+* Added - WooCommerce Product wishlist button (Required YITH WooCommerce Wishlist).
+* Added - Unlimited colors for Product button and title.
+* Added - Lightbox support for images carousel.
 
 = version 1.6.3 - 2017-01-31 =
 * Added - Added title option for carousel slider widget.

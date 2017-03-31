@@ -27,6 +27,7 @@ wc_print_notices();
  * @since 2.6.0
  */
 do_action( 'woocommerce_account_navigation' ); ?>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
 <div class="woocommerce-MyAccount-content">
 	<?php
@@ -37,3 +38,14 @@ do_action( 'woocommerce_account_navigation' ); ?>
 		do_action( 'woocommerce_account_content' );
 	?>
 </div>
+<script>
+	$(document).ready(function() {
+		var dashboard = 'http://trymake.com/my-account/';
+		var url = window.location.href;
+		if(dashboard === url ){
+			document.querySelector('style').textContent += "@media(max-width:768px){.woocommerce-MyAccount-navigation ul li{display:inherit}}"; 	
+		}
+		else
+			document.querySelector('style').textContent += "@media(max-width:768px){.woocommerce-MyAccount-navigation ul li{display:none}}";
+	});
+</script>

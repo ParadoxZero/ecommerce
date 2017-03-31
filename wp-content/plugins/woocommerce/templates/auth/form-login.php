@@ -32,12 +32,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <form method="post" class="wc-auth-login">
 	<p class="form-row form-row-wide">
+
 		<label for="username"><?php _e( 'Username or email address', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input type="text" class="input-text" name="username" id="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
+		<input type="text" class="input-text" name="username" id="username" placeholder="Username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
 	</p>
 	<p class="form-row form-row-wide">
 		<label for="password"><?php _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input class="input-text" type="password" name="password" id="password" />
+		<input class="input-text" type="password" name="password" id="password" placeholder="Password" />
 	</p>
 	<p class="wc-auth-actions">
 		<?php wp_nonce_field( 'woocommerce-login' ); ?>

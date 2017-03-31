@@ -2,10 +2,10 @@
 /*
 Plugin Name: 	Carousel Slider
 Plugin URI: 	http://wordpress.org/plugins/carousel-slider
-Description: 	Touch enabled WordPress plugin that lets you create beautiful responsive carousel slider.
-Version: 		1.6.3
+Description: 	The Easiest Way to Create Image, Logo, Video, Post and Product Carousel.
+Version: 		1.7.0
 Author: 		Sayful Islam
-Author URI: 	http://sayfulit.com
+Author URI: 	https://profiles.wordpress.org/sayful
 Text Domain: 	carousel-slider
 Domain Path: 	/languages/
 License: 		GPLv2 or later
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Define Carousel Slider Version
 if ( ! defined( 'CAROUSEL_SLIDER_VERSION' ) ) {
-	define( 'CAROUSEL_SLIDER_VERSION', '1.6.3' );
+	define( 'CAROUSEL_SLIDER_VERSION', '1.7.0' );
 }
 
 if ( ! class_exists( 'Carousel_Slider' ) ):
@@ -124,6 +124,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 			}
 
 			require_once $this->plugin_path() . '/widgets/widget-carousel_slider.php';
+			require_once $this->plugin_path() . '/includes/class-carousel-slider-product.php';
 		}
 
 		/**
@@ -155,6 +156,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 		public function frontend_scripts() {
 			wp_register_style( $this->plugin_name, $this->plugin_url() . '/assets/css/style.css', array(), $this->plugin_version, 'all' );
 			wp_register_script( 'owl-carousel', $this->plugin_url() . '/assets/js/owl.carousel.min.js', array( 'jquery' ), '2.2.0', true );
+			wp_register_script( 'magnific-popup', $this->plugin_url() . '/assets/js/jquery.magnific-popup.min.js', array(), '1.1.0', true );
 
 			if ( $this->should_load_scripts() ) {
 				wp_enqueue_style( $this->plugin_name );
@@ -189,7 +191,6 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 						'save_btn_text'     => __( 'Save Gallery', 'carousel-slider' ),
 						'progress_btn_text' => __( 'Saving...', 'carousel-slider' ),
 						'insert_btn_text'   => __( 'Insert', 'carousel-slider' ),
-						'video_frame_title' => __( 'Choose Video', 'carousel-slider' ),
 					) );
 				}
 			}
@@ -203,13 +204,31 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 				?>
 				<script type="text/javascript">
 					jQuery(document).ready(function ($) {
-						if (jQuery().owlCarousel) {
-							$('body').find('.carousel-slider').each(function () {
-								var _this = $(this);
-								var isVideo = _this.data('slide-type') == 'video-carousel' ? true : false;
-								var videoWidth = isVideo ? _this.data('video-width') : false;
-								var videoHeight = isVideo ? _this.data('video-height') : false;
-								var autoWidth = isVideo ? true : false;
+
+						$('body').find('.carousel-slider').each(function () {
+							var _this = $(this);
+							var isVideo = _this.data('slide-type') == 'video-carousel' ? true : false;
+							var videoWidth = isVideo ? _this.data('video-width') : false;
+							var videoHeight = isVideo ? _this.data('video-height') : false;
+							var autoWidth = isVideo ? true : false;
+
+					    	if (jQuery().magnificPopup) {
+					    		var popupType = _this.data('slide-type') == 'product-carousel' ? 'ajax' : 'image';
+					    		var popupGallery = _this.data('slide-type') != 'product-carousel' ? true : false;
+						    	$(this).find('.magnific-popup').magnificPopup({
+						    		type: popupType,
+						    		gallery:{
+									    enabled: popupGallery
+									},
+									zoom: {
+									    enabled: popupGallery,
+									    duration: 300,
+									    easing: 'ease-in-out'
+									}
+						    	});
+					    	}
+					    	
+							if (jQuery().owlCarousel) {
 								_this.owlCarousel({
 									nav: _this.data('nav'),
 									dots: _this.data('dots'),
@@ -235,8 +254,8 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 										1921: {items: _this.data('colums')}
 									}
 								});
-							});
-						}
+							}
+						});
 					});
 				</script><?php
 			endif;
@@ -249,9 +268,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 		 */
 		private function should_load_scripts() {
 			global $post;
-			$load_scripts = is_active_widget( false, false, 'widget_carousel_slider', true ) ||
-			                ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'carousel_slide' ) ) ||
-			                ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'carousel' ) );
+			$load_scripts = is_active_widget( false, false, 'widget_carousel_slider', true ) || ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'carousel_slide' ) ) || ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'carousel' ) );
 
 			return apply_filters( 'carousel_slider_load_scripts', $load_scripts );
 		}
@@ -292,19 +309,4 @@ endif;
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  */
-if ( defined( 'CAROUSEL_SLIDER_PRO_VERSION' ) ) {
-
-	add_action( 'admin_init', function(){
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-	});
-	
-	add_action( 'admin_notices', function () {
-		?>
-		<div class="notice notice-error">
-			<p><?php _e( 'You can\'t activate the free version of Carousel Slider while you are using the premium one.', 'carousel-slider' ); ?></p>
-		</div>
-		<?php
-	} );
-} else {
-	Carousel_Slider::instance();
-}
+Carousel_Slider::instance();

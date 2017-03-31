@@ -30,6 +30,13 @@
 					'_blank' 	=> __('Open in a new window or tab', 'carousel-slider'),
 				),
 			));
+			$this->form->checkbox(array(
+				'id' 	=> '_image_lightbox',
+				'name' 	=> __('Show Lightbox Gallery', 'carousel-slider'),
+	            'label' => __('Show Lightbox Gallery', 'carousel-slider'),
+	            'desc' 	=> __('Check to show lightbox gallery.', 'carousel-slider'),
+	            'std' 	=> 'off'
+			));
 		?>
 		</div>
 	</div>
