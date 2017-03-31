@@ -72,6 +72,9 @@ wp-content/plugins/yith-essential-kit-for-woocommerce-1/.DS_Store
 wp-content/themes/storefront/.DS_Store
 wp-snapshots/
 
+wordfence-waf.php
+
+
 wp-content/plugins/rvg-optimize-database/logs/
 wp-content/wflogs/attack-data.php
 wp-content/wflogs/config.php
