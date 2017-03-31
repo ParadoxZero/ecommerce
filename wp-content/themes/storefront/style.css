@@ -4889,6 +4889,9 @@ span.onsale {
 
 @media (min-width: 1024px)
     /*edited by bitto to 1025 px--org value:768px*/ {
+.wpcs_product_carousel_slider .title{
+color:yellow !important;
+}
     .tm-sticky-search-bar {
         display: none;
     }
@@ -5115,3 +5118,5 @@ span.onsale {
         background-color: #0a6682;
     }
 }
+
+
