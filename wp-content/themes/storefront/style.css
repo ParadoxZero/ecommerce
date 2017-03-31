@@ -71,7 +71,7 @@ body {
     margin: 0
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+article, aside, details, figcaption, figure, footer, header,  main, menu, nav, section, summary {
     display: block
 }
 
@@ -3282,8 +3282,6 @@ table tbody h2 {
 
 .error404 .fourohfour-columns-2 {
     padding: 2.617924em 0;
-    border: 1px solid rgba(0, 0, 0, .05);
-    border-width: 1px 0;
     margin-bottom: 2.617924em
 }
 
@@ -3817,13 +3815,6 @@ button.menu-toggle:after {
 }
 
 .toggled button.menu-toggle:after, .toggled button.menu-toggle:before {
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     transform: rotate(45deg)
 }
@@ -3967,8 +3958,6 @@ button.menu-toggle:after {
 
 .pagination, .woocommerce-pagination {
     padding: 1em 0;
-    border: 1px solid rgba(0, 0, 0, .05);
-    border-width: 1px 0;
     text-align: center
 }
 
@@ -3981,7 +3970,6 @@ button.menu-toggle:after {
     content: "";
     display: table
 }
-
 .pagination .page-numbers li, .woocommerce-pagination .page-numbers li {
     display: inline-block
 }
@@ -4110,7 +4098,6 @@ button.menu-toggle:after {
 }
 
 .widget_archive ul li:before, .widget_categories ul li:before, .widget_links ul li:before, .widget_nav_menu ul li:before, .widget_pages ul li:before, .widget_recent_comments ul li:before, .widget_recent_entries ul li:before {
-    font-family: FontAwesome;
     margin-right: .5407911001em;
     display: inline-block;
     opacity: .35
@@ -4747,7 +4734,7 @@ button.menu-toggle:after {
     }
 }
 
-@media (max-width: 67.141em) {
+@media (max-width: 1024px) {
     .col-full {
         margin-left: 2.617924em;
         margin-right: 2.617924em;
@@ -4755,7 +4742,7 @@ button.menu-toggle:after {
     }
 }
 
-@media (max-width: 568px) {
+@media (max-width: 1024px) {
     .col-full {
         margin-left: 1.41575em;
         margin-right: 1.41575em;
@@ -4803,7 +4790,6 @@ p.form-row.form-group.user-role {
 
 body, .wpcs_product_carousel_slider, .wpcs_product_carousel_slider .owl-item .item h4.product_name, .wpcs_product_carousel_slider .owl-item .item .price {
     font-family: 'Roboto Condensed', sans-serif;
-    letter-spacing: 0.6px;
 }
 
 blockquote, cite, dfn, em, i {
@@ -4837,7 +4823,7 @@ blockquote, cite, dfn, em, i {
 
 }
 
-}
+
 .main-navigation ul li:active {
     background-color: #0a6682;
 }
@@ -4979,7 +4965,7 @@ span.onsale {
     }
 
     .page-template-template-fullwidth-php .site-main .columns-4 ul.products li.product:hover, .site-main ul.products li.product:hover {
-        border: lightgray solid 0.5px !important;
+        border: lightgray solid 1px !important;
         box-shadow: 5px 5px 5px #888888 !important;
     }
 
@@ -5000,7 +4986,7 @@ span.onsale {
 
     .site-branding .site-title {
         margin-top: -.49em !important;
-        margin-left: 0px !important;
+        margin-left: 0 !important;
     }
 
     button.menu-toggle {
@@ -5096,8 +5082,8 @@ span.onsale {
     }
 
     div#regbox {
-        padding-right: 0px !important;
-        padding-left: 0px !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
     }
 
     .container {
@@ -5106,7 +5092,6 @@ span.onsale {
         margin-right: 0 !important;
         margin-left: 0 !important;
     }
-
 
     @media (min-width: 768px) {
         .tm-mobile-search-bar {
@@ -5129,7 +5114,4 @@ span.onsale {
     .main-navigation ul li:hover {
         background-color: #0a6682;
     }
-
-//------------------//
-
-//------------------//
+}
