@@ -3,13 +3,13 @@
 Contributors: yithemes
 Tags: wishlist, woocommerce, products, themes, yit, e-commerce, shop, ecommerce wishlist, yith, woocommerce wishlist, woocommerce 2.3 ready, shop wishlist
 Requires at least: 4.0
-Tested up to: 4.5.2
-Stable tag: 2.0.16
+Tested up to: 4.7.3
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 YITH WooCommerce Wishlist add all Wishlist features to your website. Needs WooCommerce to work.
-WooCommerce 2.6.x compatible.
+WooCommerce 3.0.x compatible.
 
 
 == Description ==
@@ -34,12 +34,14 @@ This plugin is 100% compatible with [WPML](http://wpml.org/?aid=24889&affiliate_
 
 * Chinese - CHINA
 * Chinese - TAIWAN
+* Croatian - CROATIA
 * Danish - DENMARK
 * English - UNITED KINGDOM (Default)
 * French - FRANCE
 * German - GERMANY
 * Hebrew - ISRAEL
 * Italian - ITALY
+* Korean - KOREA
 * Persian - IRAN, ISLAMIC REPUBLIC OF
 * Polish - POLAND
 * Portuguese - BRAZIL
@@ -105,6 +107,31 @@ you should ask theme developers to update custom templates and replace the old t
 4. The Wishlist settings page
 
 == Changelog ==
+
+= 2.1.0 - Released: Apr, 03 - 2017 =
+
+* New: WooCommerce 3.0-RC2 compatibility
+* New: WordPress 4.7.3 compatibility
+* New: Korean translation (thanks to kocne)
+* New: Croatian translation (thanks to Barbara V.)
+* New: flush rewrite rules when installing plugin
+* Tweak: added urlencode to mail content in mailto share link
+* Tweak: count query of count_all_products
+* Tweak: improved WPML list content handling (thanks to Adri)
+* Tweak: double check over wc_add_to_cart_params exists and not null
+* Tweak: added wishlist meta inside wishlist table data attr also for not logged in users (used for shared wishlist)
+* Tweak: remove prettyPhoto-init library
+* Tweak: implemented custom code to enable prettyPhoto on Wishlist elements
+* Tweak: fixed typo in wishlist-view template
+* Tweak: added urlencode to all sharing links
+* Tweak: minimized endpoint usage when not required
+* Tweak: removed unused check for WC_Product_Bundle
+* Fix: get_template_directory for custom wishlist js
+* Fix: stock_status not existing when stock column isn't shown
+* Dev: action as second param for yith_wcwl_wishlist_page_url filter
+* Dev: applied filter yith_wcwl_no_product_to_remove_message also for message on wishlist-view template
+* Dev: added filter yith_wcwl_add_wishlist_user_id
+* Dev: added filter yith_wcwl_add_wishlist_slug
 
 = 2.0.16 - Released: Jun, 14 - 2016 =
 
@@ -369,6 +396,7 @@ If you have suggestions about how to improve YITH WooCommerce Wishlist, you can 
 * French - FRANCE
 * Hebrew - ISRAEL
 * Italian - ITALY
+* Korean - KOREA
 * Persian - IRAN, ISLAMIC REPUBLIC OF
 * Polish - POLAND
 * Portuguese - BRAZIL
@@ -391,9 +419,27 @@ Full documentation is available [here](http://yithemes.com/docs-plugins/yith-woo
 
 == Upgrade notice ==
 
-= 2.0.15 - Released: Apr, 04 - 2016 =
+= 2.1.0 - Released: Apr, 03 - 2017 =
 
-* Added: filter yith_wcwl_is_product_in_wishlist to choose whether a product is in wishlist or not
-* Added: filter yith_wcwl_cookie_expiration to set default wishlist cookie expiration time in seconds
-* Tweak: updated plugin-fw
-* Fixed: get_products query returning product multiple times when product has more then one visibility meta
+* New: WooCommerce 3.0-RC2 compatibility
+* New: WordPress 4.7.3 compatibility
+* New: Korean translation (thanks to kocne)
+* New: Croatian translation (thanks to Barbara V.)
+* New: flush rewrite rules when installing plugin
+* Tweak: added urlencode to mail content in mailto share link
+* Tweak: count query of count_all_products
+* Tweak: improved WPML list content handling (thanks to Adri)
+* Tweak: double check over wc_add_to_cart_params exists and not null
+* Tweak: added wishlist meta inside wishlist table data attr also for not logged in users (used for shared wishlist)
+* Tweak: remove prettyPhoto-init library
+* Tweak: implemented custom code to enable prettyPhoto on Wishlist elements
+* Tweak: fixed typo in wishlist-view template
+* Tweak: added urlencode to all sharing links
+* Tweak: minimized endpoint usage when not required
+* Tweak: removed unused check for WC_Product_Bundle
+* Fix: get_template_directory for custom wishlist js
+* Fix: stock_status not existing when stock column isn't shown
+* Dev: action as second param for yith_wcwl_wishlist_page_url filter
+* Dev: applied filter yith_wcwl_no_product_to_remove_message also for message on wishlist-view template
+* Dev: added filter yith_wcwl_add_wishlist_user_id
+* Dev: added filter yith_wcwl_add_wishlist_slug

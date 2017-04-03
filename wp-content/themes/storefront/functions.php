@@ -172,4 +172,7 @@ function customer_redirected_displaying_message() {
     }
 }
 
-
+function loop_columns() {
+return 4; // 5 products per row
+}
+add_filter('loop_shop_columns', 'loop_columns', 999);

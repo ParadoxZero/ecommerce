@@ -4035,7 +4035,9 @@ button.menu-toggle:after {
 }
 
 .widget-area .widget {
-    font-weight: 300
+    font-weight: 300;
+    margin-right: 9.1em;
+    margin-left: -2.7em;
 }
 
 .widget-area .widget a.button {
@@ -4171,6 +4173,28 @@ button.menu-toggle:after {
 }
 
 @media (min-width: 1024px) {
+ul.products li.product .button {
+    margin-bottom: .236em !important;
+    bottom: 0 !important;
+    align-self: flex-start !important;
+    margin-top: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+    ul.products li.product h3 {
+    	padding: 1px;
+    }
+    .site-main ul.products li.product {
+    	width: 23.811765% !important; 
+	margin-right: 0.5em !important;
+    } 
+    #menu-item-318 .sub-menu {
+	width: 115%;
+    }
+    .site-header .custom-logo-link{
+	margin-top: -1em;
+    	margin-left: -2.4em;
+    } 
     .secondary-navigation .menu a:hover, .secondary-navigation .menu > li:hover > a {
         text-decoration: none
     }
@@ -4296,9 +4320,10 @@ button.menu-toggle:after {
     }
 
     .right-sidebar .content-area {
-        width: 73.9130434783%;
+        width: 65.513043%;
         float: left;
-        margin-right: 4.347826087%
+        margin-right: 0 !important;
+    	margin-left: 2.3em;
     }
 
     .right-sidebar .widget-area {
@@ -4777,7 +4802,7 @@ p.form-row.form-group.user-role {
 
 #menu-item-334 ul.sub-menu {
     margin-top: -1em;
-
+    width: 150px;
 }
 
 .button {

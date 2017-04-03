@@ -13,8 +13,6 @@ if( !function_exists( 'yith_wcwl_is_wishlist' ) ){
     /**
      * Check if we're printing wishlist shortcode
      *
-     * @param string $path
-     * @param array $var
      * @return bool
      * @since 2.0.0
      */
@@ -53,17 +51,7 @@ if( !function_exists( 'yith_wcwl_locate_template' ) ) {
      * @since 1.0.0
      */
     function yith_wcwl_locate_template( $path, $var = NULL ){
-        global $woocommerce;
-
-        if( function_exists( 'WC' ) ){
-            $woocommerce_base = WC()->template_path();
-        }
-        elseif( defined( 'WC_TEMPLATE_PATH' ) ){
-            $woocommerce_base = WC_TEMPLATE_PATH;
-        }
-        else{
-            $woocommerce_base = $woocommerce->plugin_path() . '/templates/';
-        }
+        $woocommerce_base = WC()->template_path();
 
     	$template_woocommerce_path =  $woocommerce_base . $path;
         $template_path = '/' . $path;
@@ -95,17 +83,20 @@ if( !function_exists( 'yith_wcwl_get_template' ) ) {
     function yith_wcwl_get_template( $path, $var = null, $return = false ) {
         $located = yith_wcwl_locate_template( $path, $var );      
         
-        if ( $var && is_array( $var ) ) 
-    		extract( $var );
+        if ( $var && is_array( $var ) ) {
+	        extract( $var );
+        }
                                
-        if( $return )
-            { ob_start(); }   
+        if( $return ) {
+        	ob_start();
+        }
                                                                      
         // include file located
         include( $located );
         
-        if( $return )
-            { return ob_get_clean(); }
+        if( $return ) {
+        	return ob_get_clean();
+        }
     }
 }
 
@@ -113,7 +104,7 @@ if( !function_exists( 'yith_wcwl_count_products' ) ) {
     /**
      * Retrieve the number of products in the wishlist.
      *
-     * @param $wishlist_token string Optional wishlist token
+     * @param $wishlist_token string|bool Optional wishlist token
      * 
      * @return int
      * @since 1.0.0
@@ -138,6 +129,8 @@ if( !function_exists( 'yith_wcwl_count_all_products' ) ) {
 if( !function_exists( 'yith_wcwl_count_add_to_wishlist' ) ){
     /**
      * Count number of times a product was added to users wishlists
+     *
+     * @param $product_id int|bool Product id
      *
      * @return int Number of times the product was added to wishlists
      * @since 2.0.13
@@ -164,9 +157,7 @@ if( !function_exists( 'yith_frontend_css_color_picker' ) ) {
      * @return void
      */
     function yith_frontend_css_color_picker( $name, $id, $value, $desc = '' ) {
-    	global $woocommerce;
-
-        $value = ! empty( $value ) ? $value : '#ffffff';
+    	$value = ! empty( $value ) ? $value : '#ffffff';
 
         echo '<div  class="color_box">
                   <table><tr><td>
@@ -184,13 +175,13 @@ if( !function_exists( 'yith_setcookie' ) ) {
      * 
      * @param string $name
      * @param mixed $value
+     * @param int $time
      * @return bool
      * @since 1.0.0
      */
     function yith_setcookie( $name, $value = array(), $time = null ) {
         $time = $time != null ? $time : time() + apply_filters( 'yith_wcwl_cookie_expiration', 60 * 60 * 24 * 30 );
-        
-        //$value = maybe_serialize( stripslashes_deep( $value ) );
+
         $value = json_encode( stripslashes_deep( $value ) );
         $expiration = apply_filters( 'yith_wcwl_cookie_expiration_time', $time ); // Default 30 days
 
