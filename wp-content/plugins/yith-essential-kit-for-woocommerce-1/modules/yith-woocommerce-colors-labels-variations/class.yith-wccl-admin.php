@@ -50,6 +50,11 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
         protected $_panel_page = 'yith_ywcl_panel';
 
         /**
+         * @var boolean Check if WooCommerce is 2.7
+         */
+        public $wc_is_27 = false;
+
+        /**
          * Constructor
          *
          * @access public
@@ -57,7 +62,8 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
          */
         public function __construct( $version ) {
             $this->version = $version;
-
+            $this->wc_is_27     = ywccl_check_wc_version( '2.7', '>=' );
+            
             //new attribute types
             add_action('woocommerce_admin_attribute_types', array($this, 'attribute_types'));
 
@@ -114,9 +120,15 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
         public function attribute_types() {
             global $wpdb;
 
-            $edit = absint( $_GET['edit'] );
-            $attribute_to_edit = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "woocommerce_attribute_taxonomies WHERE attribute_id = '$edit'");
-            $att_type 	= $attribute_to_edit->attribute_type;
+            // init selected type
+            $att_type = '';
+
+            if( isset( $_GET['edit'] ) ) {
+                // else if isset edit get selected type
+                $edit              = absint( $_GET['edit'] );
+                $attribute_to_edit = $wpdb->get_row( "SELECT * FROM " . $wpdb->prefix . "woocommerce_attribute_taxonomies WHERE attribute_id = '$edit'" );
+                $att_type          = $attribute_to_edit->attribute_type;
+            }
 
             ?>
             <option value="colorpicker" <?php selected( $att_type, 'colorpicker' ); ?>><?php _e( 'Colorpicker', 'ywcl' ) ?></option>
@@ -141,12 +153,12 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
             $attribute_taxonomies = function_exists('wc_get_attribute_taxonomies') ? wc_get_attribute_taxonomies() : $woocommerce->get_attribute_taxonomies();
             if ($attribute_taxonomies) {
                 foreach ($attribute_taxonomies as $tax) {
+                    
+                    add_action(  wc_attribute_taxonomy_name( $tax->attribute_name ) . '_add_form_fields', array($this, 'add_attribute_field') );
+                    add_action(  wc_attribute_taxonomy_name( $tax->attribute_name ) . '_edit_form_fields', array($this, 'edit_attribute_field'), 10, 2);
 
-                    add_action('pa_' . $tax->attribute_name . '_add_form_fields', array($this, 'add_attribute_field') );
-                    add_action('pa_' . $tax->attribute_name . '_edit_form_fields', array($this, 'edit_attribute_field'), 10, 2);
-
-                    add_filter('manage_edit-pa_' . $tax->attribute_name . '_columns', array($this, 'product_attribute_columns') );
-                    add_filter('manage_pa_' . $tax->attribute_name . '_custom_column', array($this, 'product_attribute_column'), 10, 3);
+                    add_filter('manage_edit-' .  wc_attribute_taxonomy_name( $tax->attribute_name ) . '_columns', array($this, 'product_attribute_columns') );
+                    add_filter('manage_' .  wc_attribute_taxonomy_name( $tax->attribute_name ) . '_custom_column', array($this, 'product_attribute_column'), 10, 3);
                 }
             }
         }
@@ -237,11 +249,16 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
          * @since 1.0.0
          */
         public function product_attribute_columns( $columns ) {
+
+            if( empty( $columns ) ) {
+                return $columns;
+            }
+
             $temp_cols = array();
             $temp_cols['cb'] = $columns['cb'];
             $temp_cols['yith_wccl_value'] = __('Value', 'ywcl');
             unset($columns['cb']);
-            $columns = array_merge($temp_cols, $columns);
+            $columns = array_merge( $temp_cols, $columns );
             return $columns;
         }
 
@@ -328,10 +345,10 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
                 ?>
 	            <select multiple="multiple" data-placeholder="<?php _e( 'Select terms', 'ywcl' ); ?>" class="multiselect attribute_values wc-enhanced-select" name="attribute_values[<?php echo $i; ?>][]">
 		            <?php
-		            $all_terms = get_terms( $attribute_taxonomy_name, 'orderby=name&hide_empty=0' );
+		            $all_terms = $this->get_terms( $attribute_taxonomy_name );
 		            if ( $all_terms ) {
 			            foreach ( $all_terms as $term ) {
-				            echo '<option value="' . esc_attr( $term->slug ) . '" ' . selected( has_term( absint( $term->term_id ), $attribute_taxonomy_name, $thepostid ), true, false ) . '>' . $term->name . '</option>';
+				            echo '<option value="' . esc_attr( $term['value'] ) . '" ' . selected( has_term( absint( $term['id'] ), $attribute_taxonomy_name, $thepostid ), true, false ) . '>' . $term['name'] . '</option>';
 			            }
 		            }
 		            ?>
@@ -343,9 +360,39 @@ if( !class_exists( 'YITH_WCCL_Admin' ) ) {
             }
         }
 
+        /**
+         * Get terms attributes array
+         *
+         * @since 1.3.0
+         * @author Francesco Licandro
+         * @param string $tax_name
+         * @return array
+         */
+        protected function get_terms( $tax_name ) {
+
+            $args = array(
+                'taxonomy'      => $tax_name,
+                'orderby'       => 'name',
+                'hide_empty'    => '0'
+            );
+            // get terms
+            $terms = get_terms( $args );
+            $all_terms = array();
+
+            foreach( $terms as $term ) {
+                $all_terms[] = array(
+                    'id'    => $term->term_id,
+                    'value' => $this->wc_is_27 ? $term->term_id : $term->slug,
+                    'name'  => $term->name
+                );
+            }
+
+            return $all_terms;
+        }
+
         
         /**
-         * Register YITH Pnale
+         * Register YITH Panel
          *
          * @since   1.2.4
          * @author  Alessio Torrisi <alessio.torrisi@yithemes.com>

@@ -48,7 +48,14 @@ if ( ! class_exists( 'YITH_Woocommerce_Vendors_Widget' ) ) {
         public function widget( $args, $instance ) {
             $hide = ! empty( $instance['hide_on_vendor_page'] ) && is_product_taxonomy( YITH_Vendors()->get_taxonomy_name() );
             if( ! $hide ){
-                yith_wcpv_get_template( 'vendors-list', $instance, 'widgets' );
+                $defaults = array(
+                    'title'               => '',
+                    'hide_on_vendor_page' => '',
+                    'show_product_number' => '',
+                    'hide_empty'          => '',
+                );
+                $args = wp_parse_args( $instance, $defaults );
+                yith_wcpv_get_template( 'vendors-list', $args, 'widgets' );
             }
 
         }

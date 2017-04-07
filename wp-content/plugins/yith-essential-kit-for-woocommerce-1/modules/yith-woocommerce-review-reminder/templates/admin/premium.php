@@ -229,7 +229,7 @@
                     <?php echo sprintf(__('Upgrade to the %1$spremium version%2$s of %1$sYITH WooCommerce Review Reminder%2$s to benefit from all features!','yith-woocommerce-review-reminder'),'<span class="highlight">','</span>');?>
                 </p>
                 <a href="<?php echo $this->get_premium_landing_uri(); ?>" target="_blank" class="premium-cta-button button btn">
-                    <?php echo sprintf(__('%1$sUPGRADE%2$s %3$sto the premium%2$s','yith-woocommerce-review-reminder'),'<span class="highlight">','</span>','<span>');?>
+                    <?php echo sprintf(__('%1$sUpgrade%2$s %3$sto the premium%2$s','yith-woocommerce-review-reminder'),'<span class="highlight">','</span>','<span>');?>
                 </a>
             </div>
         </div>
@@ -239,13 +239,13 @@
 
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/01.png" alt="<?php _e('SELECTION TO REVIEW','yith-woocommerce-review-reminder');?>" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/01.png" alt="<?php _e('Selection to review','yith-woocommerce-review-reminder');?>" />
             </div>
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/01-icon.png" alt=icon-01 />
 
-                    <h2><?php _e('SELECTION OF THE PRODUCTS TO REVIEW','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Selection of the products to review','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('%1$sChoose to ask users%2$s the review of every purchased product, or only a part of them.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
@@ -257,25 +257,25 @@
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/02-icon.png" alt="icon-02" />
 
-                    <h2><?php _e('DEADLINE FOR EMAIL DISPATCHING','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Deadline for email dispatching','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('Set %1$show many days have to pass%2$s before sending the email to request a review, after the order has been marked as "Completed".','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/02.png" alt="<?php _e('DEADLINE','yith-woocommerce-review-reminder');?>" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/02.png" alt="<?php _e('Deadline','yith-woocommerce-review-reminder');?>" />
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/03-bg.png) no-repeat #fff; background-position: 85% 100%">
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/03.png" alt="<?php _e('BLOCKLIST','yith-woocommerce-review-reminder');?>" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/03.png" alt="<?php _e('Blocklist','yith-woocommerce-review-reminder');?>" />
             </div>
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/03-icon.png" alt="icon-03" />
 
-                    <h2><?php _e('BLOCKLIST','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Blocklist','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('%1$sAdd to the blocklist%2$s all the users emails that don\'t want to review any product of your e-commerce.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
@@ -287,12 +287,12 @@
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/04-icon.png" alt="icon-04" />
 
-                    <h2><?php _e('EMAIL TEMPLATE','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Email template','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('Select the %1$slayout you want%2$s for your email choosing among the four possibilities we offer you.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/04.png" alt="<?php _e('EMAIL TEMPLATE','yith-woocommerce-review-reminder');?>" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/04.png" alt="<?php _e('Email template','yith-woocommerce-review-reminder');?>" />
             </div>
         </div>
     </div>
@@ -305,7 +305,7 @@
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/05-icon.png" alt=icon-05 />
 
-                    <h2><?php _e('USE MANDRILL TO MANAGE YOUR EMAILS','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Use mandrill to manage your emails','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('%1$sMake creation of custom%2$s reminders automatic in a few clicks.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
@@ -317,12 +317,12 @@
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/06-icon.png" alt="icon-06" />
 
-                    <h2><?php _e('SCHEDULE LIST','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Schedule list','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('See all reminders you have scheduled %1$s(past and present)%2$s in one tab only and delete them from this page without having to move anywhere else.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/06.png" alt="<?php _e('SCHEDULE LIST','yith-woocommerce-review-reminder');?>" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/06.png" alt="<?php _e('Schedule list','yith-woocommerce-review-reminder');?>" />
             </div>
         </div>
     </div>
@@ -335,7 +335,7 @@
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/07-icon.png" alt="icon-07" />
 
-                    <h2><?php _e('GOOGLE ANALYTICS','yith-woocommerce-review-reminder');?></h2>
+                    <h2><?php _e('Google analitycs','yith-woocommerce-review-reminder');?></h2>
                 </div>
                 <p><?php echo sprintf (__('Configure the requested parameters to track, through %1$sGoogle Analytics%2$s, all emails sent from the plugin. This allows you to develop interesting market statistics for your shop.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
@@ -347,12 +347,47 @@
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/08-icon.png" alt="icon-08" />
 
-                    <h2><?php _e('YITH WOOCOMMERCE EMAIL TEMPLATES','yith-woocommerce-review-reminder');?></h2>
+                    <h2>YITH WooCommerce Email Templates</h2>
                 </div>
                 <p><?php echo sprintf (__('Thanks to full compatibility between the two plugins, you could configure customized email layouts, with %1$sYITH WooCommerce Email Templates%2$s, for all emails sent from YITH WooCommerce Review Reminder.','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/08.png" alt="<?php _e('YITH WooCommerce Email Templates','yith-woocommerce-review-reminder');?>" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/08.png" alt="YITH WooCommerce Email Templates" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/09-bg.png) no-repeat #fff; background-position: 85% 75%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/09.png" alt="<?php _e('Google Analytics','yith-woocommerce-review-reminder');?>" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/09-icon.png" alt="icon-09" />
+
+                    <h2><?php _e('Email scheduling','yith-woocommerce-review-reminder');?></h2>
+                </div>
+                <p><?php echo sprintf (__('You decided to use YITH WooCommerce Review Reminder but your store already has registered orders?%3$s
+                            Fear not! Those users won’t be lost.%3$s
+                    In just one click you will be able to %1$sschedule yout email to be sent to every single users who bouught from your store at least once%2$s,
+                     inviting them to review your products. ','yith-woocommerce-review-reminder'),'<b>','</b>','<br>');?></p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/10-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/10-icon.png" alt="icon-10" />
+
+                    <h2><?php _e('Consent request for email sending','yith-woocommerce-review-reminder') ?></h2>
+                </div>
+                <p><?php echo sprintf (__('Sending emails to ask your users to review the product they purchased may cause inconveniences in those countries, such as Germany, where it is allowed only upon %1$suser\'s agreement%2$s during the checkout process. ','yith-woocommerce-review-reminder'),'<b>','</b>');?></p>
+
+                <p><?php echo sprintf (__('For this reason, we give you the possibility to %1$sfilter the list of users to contact%2$s.%3$s If you want, you can add all the users who refused the consent in the Checkout page to the %1$sblock-list%2$s to prevent the email sending. ','yith-woocommerce-review-reminder'),'<b>','</b>','<br>');?></p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/10.png" alt="YITH WooCommerce Email Templates" />
             </div>
         </div>
     </div>
@@ -363,7 +398,7 @@
                     <?php echo sprintf (__('Upgrade to the %1$spremium version%2$s of %1$sYITH WooCommerce Review Reminder%2$s to benefit from all features!','yith-woocommerce-review-reminder'),'<span class="highlight">','</span>');?>
                 </p>
                 <a href="<?php echo $this->get_premium_landing_uri(); ?>" target="_blank" class="premium-cta-button button btn">
-                    <?php echo sprintf (__('%1$sUPGRADE%2$s %3$sto the premium version%2$s','yith-woocommerce-review-reminder'),'<span class="highlight">','</span>','<span>');?>
+                    <?php echo sprintf (__('%1$sUpgrade%2$s %3$sto the premium version%2$s','yith-woocommerce-review-reminder'),'<span class="highlight">','</span>','<span>');?>
                 </a>
             </div>
         </div>

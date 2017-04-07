@@ -69,18 +69,18 @@ if( ! class_exists( 'YITH_WCStripe_Admin' ) ){
 		 */
 		public function register_panel() {
 			$admin_tabs = apply_filters( 'yith_stripe_admin_panels', array(
-				'settings' => __( 'Settings', 'yith-stripe' )
+				'settings' => __( 'Settings', 'yith-woocommerce-stripe' )
 			) );
 
 			if ( defined( 'YITH_WCSTRIPE_FREE_INIT' ) ) {
-				$admin_tabs['premium'] = __( 'Premium Version', 'yith-stripe' );
+				$admin_tabs['premium'] = __( 'Premium Version', 'yith-woocommerce-stripe' );
 			}
 
 			$args = array(
 				'create_menu_page' => true,
 				'parent_slug'   => '',
-				'page_title'    => __( 'Stripe', 'yith-stripe' ),
-				'menu_title'    => __( 'Stripe', 'yith-stripe' ),
+				'page_title'    => __( 'Stripe', 'yith-woocommerce-stripe' ),
+				'menu_title'    => __( 'Stripe', 'yith-woocommerce-stripe' ),
 				'capability'    => 'manage_options',
 				'parent'        => '',
 				'parent_page'   => 'yit_plugin_panel',
@@ -110,7 +110,7 @@ if( ! class_exists( 'YITH_WCStripe_Admin' ) ){
 				),
 				array(
 					'url'   => $this->_premium_landing,
-					'title' => __( 'Discovery premium version', 'yith-woocommerce-stripe' )
+					'title' => __( 'Discover the premium version', 'yith-woocommerce-stripe' )
 				),
 				array(
 					'url'   => $this->_premium_landing.'#tab-free_vs_premium_tab',
@@ -168,15 +168,15 @@ if( ! class_exists( 'YITH_WCStripe_Admin' ) ){
 		 * @since 1.0.0
 		 */
 		public function capture_status( $order ) {
-			if ( $order->payment_method != YITH_WCStripe::$gateway_id ) {
+			if ( yit_get_prop( $order, 'payment_method' ) != YITH_WCStripe::$gateway_id ) {
 				return;
 			}
 
 			?>
 			<div style="clear:both"></div>
-			<h4><?php _e( 'Authorize & Capture status', 'yith-stripe' ) ?></h4>
+			<h4><?php _e( 'Authorize & Capture status', 'yith-woocommerce-stripe' ) ?></h4>
 			<p class="form-field form-field-wide order-captured">
-				<?php 'yes' == $order->captured ? _e( 'Captured', 'yith-stripe' ) : _e( 'Authorized only (not captured yet)', 'yith-stripe' ) ?>
+				<?php 'yes' == yit_get_prop( $order, 'captured' ) ? _e( 'Captured', 'yith-woocommerce-stripe' ) : _e( 'Authorized only (not captured yet)', 'yith-woocommerce-stripe' ) ?>
 			</p>
 			<?php
 		}
@@ -196,10 +196,10 @@ if( ! class_exists( 'YITH_WCStripe_Admin' ) ){
 		 */
 		public function action_links( $links ) {
 
-			$links[] = '<a href="' . admin_url( "admin.php?page=yith_wcstripe_panel" ) . '">' . __( 'Settings', 'yith-stripe' ) . '</a>';
+			$links[] = '<a href="' . admin_url( "admin.php?page=yith_wcstripe_panel" ) . '">' . __( 'Settings', 'yith-woocommerce-stripe' ) . '</a>';
 
 			if ( defined( 'YITH_WCSTRIPE_FREE_INIT' ) ) {
-				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-stripe' ) . '</a>';
+				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-stripe' ) . '</a>';
 			}
 
 			return $links;
@@ -224,7 +224,7 @@ if( ! class_exists( 'YITH_WCStripe_Admin' ) ){
 			if ( ( defined( 'YITH_WCSTRIPE_INIT' ) && YITH_WCSTRIPE_INIT == $plugin_file ) ||
 			     ( defined( 'YITH_WCSTRIPE_FREE_INIT' ) && YITH_WCSTRIPE_FREE_INIT == $plugin_file )
 			) {
-				$plugin_meta[] = '<a href="' . $this->_official_documentation . '" target="_blank">' . __( 'Plugin Documentation', 'yith-stripe' ) . '</a>';
+				$plugin_meta[] = '<a href="' . $this->_official_documentation . '" target="_blank">' . __( 'Plugin Documentation', 'yith-woocommerce-stripe' ) . '</a>';
 			}
 
 			return $plugin_meta;
@@ -245,8 +245,8 @@ if( ! class_exists( 'YITH_WCStripe_Admin' ) ){
 				'pointer_id' => 'yith_wcstripe_panel',
 				'target'     => '#toplevel_page_yit_plugin_panel',
 				'content'    => sprintf( '<h3> %s </h3> <p> %s </p>',
-					__( 'YITH WooCommerce Stripe', 'yith-stripe' ),
-					__( 'In YIT Plugins tab you can find YITH WooCommerce Stripe options. From this menu you can access all settings of YITH plugins activated.', 'yith-stripe' )
+					__( 'YITH WooCommerce Stripe', 'yith-woocommerce-stripe' ),
+					__( 'In YIT Plugins tab you can find YITH WooCommerce Stripe options. From this menu you can access all settings of YITH plugins activated.', 'yith-woocommerce-stripe' )
 				),
 				'position'   => array( 'edge' => 'left', 'align' => 'center' ),
 				'init'       => defined( 'YITH_WCSTRIPE_PREMIUM' ) ? YITH_WCSTRIPE_INIT : YITH_WCSTRIPE_FREE_INIT

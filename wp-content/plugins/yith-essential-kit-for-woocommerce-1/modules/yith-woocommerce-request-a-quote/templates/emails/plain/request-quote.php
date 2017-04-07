@@ -29,7 +29,7 @@ if( ! empty( $raq_data['raq_content'] ) ):
             $product = wc_get_product( $item['product_id'] );
         }
 
-        echo $product->post->post_title . ' '. yith_ywraq_get_product_meta($item, false) . ' | ';
+        echo $product->get_name() . ' '. yith_ywraq_get_product_meta($item, false) . ' | ';
         echo $item['quantity'];
         echo ' '.WC()->cart->get_product_subtotal( $product, $item['quantity'] );
         echo "\n";

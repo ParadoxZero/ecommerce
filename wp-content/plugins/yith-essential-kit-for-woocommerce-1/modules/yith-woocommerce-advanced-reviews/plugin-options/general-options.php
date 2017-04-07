@@ -57,31 +57,4 @@ $general_options = array(
 	)
 );
 
-if ( ! defined( 'YITH_YWAR_PREMIUM' ) ) {
-	$intro_tab = array(
-		'section_general_settings_videobox' => array(
-			'name'    => __( 'Upgrade to the PREMIUM VERSION', 'yit' ),
-			'type'    => 'videobox',
-			'default' => array(
-				'plugin_name'               => __( 'YITH WooCommerce Advanced Reviews', 'yit' ),
-				'title_first_column'        => __( 'Discover Advanced Features', 'yit' ),
-				'description_first_column'  => __( 'Upgrade to the PREMIUM VERSION of YITH WOOCOMMERCE ADVANCED REVIEWS to benefit from all features!', 'yit' ),
-				'video'                     => array(
-					'video_id'          => '118913171',
-					'video_image_url'   => YITH_YWAR_ASSETS_IMAGES_URL . 'yith-woocommerce-advanced-reviews.jpg',
-					'video_description' => __( 'See the YITH WooCommerce Advanced Reviews plugin with full premium features in action', 'yit' ),
-				),
-				'title_second_column'       => __( 'Get Support and Pro Features', 'yit' ),
-				'description_second_column' => __( 'By purchasing the premium version of the plugin, you will take advantage of the advanced features of the product and you will get one year of free updates and support through our platform available 24h/24.', 'yit' ),
-				'button'                    => array(
-					'href'  => $YWAR_AdvancedReview->get_premium_landing_uri(),
-					'title' => 'Get Support and Pro Features'
-				)
-			),
-			'id'      => 'yith_wcas_general_videobox'
-		)
-	);
-	$general_options['general'] = $intro_tab + $general_options['general'];
-}
-
 return $general_options;

@@ -38,7 +38,7 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
         public function __construct() {
 
             /* Shop Page */
-            add_action( 'woocommerce_after_shop_loop_item', array( $this, 'woocommerce_template_vendor_name' ), 4  );
+            add_action( 'woocommerce_after_shop_loop_item', array( $this, 'woocommerce_template_vendor_name' ), 6  );
             add_action( 'woocommerce_product_query', array( $this, 'check_vendors_selling_capabilities' ), 10, 1 );
 
             /* Single Product */
@@ -65,6 +65,9 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
             
             /* Body Classes */
             add_filter( 'body_class', array( $this, 'body_class' ), 20 );
+
+            /* Support to YITH Theme FW 2.0 - Sidebar Layout */
+            add_filter( 'yit_layout_option_is_product_tax', array( $this, 'show_sidebar_in_vendor_store_page' ) );
         }
 
         /**
@@ -294,12 +297,13 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
                 $order_id = $download['order_id'];
                 $order = wc_get_order( $order_id );
 
-                //show only parent order download 
+                //show only parent order download
+
+                $post_parent = get_post_field( 'post_parent', $order_id );
                
-                if( $order->post->post_parent == 0 ){
+                if( $post_parent == 0 ){
                     $new_downloads[] = $download;
                 }
-
             }
 
             return $new_downloads;
@@ -340,6 +344,21 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
                 }
             }
             return $classes;
+        }
+
+        /**
+         * Support to single vendor sidebar for YITH FW 2.0 theme
+         *
+         * @param $is_product_taxonomy
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         * @return  bool
+         */
+        public function show_sidebar_in_vendor_store_page( $is_product_taxonomy ){
+            if( YITH_Vendors()->frontend->is_vendor_page() ){
+                $is_product_taxonomy = true;
+            }
+
+            return $is_product_taxonomy;
         }
     }
 }

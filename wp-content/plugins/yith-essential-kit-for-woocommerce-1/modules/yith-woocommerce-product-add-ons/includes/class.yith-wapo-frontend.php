@@ -264,15 +264,16 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
          */
         public function show_product_options() {
 
-              global $product;
+            global $product;
 
-              if( is_object($product) && $product->id > 0 ) {
+              if( is_object($product) && $product->get_id() > 0 ) {
 
                   $product_type_list = YITH_WAPO::getAllowedProductTypes();
 
-                  if( in_array( $product->product_type, $product_type_list ) ) {
+                  $product_type = property_exists( 'WC_Product', 'product_type' ) ? $product->product_type : $product->get_type();
+                  if( in_array( $product_type, $product_type_list ) ) {
 
-                      $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->id );
+                      $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->get_id() );
 
                       echo '<div id="yith_wapo_groups_container" class="yith_wapo_groups_container">';
 
@@ -339,6 +340,7 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
             //---------------------------------------------
 
+
             $price_calculated = $this->get_display_price( $product , $price , $price_type );
             $price_hmtl   = ! empty( $price ) ? sprintf( '<span class="ywapo_label_price"> + %s</span>', wc_price( $price_calculated ) ) : '';
 
@@ -347,8 +349,9 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
                 $image_html = '<img src="'.esc_attr( $image ).'" alt="">';
             }
 
+            $control_id = 'ywapo_ctrl_id_'.$type_id.'_'.$key;
             $required_simbol =  $required ? '<abbr class="required" title="required">*</abbr>' : '' ;
-            $span_label   = sprintf( '<label class="ywapo_label_tag_position_%s">%s<span class="ywapo_option_label ywapo_label_position_%s">%s</span>%s</label>', $label_position , $image_html, $label_position, esc_html( $label ) , $required_simbol );
+            $span_label   = sprintf( '<label for="%s" class="ywapo_label_tag_position_%s">%s<span class="ywapo_option_label ywapo_label_position_%s">%s</span>%s</label>', $control_id, $label_position , $image_html, $label_position, esc_html( $label ) , $required_simbol );
             $before_label = $label_position == 'before' ? $span_label : '';
             $after_label  = $label_position == 'after' ? $span_label : '';
             $min_html = $min !== false ? 'min="' . esc_attr( $min ) . '"' : '';
@@ -358,6 +361,7 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
             $default_args = array(
                 'yith_wapo_frontend' => $this,
+                'control_id'         => $control_id,
                 'product'            => $product,
                 'key'                => $key,
                 'type_id'            => $type_id,
@@ -495,9 +499,10 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
                 $product_type_list = YITH_WAPO::getAllowedProductTypes();
 
-                if( in_array( $product->product_type, $product_type_list ) ) {
+                $product_type = property_exists( 'WC_Product', 'product_type' ) ? $product->product_type : $product->get_type();
+                if( in_array( $product_type, $product_type_list ) ) {
 
-                    $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->id );
+                    $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->get_id() );
 
                     if ( !empty( $types_list ) ) {
                         $text = ! empty( $this->_option_loop_add_to_cart_text ) ? $this->_option_loop_add_to_cart_text : __( 'Select options', 'yith-woocommerce-product-add-ons' );
@@ -522,12 +527,13 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
                 $product_type_list = YITH_WAPO::getAllowedProductTypes();
 
-                if( in_array( $product->product_type, $product_type_list ) ) {
+                $product_type = property_exists( 'WC_Product', 'product_type' ) ? $product->product_type : $product->get_type();
+                if( in_array( $product_type, $product_type_list ) ) {
 
-                    $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->id );
+                    $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->get_id() );
 
                     if ( !empty( $types_list ) ) {
-                        $url = get_permalink( $product->id );
+                        $url = get_permalink( $product->get_id() );
                     }
 
                 }
@@ -555,9 +561,10 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
                 $product_type_list = YITH_WAPO::getAllowedProductTypes();
 
-                if( in_array( $product->product_type, $product_type_list ) ) {
+                $product_type = property_exists( 'WC_Product', 'product_type' ) ? $product->product_type : $product->get_type();
+                if( in_array( $product_type, $product_type_list ) ) {
 
-                    $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->id );
+                    $types_list = YITH_WAPO_Type::getAllowedGroupTypes( $product->get_id() );
 
                     if ( !empty( $types_list ) ) {
                         return false;
@@ -742,11 +749,12 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
             if ( ! empty( $cart_item['yith_wapo_options'] ) ) {
 
-                $base_product = wc_get_product( $cart_item['data']->id );
+                $base_product = wc_get_product( $cart_item['data']->get_id() );
+                $display_price = function_exists('wc_get_price_to_display') ? wc_get_price_to_display( $base_product ) : $base_product->get_display_price();
 
                 $other_data[] = array(
                     'name'    => __( 'Base price' , 'yith-woocommerce-product-add-ons' ) ,
-                    'value'   => wc_price( $base_product->get_display_price() ),
+                    'value'   => wc_price( $display_price ),
                 );
 
                 foreach ( $cart_item['yith_wapo_options'] as $single_type_options ) {
@@ -851,15 +859,32 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
             // Adjust price if addons are set
             if ( ! empty( $cart_item['yith_wapo_options'] ) && apply_filters( 'yith_wapo_adjust_price', true, $cart_item ) ) {
 
-                $types_total_price = 0;
+                if ( method_exists( 'WC_Product', 'set_price' ) ) {
 
-                foreach ( $cart_item['yith_wapo_options'] as $single_type_option ) {
-                    if ( isset( $single_type_option['price_original'] ) && $single_type_option['price_original'] >= 0) {
-                        $types_total_price += $single_type_option['price_original'];
+                    $base_product = wc_get_product( $cart_item['product_id'] );
+                    $types_total_price = $base_product->get_price();
+
+                    foreach ( $cart_item['yith_wapo_options'] as $single_type_option ) {
+                        if ( isset( $single_type_option['price_original'] ) && $single_type_option['price_original'] >= 0) {
+                            $types_total_price += $single_type_option['price_original'];
+                        }
                     }
-                }
 
-                $cart_item['data']->adjust_price( $types_total_price );
+                    $cart_item['data']->set_price( $types_total_price );
+
+                } else {
+
+                    $types_total_price = 0;
+
+                    foreach ( $cart_item['yith_wapo_options'] as $single_type_option ) {
+                        if ( isset( $single_type_option['price_original'] ) && $single_type_option['price_original'] >= 0) {
+                            $types_total_price += $single_type_option['price_original'];
+                        }
+                    }
+
+                    $cart_item['data']->adjust_price( $types_total_price );
+
+                }
             }
 
         }
@@ -880,13 +905,15 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
                 switch( $price_type ) {
                     case 'fixed':
-                        $price_calculated = $use_display ? $product->get_display_price( $price ) : $price;
+                        $display_price = function_exists('wc_get_price_to_display') ? wc_get_price_to_display( $product, array( 'price' => $price ) ) : $product->get_display_price( $price );
+                        $price_calculated = $use_display ? $display_price : $price;
                         break;
                     case 'percentage':
 
                         $product_object = isset( $variation ) ? $variation : $product ;
 
-                        $price_calculated = ( ( $use_display ? $product_object->get_display_price() : $product_object->price ) / 100 ) * $price;
+                        $display_price = function_exists('wc_get_price_to_display') ? wc_get_price_to_display( $product_object, array( 'price' => $price ) ) : $product_object->get_display_price();
+                        $price_calculated = ( ( $use_display ? $display_price : $product_object->price ) / 100 ) * $price;
 
                         break;
                 }

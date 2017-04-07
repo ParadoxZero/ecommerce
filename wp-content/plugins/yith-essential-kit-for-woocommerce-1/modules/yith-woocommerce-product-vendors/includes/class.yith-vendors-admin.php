@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file belongs to the YIT Framework.
  *
@@ -155,6 +156,12 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
 
             /* WooCommerce Status Dashboard Widget */
             add_filter( 'woocommerce_dashboard_status_widget_top_seller_query', array( $this, 'dashboard_status_widget_top_seller_query' ) );
+
+            /* Search Vendor admins for vendor */
+            add_action( 'wp_ajax_woocommerce_json_search_customers', 'YITH_Vendors_Admin::json_search_admins', 5 );
+
+            /* Tiny MCE Editor Hack */
+            add_action( 'after_wp_tiny_mce', 'YITH_Vendors_Admin::remove_add_existing_content' );
         }
 
         /**
@@ -167,8 +174,6 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
          * @see      plugin-fw/lib/yit-plugin-panel.php
          */
         public function register_panel() {
-            $vendor = yith_get_vendor( 'current', 'user' );
-
             if ( ! empty( $this->_panel ) ) {
                 return;
             }
@@ -366,7 +371,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             $current_vendor = yith_get_vendor( 'current', 'user' );
 
             if( 'product' == $post->post_type && current_user_can( 'edit_post', $post_id ) ){
-                if( ! empty( $_REQUEST['bulk_edit'] ) && 'update' == strtolower( $_REQUEST['bulk_edit'] ) ){
+                if( ! empty( $_REQUEST['bulk_edit'] ) ){
                     $vendor_taxonomy_name = YITH_Vendors()->get_taxonomy_name();
                     if( isset( $_REQUEST['tax_input'][ $vendor_taxonomy_name ] ) ){
                         if( $current_vendor->is_super_user() ){
@@ -437,18 +442,10 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             }
 
             if( $post && 'shop_order' == $post->post_type ){
-                $vendor_orders = $vendor->get_orders( 'all' );
+                $vendor_orders = array_merge( $vendor->get_orders( 'suborder' ), $vendor->get_orders( 'all' ) );
                 if( $is_seller && ! in_array( $post->ID, $vendor_orders ) ){
                     wp_die( sprintf( __( 'You do not have permission to edit this order. %1$sClick here to view and edit your orders%2$s.', 'yith-woocommerce-product-vendors' ), '<a href="' . esc_url( 'edit.php?post_type=shop_order' ) . '">', '</a>' ) );
                 }
-            }
-
-
-
-
-            if( $is_seller ){
-
-
             }
         }
 
@@ -565,7 +562,20 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
          * @return void
          */
         public function add_taxonomy_fields( $taxonomy ) {
-            $args = array( 'commission' => YITH_Vendors()->get_base_commission() );
+            $args = array(
+                'commission'        => YITH_Vendors()->get_base_commission(),
+                'tax_label'         => apply_filters( 'yith_wcmv_tax_label_admin', __( 'VAT/SSN', 'yith-woocommerce-product-vendors' ) ),
+                'shop_owner_args'   => array(
+                    'class'             => 'wc-customer-search',
+                    'id'                => 'key_user',
+                    'name'              => 'yith_vendor_data[owner]',
+                    'data-placeholder'  => esc_attr__( 'Search for a customer&hellip;', 'woocommerce' ),
+                    'data-allow_clear'  => true,
+                    'data-selected'     => '',
+                    'value'             => ''
+                )
+            );
+
             yith_wcpv_get_template( 'add-product-vendors-taxonomy', $args, 'admin' );
         }
 
@@ -587,14 +597,28 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             $owner_id       = $owner instanceof WP_User ? $owner->ID : '';
 
             $args = apply_filters( 'yith_edit_taxonomy_args', array(
-                'owner_id'      => $owner_id,
-                'owner'         => $vendor_owner,
-                'vendor_admins' => array(
-                    'selected'  => $this->format_vendor_admins_for_select2( $vendor ),
-                    'value'     => implode( ',', array_diff( $vendor->get_admins(), array( $owner_id ) ) )
-                ),
-                'vendor'        => $vendor
-            ) );
+                    'vendor'        => $vendor,
+                    'shop_owner_args'   => array(
+                        'class'             => 'wc-customer-search',
+                        'id'                => 'key_user',
+                        'name'              => 'yith_vendor_data[owner]',
+                        'data-placeholder'  => esc_attr__( 'Search for a customer&hellip;', 'woocommerce' ),
+                        'data-allow_clear'  => true,
+                        'data-selected'     => YITH_Vendors()->is_wc_2_7_or_greather ? array( $owner_id => $vendor_owner ) : $vendor_owner,
+                        'value'             => $owner_id
+                    ),
+                    'shop_admins_args'   => array(
+                        'class'             => 'wc-customer-search',
+                        'id'                => 'yith_vendor_admins',
+                        'name'              => 'yith_vendor_data[admins]',
+                        'data-placeholder'  => esc_attr__( 'Search for a shop admins&hellip;', 'yith-woocommerce-product-vendors' ),
+                        'data-allow_clear'  => true,
+                        'data-selected'     => $this->format_vendor_admins_for_select2( $vendor ),
+                        'data-multiple'     => true,
+                        'value'             => implode( ',', array_diff( $vendor->get_admins(), array( $owner_id ) ) )
+                    ),
+                )
+            );
 
             yith_wcpv_get_template( 'edit-product-vendors-taxonomy', $args, 'admin' );
         }
@@ -744,7 +768,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
                 $post_value['admins'] = array( $owner );
             } else {
                 $temp_admins = $post_value['admins'];
-                $post_value['admins'] = explode( ',', $temp_admins );
+                $post_value['admins'] = YITH_Vendors()->is_wc_2_7_or_greather ? $temp_admins : explode( ',', $temp_admins );
 
                 if( ! empty( $owner ) ){
                     $post_value['admins'][] = $owner;
@@ -758,7 +782,9 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
                     $user = get_user_by( 'id', $user_id );
                     if ( $user instanceof WP_User ) {
                         $user->add_role( YITH_Vendors()->get_role_name() );
-                        $user->remove_role( 'customer' );
+                        foreach( array( 'customer', 'subscriber' ) as $role ){
+                            $user->remove_role( $role );
+                        }
                     }
                 }
             }
@@ -766,7 +792,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             do_action( 'yith_wpv_after_save_taxonomy', $vendor, $post_value );
 
             if ( 'admin_action_yith_admin_save_fields' == current_action() ) {
-                wp_redirect( esc_url_raw( add_query_arg( array( 'page' => $_POST[ 'page' ], 'tab' => $_POST[ 'tab' ] ) ) ) );
+                wp_redirect( esc_url_raw( $_REQUEST['_wp_http_referer'] ) );
             }
         }
 
@@ -993,13 +1019,16 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
         public function prevent_admin_access( $prevent_access ) {
             global $current_user;
             $vendor = yith_get_vendor( 'current', 'user' );
+            
+            if( ! $vendor->is_super_user() ){
+                $is_valid = $vendor->is_valid();
+                if( $is_valid && $vendor->has_limited_access() && $vendor->is_user_admin() ){
+                    $prevent_access = false;
+                }
 
-            if( $vendor->is_valid() && $vendor->has_limited_access() && $vendor->is_user_admin() ){
-                $prevent_access = false;
-            }
-
-            elseif( ! $vendor->is_valid() && in_array( YITH_Vendors()->get_role_name(), $current_user->roles ) ){
-                $prevent_access = true;
+                elseif( ! $is_valid && in_array( YITH_Vendors()->get_role_name(), $current_user->roles )  ){
+                    $prevent_access = true;
+                }    
             }
 
             return $prevent_access;
@@ -1029,7 +1058,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
                 }
             }
 
-            return json_encode( $admins );
+            return YITH_Vendors()->is_wc_2_7_or_greather ? $admins : json_encode( $admins );
         }
 
         /**
@@ -1678,6 +1707,89 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
 
             wp_cache_set( $cache_key, $count, 'counts' );
             wp_cache_set( $cache_group . '_' . $cache_key, true, $cache_group );
+        }
+
+        /**
+         * Get panel object
+         *
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         *
+         * @return object yith framework panel object
+         */
+        public function get_panel(){
+            return $this->_panel;
+        }
+
+        /**
+         * Search for customers and return json.
+         *
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         */
+        public static function json_search_admins() {
+            ob_start();
+
+            check_ajax_referer( 'search-customers', 'security' );
+
+            $vendor = yith_get_vendor( 'current', 'user' );
+            $vendor_is_valid = $vendor->is_valid();
+            if( ! $vendor_is_valid || ( $vendor_is_valid && 'yes' == get_option( 'yith_wpv_vendors_option_order_management' ) ) ){
+                return;
+            }
+
+            $term    = wc_clean( stripslashes( $_GET['term'] ) );
+            $exclude = array();
+
+            if ( empty( $term ) ) {
+                die();
+            }
+
+            if ( ! empty( $_GET['exclude'] ) ) {
+                $exclude = array_map( 'intval', explode( ',', $_GET['exclude'] ) );
+            }
+
+            $found_customers = array();
+
+            add_action( 'pre_user_query', 'WC_AJAX::json_search_customer_name' );
+
+            $customers_query = new WP_User_Query( apply_filters( 'woocommerce_json_search_customers_query', array(
+                'fields'         => 'all',
+                'orderby'        => 'display_name',
+                'search'         => '*' . $term . '*',
+                'search_columns' => array( 'ID', 'user_login', 'user_email', 'user_nicename' )
+            ) ) );
+
+            remove_action( 'pre_user_query', 'WC_AJAX::json_search_customer_name' );
+
+            $customers = $customers_query->get_results();
+
+            if ( ! empty( $customers ) ) {
+                foreach ( $customers as $customer ) {
+                    if ( ! in_array( $customer->ID, $exclude ) ) {
+                        $found_customers[ $customer->ID ] = $customer->display_name . ' (#' . $customer->ID . ' &ndash; ' . sanitize_email( $customer->user_email ) . ')';
+                    }
+                }
+            }
+
+            $found_customers = apply_filters( 'woocommerce_json_search_found_customers', $found_customers );
+
+            wp_send_json( $found_customers );
+        }
+
+        /**
+         * Remove the add existing content from tiny mce editor
+         *
+         * @author Andrea Grillo
+         * @return void
+         */
+        public static function remove_add_existing_content(){
+            $vendor = yith_get_vendor( 'current', 'user' );
+            if( $vendor->is_valid() && $vendor->has_limited_access() ){
+                ob_start(); ?>
+                <script type="text/javascript">
+                    jQuery('#wplink-link-existing-content').add( '#search-panel' ).remove();
+                </script>
+                <?php echo ob_get_clean();
+            }
         }
     }
 }

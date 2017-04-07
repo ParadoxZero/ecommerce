@@ -12,12 +12,15 @@
  * @var YITH_Commission $commission
  */
 
-$order   = $commission->get_order();
-$user    = $commission->get_user();
-$vendor  = $commission->get_vendor();
-$product = $commission->get_product();
-$item    = $commission->get_item();
-$item_id = $commission->line_item_id;
+$order    = $commission->get_order();
+$user     = $commission->get_user();
+$vendor   = $commission->get_vendor();
+$product  = $commission->get_product();
+$item     = $commission->get_item();
+$item_id  = $commission->line_item_id;
+$tax_data = empty( $legacy_order ) && wc_tax_enabled() ? maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
+$order_taxes = $order->get_taxes();
+
 ?>
 
 <div class="wrap">
@@ -119,23 +122,27 @@ $item_id = $commission->line_item_id;
                                             }
                                         }
 										else {
-											if ( $order->billing_first_name || $order->billing_last_name ) {
-												$username = trim( $order->billing_first_name . ' ' . $order->billing_last_name );
+										    $billing_first_name = yit_get_prop( $order, 'billing_first_name' );
+										    $billing_last_name  = yit_get_prop( $order, 'billing_last_name' );
+
+											if ( $billing_first_name || $billing_last_name ) {
+												$username = trim( $billing_first_name . ' ' . $billing_last_name );
 											}
 				 							else {
 												$username = __( 'Guest', 'woocommerce' );
 											}
-										}
+                                        }
 
+                                        $order_id        = yit_get_prop( $order, 'id' );
                                         $order_number    = '<strong>#' . esc_attr( $order->get_order_number() ) . '</strong>';
-                                        $order_uri       = sprintf( '<a href="%s">#%d</a>', 'post.php?post=' . absint( $order->id ) . '&action=edit', $order->get_order_number() );
+                                        $order_uri       = sprintf( '<a href="%s">#%d</a>', 'post.php?post=' . absint( $order_id ) . '&action=edit', $order->get_order_number() );
                                         $order_info      = $vendor->is_super_user() ? $order_uri : $order_number;
 
                                         if( $vendor->is_super_user() ){
                                             $order_info = $order_uri;
                                         }
 
-                                        else if( defined( 'YITH_WPV_PREMIUM' ) && YITH_WPV_PREMIUM && $vendor->has_limited_access() && wp_get_post_parent_id( $order->id )&& in_array($order->id, $vendor->get_orders() ) ){
+                                        else if( defined( 'YITH_WPV_PREMIUM' ) && YITH_WPV_PREMIUM && $vendor->has_limited_access() && wp_get_post_parent_id( $order_id )&& in_array( $order_id, $vendor->get_orders() ) ){
                                             $order_info = $order_uri;
                                         }
 
@@ -143,9 +150,9 @@ $item_id = $commission->line_item_id;
                                             $order_info = $order_number;
                                         }
 
-                                        $wc_order_status = wc_get_order_statuses();
+                                        $order_status = yith_wcmv_get_order_status( $order, 'display' );
 
-										printf( _x( 'credited to %s &#8212; from order %s &#8212; order status: %s', 'Commission credited to [user]', 'yith-woocommerce-product-vendors' ), $username, $order_info, $wc_order_status[ $order->post_status ] );
+										printf( _x( 'credited to %s &#8212; from order %s &#8212; order status: %s', 'Commission credited to [user]', 'yith-woocommerce-product-vendors' ), $username, $order_info, $order_status );
 										?>
 									</p>
 
@@ -159,7 +166,7 @@ $item_id = $commission->line_item_id;
 													<?php echo $commission->get_status('display') ?>
 												</p>
 												<p>
-													<strong><?php _e( 'Commission date', 'yith-woocommerce-product-vendors' ) ?>:</strong>
+													<strong><?php _e( 'Date', 'yith-woocommerce-product-vendors' ) ?>:</strong>
 													<?php echo $commission->get_date('display') ?>
 												</p>
 												<p>
@@ -202,7 +209,11 @@ $item_id = $commission->line_item_id;
 												</p>
 												<p>
 													<strong><?php _e( 'PayPal', 'yith-woocommerce-product-vendors' ) ?>:</strong>
-													<a href="mailto:<?php echo $vendor->paypal_email ?>"><?php echo $vendor->paypal_email ?></a>
+                                                    <?php if( ! empty( $vendor->paypal_email ) ) : ?>
+                                                        <a href="mailto:<?php echo $vendor->paypal_email ?>"><?php echo $vendor->paypal_email ?></a>
+                                                    <?php else: ?>
+                                                        <?php _e( 'Email address not set ', 'yith-woocommerce-product-vendors' ); ?>
+                                                    <?php endif; ?>
 												</p>
 											</div>
 
@@ -215,17 +226,19 @@ $item_id = $commission->line_item_id;
                                                         <?php
 
                                                         // Formatted Addresses
-                                                        $formatted = WC()->countries->get_formatted_address( array(
-                                                            'first_name'    => $user->first_name,
-                                                            'last_name'     => $user->last_name,
-                                                            'company'       => $user->billing_company,
-                                                            'address_1'     => get_user_meta( $user->ID, 'billing_address_1', true ),
-                                                            'address_2'     => get_user_meta( $user->ID, 'billing_address_2', true ),
-                                                            'city'          => get_user_meta( $user->ID, 'billing_city', true ),
-                                                            'state'         => get_user_meta( $user->ID, 'billing_state', true ),
-                                                            'postcode'      => get_user_meta( $user->ID, 'billing_postcode', true ),
-                                                            'country'       => get_user_meta( $user->ID, 'billing_country', true ),
-                                                        ) );
+                                                        $formatted = YITH_Vendors()->is_wc_2_7_or_greather ? $order->get_formatted_billing_address() :
+                                                            WC()->countries->get_formatted_address( array(
+                                                                'first_name'    => $user->first_name,
+                                                                'last_name'     => $user->last_name,
+                                                                'company'       => $user->billing_company,
+                                                                'address_1'     => get_user_meta( $user->ID, 'billing_address_1', true ),
+                                                                'address_2'     => get_user_meta( $user->ID, 'billing_address_2', true ),
+                                                                'city'          => get_user_meta( $user->ID, 'billing_city', true ),
+                                                                'state'         => get_user_meta( $user->ID, 'billing_state', true ),
+                                                                'postcode'      => get_user_meta( $user->ID, 'billing_postcode', true ),
+                                                                'country'       => get_user_meta( $user->ID, 'billing_country', true ),
+                                                            )
+                                                        );
 
                                                         echo wp_kses( $formatted, array( 'br' => array() ) )
                                                         ?>
@@ -240,17 +253,19 @@ $item_id = $commission->line_item_id;
                                                         <?php
 
                                                         // Formatted Addresses
-                                                        $formatted = WC()->countries->get_formatted_address( array(
-                                                            'first_name'    => get_user_meta( $user->ID, 'shipping_first_name', true ),
-                                                            'last_name'     => get_user_meta( $user->ID, 'shipping_last_name', true ),
-                                                            'company'       => get_user_meta( $user->ID, 'shipping_company', true ),
-                                                            'address_1'     => get_user_meta( $user->ID, 'shipping_address_1', true ),
-                                                            'address_2'     => get_user_meta( $user->ID, 'shipping_address_2', true ),
-                                                            'city'          => get_user_meta( $user->ID, 'shipping_city', true ),
-                                                            'state'         => get_user_meta( $user->ID, 'shipping_state', true ),
-                                                            'postcode'      => get_user_meta( $user->ID, 'shipping_postcode', true ),
-                                                            'country'       => get_user_meta( $user->ID, 'shipping_country', true ),
-                                                        ) );
+                                                        $formatted = YITH_Vendors()->is_wc_2_7_or_greather ? $order->get_formatted_shipping_address() :
+                                                            WC()->countries->get_formatted_address( array(
+                                                                'first_name'    => get_user_meta( $user->ID, 'shipping_first_name', true ),
+                                                                'last_name'     => get_user_meta( $user->ID, 'shipping_last_name', true ),
+                                                                'company'       => get_user_meta( $user->ID, 'shipping_company', true ),
+                                                                'address_1'     => get_user_meta( $user->ID, 'shipping_address_1', true ),
+                                                                'address_2'     => get_user_meta( $user->ID, 'shipping_address_2', true ),
+                                                                'city'          => get_user_meta( $user->ID, 'shipping_city', true ),
+                                                                'state'         => get_user_meta( $user->ID, 'shipping_state', true ),
+                                                                'postcode'      => get_user_meta( $user->ID, 'shipping_postcode', true ),
+                                                                'country'       => get_user_meta( $user->ID, 'shipping_country', true ),
+                                                            )
+                                                        );
 
                                                         echo wp_kses( $formatted, array( 'br' => array() ) )
                                                         ?>
@@ -277,9 +292,27 @@ $item_id = $commission->line_item_id;
 									<thead>
 										<tr>
 											<th class="item sortable" colspan="2"><?php _e( 'Item', 'woocommerce' ) ?></th>
-											<th class="quantity sortable"><?php _e( 'Qty', 'woocommerce' ) ?></th>
-											<th class="item_cost sortable"><?php _e( 'Cost', 'woocommerce' ) ?></th>
-											<th class="wc-order-edit-line-item" width="1%">&nbsp;</th>
+                                            <?php do_action( 'yith_wcmv_admin_order_item_headers', $order, $item, $item_id ); ?>
+                                            <th class="item_cost sortable"><?php _e( 'Cost', 'woocommerce' ) ?></th>
+                                            <th class="quantity sortable"><?php _e( 'Qty', 'woocommerce' ) ?></th>
+                                            <th class="line_cost sortable" data-sort="float"><?php _e( 'Total', 'woocommerce' ); ?></th>
+                                            <?php
+                                            if ( empty( $legacy_order ) && ! empty( $order_taxes ) ) :
+                                                foreach ( $order_taxes as $tax_id => $tax_item ) :
+                                                    $tax_class      = wc_get_tax_class_by_tax_id( $tax_item['rate_id'] );
+                                                    $tax_class_name = isset( $classes_options[ $tax_class ] ) ? $classes_options[ $tax_class ] : __( 'Tax', 'woocommerce' );
+                                                    $column_label   = ! empty( $tax_item['label'] ) ? $tax_item['label'] : __( 'Tax', 'woocommerce' );
+                                                    $column_tip     = $tax_item['name'] . ' (' . $tax_class_name . ')';
+                                                    ?>
+                                                    <th class="line_tax tips" data-tip="<?php echo esc_attr( $column_tip ); ?>">
+                                                        <?php echo esc_attr( $column_label ); ?>
+                                                        <input type="hidden" class="order-tax-id" name="order_taxes[<?php echo $tax_id; ?>]" value="<?php echo esc_attr( $tax_item['rate_id'] ); ?>">
+                                                        <a class="delete-order-tax" href="#" data-rate_id="<?php echo $tax_id; ?>"></a>
+                                                    </th>
+                                                    <?php
+                                                endforeach;
+                                            endif;
+                                            ?>
 										</tr>
 									</thead>
 
@@ -288,7 +321,8 @@ $item_id = $commission->line_item_id;
 
 											<td class="thumb">
 												<?php if ( $product ) : ?>
-													<a href="<?php echo esc_url( admin_url( 'post.php?post=' . absint( $product->id ) . '&action=edit' ) ); ?>" class="tips" data-tip="<?php
+                                                    <?php $product_id = yit_get_prop( $product, 'id' ); ?>
+													<a href="<?php echo esc_url( admin_url( 'post.php?post=' . absint( $product_id ) . '&action=edit' ) ); ?>" class="tips" data-tip="<?php
 
 													echo '<strong>' . __( 'Product ID:', 'woocommerce' ) . '</strong> ' . absint( $item['product_id'] );
 
@@ -301,9 +335,11 @@ $item_id = $commission->line_item_id;
 													if ( $product && $product->get_sku() ) {
 														echo '<br/><strong>' . __( 'Product SKU:', 'woocommerce' ).'</strong> ' . esc_html( $product->get_sku() );
 													}
+                                                    //TODO: Testare
+													$variation_data = $product->get_attributes();
 
-													if ( $product && isset( $product->variation_data ) ) {
-														echo '<br/>' . wc_get_formatted_variation( $product->variation_data, true );
+													if ( $product && isset( $variation_data ) ) {
+														echo '<br/>' . wc_get_formatted_variation( $variation_data, true );
 													}
 
 													?>"><?php echo $product->get_image( 'shop_thumbnail', array( 'title' => '' ) ); ?></a>
@@ -317,7 +353,7 @@ $item_id = $commission->line_item_id;
 												<?php echo ( $product && $product->get_sku() ) ? esc_html( $product->get_sku() ) . ' &ndash; ' : ''; ?>
 
 												<?php if ( $product ) : ?>
-													<a target="_blank" href="<?php echo esc_url( admin_url( 'post.php?post=' . absint( $product->id ) . '&action=edit' ) ); ?>">
+													<a target="_blank" href="<?php echo esc_url( admin_url( 'post.php?post=' . absint( $product_id ) . '&action=edit' ) ); ?>">
 														<?php echo esc_html( $item['name'] ); ?>
 													</a>
 												<?php else : ?>
@@ -326,10 +362,21 @@ $item_id = $commission->line_item_id;
                                                 <div class="view">
                                                     <?php
                                                     global $wpdb;
+                                                    $metadata = false;
 
-                                                    if ( $metadata = $order->has_meta( $item_id ) ) {
+                                                    if( YITH_Vendors()->is_wc_2_7_or_greather ){
+                                                        $metadata = $item->get_meta_data();
+                                                    }
+
+                                                    else {
+                                                        $metadata = $order->has_meta( $item_id );
+                                                    }
+
+                                                    if ( $metadata ) {
                                                         echo '<table cellspacing="0" class="display_meta">';
-                                                        foreach ( $metadata as $meta ) {
+                                                        foreach ( $metadata as $single_meta ) {
+
+                                                            $meta = yith_wcmv_get_meta_field( $single_meta );
 
                                                             // Skip hidden core fields
                                                             if ( in_array( $meta['meta_key'], apply_filters( 'woocommerce_hidden_order_itemmeta', array(
@@ -370,32 +417,98 @@ $item_id = $commission->line_item_id;
                                                 </div>
 											</td>
 
-											<td class="quantity" width="1%">
-												<div class="view">
-													<?php
-													echo ( isset( $item['qty'] ) ) ? esc_html( $item['qty'] ) : '';
-
-													if ( $refunded_qty = $order->get_qty_refunded_for_item( $item_id ) ) {
-														echo '<small class="refunded">-' . $refunded_qty . '</small>';
-													}
-													?>
-												</div>
-											</td>
+                                            <?php do_action( 'yith_wcmv_admin_order_item_values', $product, $item, absint( $item_id ) ); ?>
 
 											<td class="item_cost" width="1%">
 												<div class="view">
 													<?php
+                                                    $currency = array( 'currency' => yith_wcmv_get_order_currency( $order ) );
+
 													if ( isset( $item['line_total'] ) ) {
 														if ( isset( $item['line_subtotal'] ) && $item['line_subtotal'] != $item['line_total'] ) {
-															echo '<del>' . wc_price( $order->get_item_subtotal( $item, false, true ), array( 'currency' => $order->get_order_currency() ) ) . '</del> ';
+															echo '<del>' . wc_price( $order->get_item_subtotal( $item, false, true ), $currency ) . '</del> ';
 														}
-														echo wc_price( $order->get_item_total( $item, false, true ), array( 'currency' => $order->get_order_currency() ) );
+														echo wc_price( $order->get_item_total( $item, false, true ), $currency );
 													}
 													?>
 												</div>
 											</td>
 
-											<td class="line_tax" width="1%"></td>
+                                            <td class="quantity" width="1%">
+                                                <div class="view">
+                                                    <?php
+                                                    echo ( isset( $item['qty'] ) ) ? esc_html( $item['qty'] ) : '';
+
+                                                    if ( $refunded_qty = $order->get_qty_refunded_for_item( $item_id ) ) {
+                                                        echo '<small class="refunded">-' . $refunded_qty . '</small>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </td>
+
+                                            <td class="line_cost" width="1%" data-sort-value="<?php echo esc_attr( isset( $item['line_total'] ) ? $item['line_total'] : '' ); ?>">
+                                                <div class="view">
+                                                    <?php
+                                                    if ( isset( $item['line_total'] ) ) {
+                                                        echo wc_price( $item['line_total'], $currency );
+                                                    }
+
+                                                    if ( isset( $item['line_subtotal'] ) && $item['line_subtotal'] !== $item['line_total'] ) {
+                                                        echo '<span class="wc-order-item-discount">-' . wc_price( wc_format_decimal( $item['line_subtotal'] - $item['line_total'], '' ), $currency ) . '</span>';
+                                                    }
+
+                                                    if ( $refunded = $order->get_total_refunded_for_item( $item_id ) ) {
+                                                        echo '<small class="refunded">' . wc_price( $refunded, $currency ) . '</small>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </td>
+
+                                            <?php
+                                            if ( ! empty( $tax_data ) ) {
+                                                foreach ( $order_taxes as $tax_item ) {
+                                                    $tax_item_id       = $tax_item['rate_id'];
+                                                    $tax_item_total    = isset( $tax_data['total'][ $tax_item_id ] ) ? $tax_data['total'][ $tax_item_id ] : '';
+                                                    $tax_item_subtotal = isset( $tax_data['subtotal'][ $tax_item_id ] ) ? $tax_data['subtotal'][ $tax_item_id ] : '';
+                                                    ?>
+                                                    <td class="line_tax" width="1%">
+                                                        <div class="view">
+                                                            <?php
+                                                            if ( '' != $tax_item_total ) {
+                                                                echo wc_price( wc_round_tax_total( $tax_item_total ), $currency );
+                                                            } else {
+                                                                echo '&ndash;';
+                                                            }
+
+                                                            if ( isset( $item['line_subtotal'] ) && $item['line_subtotal'] !== $item['line_total'] ) {
+                                                                echo '<span class="wc-order-item-discount">-' . wc_price( wc_round_tax_total( $tax_item_subtotal - $tax_item_total ), $currency ) . '</span>';
+                                                            }
+
+                                                            if ( $refunded = $order->get_tax_refunded_for_item( $item_id, $tax_item_id ) ) {
+                                                                echo '<small class="refunded">' . wc_price( $refunded, $currency ) . '</small>';
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                        <div class="edit" style="display: none;">
+                                                            <div class="split-input">
+                                                                <div class="input">
+                                                                    <label><?php esc_attr_e( 'Pre-discount:', 'woocommerce' ); ?></label>
+                                                                    <input type="text" name="line_subtotal_tax[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $tax_item_id ); ?>]" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $tax_item_subtotal ) ); ?>" class="line_subtotal_tax wc_input_price" data-subtotal_tax="<?php echo esc_attr( wc_format_localized_price( $tax_item_subtotal ) ); ?>" data-tax_id="<?php echo esc_attr( $tax_item_id ); ?>" />
+                                                                </div>
+                                                                <div class="input">
+                                                                    <label><?php esc_attr_e( 'Total:', 'woocommerce' ); ?></label>
+                                                                    <input type="text" name="line_tax[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $tax_item_id ); ?>]" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $tax_item_total ) ); ?>" class="line_tax wc_input_price" data-total_tax="<?php echo esc_attr( wc_format_localized_price( $tax_item_total ) ); ?>" data-tax_id="<?php echo esc_attr( $tax_item_id ); ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="refund" style="display: none;">
+                                                            <input type="text" name="refund_line_tax[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $tax_item_id ); ?>]" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" class="refund_line_tax wc_input_price" data-tax_id="<?php echo esc_attr( $tax_item_id ); ?>" />
+                                                        </div>
+                                                    </td>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
 										</tr>
 									</tbody>
 
@@ -405,9 +518,10 @@ $item_id = $commission->line_item_id;
 											<td class="thumb"><div></div></td>
 
 											<td class="name">
-												<?php echo esc_attr__( 'Refund', 'woocommerce' ) . ' #' . absint( $refund->id ) . ' - ' . esc_attr( date_i18n( get_option( 'date_format' ) . ', ' . get_option( 'time_format' ), strtotime( $refund->post->post_date ) ) ); ?>
-												<?php if ( $refund->get_refund_reason() ) : ?>
-													<p class="description"><?php echo esc_html( $refund->get_refund_reason() ); ?></p>
+                                                <?php $refund_reason = YITH_Vendors()->is_wc_2_7_or_greather ? 'refund_reason' : 'get_refund_reasons'; ?>
+												<?php echo esc_attr__( 'Refund', 'woocommerce' ) . ' #' . absint( yit_get_prop( $refund, 'id' ) ) . ' - ' . esc_attr( date_i18n( get_option( 'date_format' ) . ', ' . get_option( 'time_format' ), yit_get_prop( $refund, 'date_created' ) ) );  ?>
+												<?php if ( $refund->$refund_reason() ) : ?>
+													<p class="description"><?php echo esc_html( $refund->$refund_reason() ); ?></p>
 												<?php endif; ?>
 											</td>
 
@@ -443,7 +557,7 @@ $item_id = $commission->line_item_id;
                                                 $link_before = $link_after = '';
                                                 if ( current_user_can( 'manage_woocommerce' ) ) {
                                                     $link = $post_id ? esc_url( add_query_arg( array( 'post' => $post_id, 'action' => 'edit' ), admin_url( 'post.php' ) ) ) : add_query_arg( array( 's' => $item['name'], 'post_status' => 'all', 'post_type' => 'shop_coupon' ), admin_url( 'edit.php' ) );
-                                                    $link_before = '<a href="' . esc_url( $link ) . '" class="tips" data-tip="' . esc_attr( wc_price( $item['discount_amount'], array( 'currency' => $order->get_order_currency() ) ) ) . '">';
+                                                    $link_before = '<a href="' . esc_url( $link ) . '" class="tips" data-tip="' . esc_attr( wc_price( $item['discount_amount'], $currency ) ) . '">';
                                                     $link_after = '</a>';
                                                 }
 
@@ -467,22 +581,22 @@ $item_id = $commission->line_item_id;
 										<tr>
 											<td class="label"><?php _e( 'Commission', 'yith-woocommerce-product-vendors' ) ?>:</td>
 											<td class="total">
-												<?php echo str_replace( array( '<span class="amount">', '</span>' ), '', wc_price( $commission->get_amount() + abs( $commission->get_refund_amount() ) ) ) ?>
+												<?php echo str_replace( array( '<span class="amount">', '</span>' ), '', wc_price( $commission->get_amount() + abs( $commission->get_refund_amount() ), $currency ) ) ?>
 											</td>
 											<td width="1%"></td>
 										</tr>
 
                                         <?php if ( $commission->get_refunds() ) : ?>
 										<tr>
-											<td class="label refunded-total">Refunded:</td>
+											<td class="label refunded-total"><?php printf( '%s:', __( 'Refunded', 'yith-woocommerce-product-vendors' ) ) ?></td>
 											<td class="total refunded-total"><?php echo $commission->get_refund_amount( 'display' ) ?></td>
 											<td width="1%"></td>
 										</tr>
                                         <?php endif; ?>
 
 										<tr>
-											<td class="label">Total:</td>
-											<td class="total"><?php echo $commission->get_amount( 'display' ) ?></td>
+											<td class="label"><?php printf( '%s:', __( 'Total', 'yith-woocommerce-product-vendors' ) ); ?></td>
+											<td class="total"><?php echo $commission->get_amount( 'display', $currency ) ?></td>
 											<td width="1%"></td>
 										</tr>
 

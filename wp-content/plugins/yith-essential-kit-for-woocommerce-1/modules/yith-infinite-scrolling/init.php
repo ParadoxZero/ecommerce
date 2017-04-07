@@ -3,7 +3,7 @@
  * Plugin Name: YITH Infinite Scrolling
  * Plugin URI: https://yithemes.com/themes/plugins/yith-infinite-scrolling/
  * Description: YITH Infinite Scrolling add infinite scroll to your page.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: YITHEMES
  * Author URI: https://yithemes.com/
  * Text Domain: yith-infinite-scrolling
@@ -11,7 +11,7 @@
  *
  * @author Yithemes
  * @package YITH Infinite Scrolling
- * @version 1.0.6
+ * @version 1.0.7
  */
 /*  Copyright 2015  Your Inspiration Themes  ( email: plugins@yithemes.com )
 
@@ -50,7 +50,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_INFS_VERSION' ) ){
-	define( 'YITH_INFS_VERSION', '1.0.6' );
+	define( 'YITH_INFS_VERSION', '1.0.7' );
 }
 
 if ( ! defined( 'YITH_INFS_FREE_INIT' ) ) {
@@ -82,13 +82,18 @@ if ( ! defined( 'YITH_INFS_ASSETS_URL' ) ) {
 	define( 'YITH_INFS_ASSETS_URL', YITH_INFS_URL . 'assets' );
 }
 
+if( ! defined( 'YITH_INFS_OPTION_NAME' ) ) {
+	define( 'YITH_INFS_OPTION_NAME', 'yit_infs_options' );
+}
+
+
+
 function yith_infs_init() {
 
 	load_plugin_textdomain( 'yith-infinite-scrolling', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );
 
 	// Load required classes and functions
-	require_once( 'includes/class.yith-infs-admin.php' );
-	require_once( 'includes/class.yith-infs-frontend.php' );
+	require_once( 'includes/functions.yith-infs.php' );
 	require_once( 'includes/class.yith-infs.php' );
 
 	// Let's start the game!

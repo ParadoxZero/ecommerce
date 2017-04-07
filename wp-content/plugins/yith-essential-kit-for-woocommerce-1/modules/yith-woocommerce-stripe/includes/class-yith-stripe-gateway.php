@@ -37,27 +37,6 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		public $instance = '';
 
 		/**
-		 * @var array Zero decimals currencies
-		 */
-		protected $zero_decimals = array(
-			'BIF',
-			'CLP',
-			'DJF',
-			'GNF',
-			'JPY',
-			'KMF',
-			'KRW',
-			'MGA',
-			'PYG',
-			'RWF',
-			'VND',
-			'VUV',
-			'XAF',
-			'XOF',
-			'XPF'
-		);
-
-		/**
 		 * @var array List cards
 		 */
 		public $cards = array(
@@ -81,8 +60,8 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		public function __construct() {
 			$this->id         = YITH_WCStripe::$gateway_id;
 			$this->has_fields = true;
-			$this->method_title       = apply_filters( 'yith_stripe_method_title', __( 'Stripe', 'yith-stripe' ) );
-			$this->method_description = apply_filters( 'yith_stripe_method_description', __( 'Take payments via Stripe - uses stripe.js to create card tokens and the Stripe SDK. Requires SSL when sandbox is disabled.', 'yith-stripe' ) );
+			$this->method_title       = apply_filters( 'yith_stripe_method_title', __( 'Stripe', 'yith-woocommerce-stripe' ) );
+			$this->method_description = apply_filters( 'yith_stripe_method_description', __( 'Take payments via Stripe - uses stripe.js to create card tokens and the Stripe SDK. Requires SSL when sandbox is disabled.', 'yith-woocommerce-stripe' ) );
 			$this->supports           = array(
 				'products'
 			);
@@ -91,6 +70,9 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 			// Load the settings.
 			$this->init_form_fields();
 			$this->init_settings();
+
+			// Init errors code
+			$this->errors();
 
 			// Define user set variables
 			$this->title       = $this->get_option( 'title' );
@@ -136,21 +118,21 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		 * @since 1.0.0
 		 */
 		protected function errors() {
-			$this->errors = array(
+			$this->errors = apply_filters( 'yith-wcstripe-error-messages', array(
 				// Codes
-				'incorrect_number'      => __( 'The card number is incorrect.', 'yith-stripe' ),
-				'invalid_number'        => __( 'The card number is not a valid credit card number.', 'yith-stripe' ),
-				'invalid_expiry_month'  => __( 'The card\'s expiration month is invalid.', 'yith-stripe' ),
-				'invalid_expiry_year'   => __( 'The card\'s expiration year is invalid.', 'yith-stripe' ),
-				'invalid_cvc'           => __( 'The card\'s security code is invalid.', 'yith-stripe' ),
-				'expired_card'          => __( 'The card has expired.', 'yith-stripe' ),
-				'incorrect_cvc'         => __( 'The card\'s security code is incorrect.', 'yith-stripe' ),
-				'incorrect_zip'         => __( 'The card\'s zip code failed validation.', 'yith-stripe' ),
-				'card_declined'         => __( 'The card was declined.', 'yith-stripe' ),
-				'missing'               => __( 'There is no card on a customer that is being charged.', 'yith-stripe' ),
-				'processing_error'      => __( 'An error occurred while processing the card.', 'yith-stripe' ),
-				'rate_limit'            => __( 'An error occurred due to requests hitting the API too quickly. Please let us know if you\'re consistently running into this error.', 'yith-stripe' )
-			);
+				'incorrect_number'      => __( 'The card number is incorrect.', 'yith-woocommerce-stripe' ),
+				'invalid_number'        => __( 'The card number is not a valid credit card number.', 'yith-woocommerce-stripe' ),
+				'invalid_expiry_month'  => __( 'The card\'s expiration month is invalid.', 'yith-woocommerce-stripe' ),
+				'invalid_expiry_year'   => __( 'The card\'s expiration year is invalid.', 'yith-woocommerce-stripe' ),
+				'invalid_cvc'           => __( 'The card\'s security code is invalid.', 'yith-woocommerce-stripe' ),
+				'expired_card'          => __( 'The card has expired.', 'yith-woocommerce-stripe' ),
+				'incorrect_cvc'         => __( 'The card\'s security code is incorrect.', 'yith-woocommerce-stripe' ),
+				'incorrect_zip'         => __( 'The card\'s zip code failed validation.', 'yith-woocommerce-stripe' ),
+				'card_declined'         => __( 'The card was declined.', 'yith-woocommerce-stripe' ),
+				'missing'               => __( 'There is no card on a customer that is being charged.', 'yith-woocommerce-stripe' ),
+				'processing_error'      => __( 'An error occurred while processing the card.', 'yith-woocommerce-stripe' ),
+				'rate_limit'            => __( 'An error occurred due to requests hitting the API too quickly. Please let us know if you\'re consistently running into this error.', 'yith-woocommerce-stripe' )
+			) );
 		}
 
 		/**
@@ -164,19 +146,19 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 			}
 
 			if ( ! function_exists( 'curl_init' ) ) {
-				echo '<div class="error"><p>' . __( 'Stripe needs the CURL PHP extension.', 'yith-stripe' ) . '</p></div>';
+				echo '<div class="error"><p>' . __( 'Stripe needs the CURL PHP extension.', 'yith-woocommerce-stripe' ) . '</p></div>';
 			}
 
 			if ( ! function_exists( 'json_decode' ) ) {
-				echo '<div class="error"><p>' . __( 'Stripe needs the JSON PHP extension.', 'yith-stripe' ) . '</p></div>';
+				echo '<div class="error"><p>' . __( 'Stripe needs the JSON PHP extension.', 'yith-woocommerce-stripe' ) . '</p></div>';
 			}
 
 			if ( ! function_exists( 'mb_detect_encoding' ) ) {
-				echo '<div class="error"><p>' . __( 'Stripe needs the Multibyte String PHP extension.', 'yith-stripe' ) . '</p></div>';
+				echo '<div class="error"><p>' . __( 'Stripe needs the Multibyte String PHP extension.', 'yith-woocommerce-stripe' ) . '</p></div>';
 			}
 
 			if ( ! $this->public_key || ! $this->private_key ) {
-				echo '<div class="error"><p>' . __( 'Please enter the public and private keys for Stripe gateway.', 'yith-stripe' ) . '</p></div>';
+				echo '<div class="error"><p>' . __( 'Please enter the public and private keys for Stripe gateway.', 'yith-woocommerce-stripe' ) . '</p></div>';
 			}
 
 			if ( 'standard' == $this->mode && $this->env != 'test' && 'no' == get_option( 'woocommerce_force_ssl_checkout' ) && ! class_exists( 'WordPressHTTPS' ) ) {
@@ -230,78 +212,78 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		public function init_form_fields() {
 			$this->form_fields = array(
 				'enabled'              => array(
-					'title'   => __( 'Enable/Disable', 'yith-stripe' ),
+					'title'   => __( 'Enable/Disable', 'yith-woocommerce-stripe' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable Stripe Payment', 'yith-stripe' ),
+					'label'   => __( 'Enable Stripe Payment', 'yith-woocommerce-stripe' ),
 					'default' => 'yes'
 				),
 				'title' => array(
-					'title'       => __( 'Title', 'yith-stripe' ),
+					'title'       => __( 'Title', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
-					'description' => __( 'This controls the title which the user sees during checkout.', 'yith-stripe' ),
-					'default'     => __( 'Credit Card', 'yith-stripe' ),
+					'description' => __( 'This controls the title which the user sees during checkout.', 'yith-woocommerce-stripe' ),
+					'default'     => __( 'Credit Card', 'yith-woocommerce-stripe' ),
 					'desc_tip'    => true,
 				),
 				'description' => array(
-					'title'       => __( 'Description', 'yith-stripe' ),
+					'title'       => __( 'Description', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
-					'description' => __( 'This controls the description which the user sees during checkout.', 'yith-stripe' ),
-					'default'     => __( 'Pay with a credit card.', 'yith-stripe' )
+					'description' => __( 'This controls the description which the user sees during checkout.', 'yith-woocommerce-stripe' ),
+					'default'     => __( 'Pay with a credit card.', 'yith-woocommerce-stripe' )
 				),
 				'customization'   => array(
-					'title'       => __( 'Customization', 'yith-stripe' ),
+					'title'       => __( 'Customization', 'yith-woocommerce-stripe' ),
 					'type'        => 'title',
-					'description' => __( 'Customize the payment gateway on frontend', 'yith-stripe' ),
+					'description' => __( 'Customize the payment gateway on frontend', 'yith-woocommerce-stripe' ),
 				),
 				'modal_image' => array(
-					'title'       => __( 'Modal image', 'yith-stripe' ),
+					'title'       => __( 'Modal image', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
-					'description' => __( 'Define the URL of image to show on Stripe checkout modal.', 'yith-stripe' ),
+					'description' => __( 'Define the URL of image to show on Stripe checkout modal.', 'yith-woocommerce-stripe' ),
 					'default'     => ''
 				),
 				'testing'         => array(
-					'title'       => __( 'Testing & Debug', 'yith-stripe' ),
+					'title'       => __( 'Testing & Debug', 'yith-woocommerce-stripe' ),
 					'type'        => 'title',
-					'description' => __( 'Enable here the testing mode, to debug the payment system before going into production', 'yith-stripe' ),
+					'description' => __( 'Enable here the testing mode, to debug the payment system before going into production', 'yith-woocommerce-stripe' ),
 				),
 				'enabled_test_mode'    => array(
-					'title'   => __( 'Enable Test Mode', 'yith-stripe' ),
+					'title'   => __( 'Enable Test Mode', 'yith-woocommerce-stripe' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Check this option if you want to test the gateway before going into production', 'yith-stripe' ),
+					'label'   => __( 'Check this option if you want to test the gateway before going into production', 'yith-woocommerce-stripe' ),
 					'default' => 'yes'
 				),
 				'keys'                 => array(
-					'title'       => __( 'API Keys', 'yith-stripe' ),
+					'title'       => __( 'API Keys', 'yith-woocommerce-stripe' ),
 					'type'        => 'title',
-					'description' => sprintf( __( 'You can find it in <a href="%s">your stripe dashboard</a>', 'yith-stripe' ), 'https://dashboard.stripe.com/account/apikeys' ),
+					'description' => sprintf( __( 'You can find it in <a href="%s">your stripe dashboard</a>', 'yith-woocommerce-stripe' ), 'https://dashboard.stripe.com/account/apikeys' ),
 				),
 				'test_secrect_key'     => array(
-					'title'       => __( 'Test Secret Key', 'yith-stripe' ),
+					'title'       => __( 'Test Secret Key', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
-					'description' => __( 'Set the secret API key for test', 'yith-stripe' ),
+					'description' => __( 'Set the secret API key for test', 'yith-woocommerce-stripe' ),
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'test_publishable_key' => array(
-					'title'       => __( 'Test Publishable Key', 'yith-stripe' ),
+					'title'       => __( 'Test Publishable Key', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
-					'description' => __( 'Set the published API key for test', 'yith-stripe' ),
+					'description' => __( 'Set the published API key for test', 'yith-woocommerce-stripe' ),
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'live_secrect_key'     => array(
-					'title'       => __( 'Live Secret Key', 'yith-stripe' ),
+					'title'       => __( 'Live Secret Key', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
-					'description' => __( 'Set the secret API key for live production', 'yith-stripe' ),
+					'description' => __( 'Set the secret API key for live production', 'yith-woocommerce-stripe' ),
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'live_publishable_key' => array(
-					'title'       => __( 'Live Publishable Key', 'yith-stripe' ),
+					'title'       => __( 'Live Publishable Key', 'yith-woocommerce-stripe' ),
 					'type'        => 'text',
-					'description' => __( 'Set the published API key for live production', 'yith-stripe' ),
+					'description' => __( 'Set the published API key for live production', 'yith-woocommerce-stripe' ),
 					'default'     => '',
 					'desc_tip'    => true,
 				),
@@ -352,18 +334,20 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		protected function pay( $order = null ) {
 			// Initializate SDK and set private key
 			$this->init_stripe_sdk();
+			
+			$order_id = yit_get_order_id( $order );
 
 			if ( empty( $order ) ) {
 				$order = $this->_current_order;
 			}
 
 			$params = array(
-				'amount'      => $this->get_amount( $order->order_total, $order->get_order_currency() ), // Amount in cents!
+				'amount'      => YITH_WCStripe::get_amount( $order->get_total(), $order->get_order_currency() ), // Amount in cents!
 				'currency'    => strtolower( $order->get_order_currency() ? $order->get_order_currency() : get_woocommerce_currency() ),
 				'source'      => $this->token,
-				'description' => sprintf( __( '%s - Order %s', 'yith-stripe' ), esc_html( get_bloginfo( 'name' ) ), $order->get_order_number() ),
+				'description' => sprintf( __( '%s - Order %s', 'yith-woocommerce-stripe' ), esc_html( get_bloginfo( 'name' ) ), $order->get_order_number() ),
 				'metadata'    => array(
-					'order_id' => $order->id,
+					'order_id' => $order_id,
 					'instance' => $this->instance
 				)
 			);
@@ -372,21 +356,21 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 
 			// save if bitcoin
 			if ( isset( $charge->inbound_address ) && isset( $charge->bitcoin_uri ) ) {
-				update_post_meta( $order->id, '_bitcoin_inbound_address', $charge->inbound_address );
-				update_post_meta( $order->id, '_bitcoin_uri', $charge->bitcoin_uri );
+				update_post_meta( $order_id, '_bitcoin_inbound_address', $charge->inbound_address );
+				update_post_meta( $order_id, '_bitcoin_uri', $charge->bitcoin_uri );
 			}
 
 			// Payment complete
 			$order->payment_complete( $charge->id );
 
 			// Add order note
-			$order->add_order_note( sprintf( __( 'Stripe payment approved (ID: %s)', 'yith-stripe' ), $charge->id ) );
+			$order->add_order_note( sprintf( __( 'Stripe payment approved (ID: %s)', 'yith-woocommerce-stripe' ), $charge->id ) );
 
 			// Remove cart
 			WC()->cart->empty_cart();
 
 			// update post meta
-			update_post_meta( $order->id, '_captured', ( $charge->captured ? 'yes' : 'no' ) );
+			update_post_meta( $order_id, '_captured', ( $charge->captured ? 'yes' : 'no' ) );
 
 			// Return thank you page redirect
 			return array(
@@ -405,17 +389,17 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		protected function get_hosted_payments_args( $order ) {
 			$args = apply_filters( 'woocommerce_stripe_hosted_args', array(
 				'key'          => $this->public_key,
-				'amount'       => $this->get_amount( $order->order_total, $order->get_order_currency() ),
+				'amount'       => YITH_WCStripe::get_amount( $order->get_total(), $order->get_order_currency() ),
 				'currency'     => strtolower( $order->get_order_currency() ? $order->get_order_currency() : get_woocommerce_currency() ),
 				'name'         => esc_html( get_bloginfo( 'name' ) ),
-				'description'  => sprintf( __( 'Order #%s', 'yith-stripe' ), $order->get_order_number() ),
-				'zip-code'     => $order->billing_postcode,
-				'label'        => __( 'Proceed to payment', 'yith-stripe' ),
-				'email'        => $order->billing_email,
+				'description'  => sprintf( __( 'Order #%s', 'yith-woocommerce-stripe' ), $order->get_order_number() ),
+				'zip-code'     => yit_get_prop( $order, 'billing_postcode' ),
+				'label'        => __( 'Proceed to payment', 'yith-woocommerce-stripe' ),
+				'email'        => yit_get_prop( $order, 'billing_email' ),
 				'image'        => $this->modal_image,
 				'capture'      => 'true',
-				'locale'       => $order->billing_country
-			), $order->id );
+				'locale'       => apply_filters( 'yith_stripe_locale', yit_get_prop( $order, 'billing_country' ) )
+			), yit_get_order_id( $order ) );
 
 			return $args;
 		}
@@ -432,7 +416,7 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 
 			$order = wc_get_order( $order_id );
 
-			echo '<p>' . __( 'Thank you for your order, please click the button below to pay with credit card using Stripe.', 'yith-stripe' ) . '</p>';
+			echo '<p>' . __( 'Thank you for your order, please click the button below to pay with credit card using Stripe.', 'yith-woocommerce-stripe' ) . '</p>';
 
 			$args        = $this->get_hosted_payments_args( $order );
 			$button_args = array();
@@ -495,7 +479,7 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 					}
 
 					if ( $response['result'] == 'fail' ) {
-						$order->update_status( 'failed', __( 'Payment was declined by Stripe.', 'yith-stripe' ) . ' ' . $response['error'] );
+						$order->update_status( 'failed', __( 'Payment was declined by Stripe.', 'yith-woocommerce-stripe' ) . ' ' . $response['error'] );
 					}
 
 					wp_redirect( $this->get_return_url( $order ) );
@@ -516,56 +500,12 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 			$description = $this->get_description();
 
 			if ( 'test' == $this->env ) {
-				$description .= ' ' . sprintf( __( 'TEST MODE ENABLED. Use a test card: %s', 'yith-stripe' ), '<a href="https://stripe.com/docs/testing">https://stripe.com/docs/testing</a>' );
+				$description .= ' ' . sprintf( __( 'TEST MODE ENABLED. Use a test card: %s', 'yith-woocommerce-stripe' ), '<a href="https://stripe.com/docs/testing">https://stripe.com/docs/testing</a>' );
 			}
 
 			if ( $description ) {
 				echo wpautop( wptexturize( trim( $description ) ) );
 			}
-		}
-
-		/**
-		 * Get Stripe amount to pay
-		 *
-		 * @param $total
-		 * @param string $currency
-		 *
-		 * @return float
-		 * @since 1.0.0
-		 */
-		public function get_amount( $total, $currency = '' ) {
-			if ( empty( $currency ) ) {
-				$currency = get_woocommerce_currency();
-			}
-
-			if ( ! in_array( $currency, $this->zero_decimals ) ) {
-				$total *= 100;
-			}
-
-			return absint( $total );
-		}
-
-		/**
-		 * Get original amount
-		 *
-		 * @param $total
-		 * @param string $currency
-		 *
-		 * @return float
-		 * @since 1.0.0
-		 */
-		public function get_original_amount( $total, $currency = '' ) {
-			if ( empty( $currency ) ) {
-				$currency = get_woocommerce_currency();
-			}
-
-			if ( in_array( $currency, $this->zero_decimals ) ) {
-				$total = absint( $total );
-			} else {
-				$total /= 100;
-			}
-
-			return $total;
 		}
 
 		/**

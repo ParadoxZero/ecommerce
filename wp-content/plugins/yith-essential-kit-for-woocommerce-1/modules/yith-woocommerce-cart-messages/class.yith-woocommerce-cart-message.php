@@ -1,6 +1,6 @@
 <?php
-if ( !defined( 'ABSPATH' ) || !defined( 'YITH_YWCM_VERSION' ) ) {
-    exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) || ! defined( 'YITH_YWCM_VERSION' ) ) {
+	exit; // Exit if accessed directly
 }
 
 /**
@@ -11,35 +11,41 @@ if ( !defined( 'ABSPATH' ) || !defined( 'YITH_YWCM_VERSION' ) ) {
  * @since   1.0.0
  * @author  Your Inspiration Themes
  */
-if ( !class_exists( 'YWCM_Cart_Message' ) ) {
+if ( ! class_exists( 'YWCM_Cart_Message' ) ) {
 
-    class YWCM_Cart_Message {
+	/**
+	 * Class YWCM_Cart_Message
+	 */
+	class YWCM_Cart_Message {
 
-        /**
-         * @var object The single instance of the class
-         * @since 1.0
-         */
-        protected static $_instance = null;
+		/**
+		 * @var object The single instance of the class
+		 * @since 1.0
+		 */
+		protected static $_instance = null;
 
-        public $post_type_name = 'ywcm_message';
+		/**
+		 * @var string
+		 */
+		public $post_type_name = 'ywcm_message';
 
 
-        /**
-         * Main plugin Instance
-         *
-         * @static
-         * @return object Main instance
-         *
-         * @since  1.0
-         * @author Antonino Scarfì <antonino.scarfi@yithemes.com>
-         */
-        public static function instance() {
-            if ( is_null( self::$_instance ) ) {
-                self::$_instance = new self();
-            }
+		/**
+		 * Main plugin Instance
+		 *
+		 * @static
+		 * @return object Main instance
+		 *
+		 * @since  1.0
+		 * @author Antonino Scarfì <antonino.scarfi@yithemes.com>
+		 */
+		public static function instance() {
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+			}
 
-            return self::$_instance;
-        }
+			return self::$_instance;
+		}
 
 
         /**
@@ -143,8 +149,9 @@ if ( !class_exists( 'YWCM_Cart_Message' ) ) {
                 'suppress_filters' => false
             );
 
-            $args = wp_parse_args( $args, $defaults );
-            return get_posts( $args );
+            $args = wp_parse_args($args, $defaults);
+
+            return apply_filters( 'ywcm_get_messages', get_posts($args), $args ) ;
         }
 
 

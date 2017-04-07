@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $woocommerce, $product, $post;
 
 $wc_attribute_label = function_exists('wc_attribute_label') ? 'wc_attribute_label' : 'attribute_label';
+$product_id = ywccl_check_wc_version( '2.6', '>=' ) ? $product->get_id() : $product->id;
 
 $name = isset( $name ) ? $name : '';
 ?>
@@ -30,7 +31,7 @@ $attribute_keys = array_keys( $attributes );
 
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
-<form class="variations_form cart" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint( $product->id ); ?>" data-product_variations="<?php echo htmlspecialchars( json_encode( $available_variations ) ) ?>" data-wccl="true">
+<form class="variations_form cart" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint( $product_id ); ?>" data-product_variations="<?php echo htmlspecialchars( json_encode( $available_variations ) ) ?>" data-wccl="true">
     <?php do_action( 'woocommerce_before_variations_form' ); ?>
 
     <?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>

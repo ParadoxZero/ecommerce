@@ -81,11 +81,18 @@ if ( !class_exists( 'YITH_YWRAQ_Frontend' ) ) {
          */
         public function hide_add_to_cart_single() {
 
-	        global $product;
+	        global $post;
+
+	        if (  ! $post || ! is_object( $post ) || ! is_singular() ) {
+		        return;
+	        }
+
+	        $product = wc_get_product( $post->ID);
+	        if( ! $product ){
+		        return;
+	        }
 	        if ( get_option( 'ywraq_hide_add_to_cart' ) == 'yes' ) {
-
-		        if ( isset( $product ) && $product->product_type == 'variable' ) {
-
+		        if ( isset( $product ) && $product && $product->is_type('variable') ) {
 			        $inline_js = "
                         $( '.single_variation_wrap .variations_button button ' ).hide();
                         $( document).on( 'woocommerce_variation_has_changed', function() {
@@ -94,14 +101,13 @@ if ( !class_exists( 'YITH_YWRAQ_Frontend' ) ) {
                         ";
 
 			        wc_enqueue_js( $inline_js );
-
-		        }
-		        else {
+		        } else {
 			        $priority = has_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart' );
 			        if ( $priority ) {
 				        remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', $priority );
 			        }
 		        }
+
 	        }
 
         }
@@ -116,7 +122,7 @@ if ( !class_exists( 'YITH_YWRAQ_Frontend' ) ) {
          */
         public function hide_add_to_cart_loop( $link , $product) {
 
-            if ( $product->product_type != 'variable') {
+            if ( ! $product->is_type('variable')) {
                 return '';
             }
 
@@ -189,13 +195,13 @@ if ( !class_exists( 'YITH_YWRAQ_Frontend' ) ) {
 
             $args         = array(
                 'class'         => 'add-request-quote-button ' . $style_button,
-                'wpnonce'       => wp_create_nonce( 'add-request-quote-' . $product->id ),
-                'product_id'    => $product->id,
+                'wpnonce'       => wp_create_nonce( 'add-request-quote-' . $product->get_id() ),
+                'product_id'    => $product->get_id(),
                 'label'         => apply_filters( 'ywraq_product_add_to_quote' , get_option('ywraq_show_btn_link_text') ),
                 'label_browse'  => apply_filters( 'ywraq_product_added_view_browse_list' , __( 'Browse the list', 'yith-woocommerce-request-a-quote' ) ),
                 'template_part' => 'button',
                 'rqa_url'       => YITH_Request_Quote()->get_raq_page_url(),
-                'exists'        => ( $product->product_type == 'variable' ) ? false : YITH_Request_Quote()->exists( $product->id )
+                'exists'        => ( $product->is_type('variable') ) ? false : YITH_Request_Quote()->exists( $product->get_id() )
             );
             $args['args'] = $args;
 

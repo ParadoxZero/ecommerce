@@ -276,6 +276,22 @@
             </div>
         </div>
     </div>
+    <div class="section section-even clear" style="background: url(<?php echo YITH_WAPO_ASSETS_URL ?>/img/tab-premium/05-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WAPO_ASSETS_URL ?>/img/tab-premium/05.png" alt="Screenshot" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WAPO_ASSETS_URL ?>/img/tab-premium/05-icon.png" alt="icon" />
+                    <h2><?php _e('Add-on/variation dependency','yith-woocommerce-product-add-ons') ?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('Have you created and configured the add-on for your %1$svariable product%2$s and you want to show it only for a specific variation? Now you can do it with YITH WooCommerce Product Add-Ons. %3$s By %1$ssetting the dependency between variation and add-on%2$s the field will automatically be hidden until the user selects the variation','yith-woocommerce-product-add-ons'),'<b>','</b>', '<br>' ); ?>
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="section section-cta section-odd">
         <div class="landing-container">
             <div class="premium-cta">

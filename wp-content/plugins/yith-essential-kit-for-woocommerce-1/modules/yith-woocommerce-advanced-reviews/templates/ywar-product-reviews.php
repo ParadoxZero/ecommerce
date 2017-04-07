@@ -11,12 +11,12 @@ global $YWAR_AdvancedReview;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
-if (!comments_open($product->id)) {
+$product_id = yit_get_prop( $product, 'id' );
+if (!comments_open($product_id)) {
     return;
 }
 
-$reviews_count = count( $YWAR_AdvancedReview->get_product_reviews_by_rating( $product->id ) );
+$reviews_count = count( $YWAR_AdvancedReview->get_product_reviews_by_rating( $product_id ) );
 ?>
 
 <?php do_action( 'yith_advanced_reviews_before_reviews' ); ?>
@@ -35,7 +35,7 @@ $reviews_count = count( $YWAR_AdvancedReview->get_product_reviews_by_rating( $pr
 			<?php do_action( 'yith_advanced_reviews_before_review_list', $product ); ?>
 
 			<ol class="commentlist">
-				<?php $YWAR_AdvancedReview->reviews_list( $product->id ); ?>
+				<?php $YWAR_AdvancedReview->reviews_list( $product_id ); ?>
 			</ol>
 		<?php else : ?>
 
@@ -44,7 +44,7 @@ $reviews_count = count( $YWAR_AdvancedReview->get_product_reviews_by_rating( $pr
 		<?php endif; ?>
 	</div>
 
-	<?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->id ) ) : ?>
+	<?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product_id ) ) : ?>
 
 		<div id="review_form_wrapper">
 			<div id="review_form">

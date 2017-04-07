@@ -86,9 +86,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 			add_action( 'admin_init', array( $this, 'register_pointer' ) );
 			add_action( 'admin_init', array( $this, 'default_options'), 99 );
 
-			// add image size
-			YITH_Woocompare_Helper::set_image_size();
-
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles_scripts' ), 20 );
 
 			add_action( 'woocommerce_admin_field_woocompare_image_width', array( $this, 'admin_fields_woocompare_image_width' ) );
@@ -153,8 +150,8 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 			$args = array(
 				'create_menu_page' => true,
 				'parent_slug'      => '',
-				'page_title'       => __( 'Compare', 'yith-woocommerce-compare' ),
-				'menu_title'       => __( 'Compare', 'yith-woocommerce-compare' ),
+				'page_title'       => _x( 'Compare', 'Admin Plugin Name', 'yith-woocommerce-compare' ),
+				'menu_title'       => _x( 'Compare', 'Admin Plugin Name', 'yith-woocommerce-compare' ),
 				'capability'       => 'manage_options',
 				'parent'           => '',
 				'parent_page'      => 'yit_plugin_panel',
@@ -382,7 +379,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 
 			$width  = WC_Admin_Settings::get_option( $value['id'] . '[width]', $value['default']['width'] );
 			$height = WC_Admin_Settings::get_option( $value['id'] . '[height]', $value['default']['height'] );
-			$crop   = WC_Admin_Settings::get_option( $value['id'] . '[crop]', $value['default']['crop'] );
 			$crop   = WC_Admin_Settings::get_option( $value['id'] . '[crop]' );
 			$crop   = ( $crop == 'on' || $crop == '1' ) ? 1 : 0;
 			$crop   = checked( 1, $crop, false );

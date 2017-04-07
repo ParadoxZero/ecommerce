@@ -1,5 +1,6 @@
 .wapo-plugin .sortable, .sortable > li { margin: 0; }
-.wapo-plugin .select2-container { width: 350px; }
+.wapo-plugin .select2-container { width: 350px !important; }
+.wapo-plugin table tr td span.select2-container { width: 100% !important; }
 
 .wapo-plugin #group-form > table > tbody > tr > th { width: 100px;  }
 

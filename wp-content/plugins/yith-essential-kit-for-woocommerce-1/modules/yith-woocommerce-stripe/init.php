@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Stripe
  * Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-stripe/
  * Description: Allows you to add Stripe gateway payment to WooCommerce
- * Version: 1.2.9
+ * Version: 1.3.0
  * Author: YIThemes
  * Author URI: http://yithemes.com/
  * Text Domain: yith-stripe
@@ -41,7 +41,7 @@ if ( ! function_exists( 'WC' ) ) {
 	function yith_stripe_premium_install_woocommerce_admin_notice() {
 		?>
 		<div class="error">
-			<p><?php _e( 'YITH WooCommerce Stripe Payment Gateway is enabled but not effective. It requires Woocommerce in order to work.', 'yith-stripe' ); ?></p>
+			<p><?php _e( 'YITH WooCommerce Stripe Payment Gateway is enabled but not effective. It requires Woocommerce in order to work.', 'yith-woocommerce-stripe' ); ?></p>
 		</div>
 	<?php
 	}
@@ -54,7 +54,7 @@ if ( defined( 'YITH_WCSTRIPE_PREMIUM' ) ) {
 	function yith_wcstripe_install_free_admin_notice() {
 		?>
 		<div class="error">
-			<p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Stripe while you are using the premium one.', 'yith-stripe' ); ?></p>
+			<p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Stripe while you are using the premium one.', 'yith-woocommerce-stripe' ); ?></p>
 		</div>
 	<?php
 	}
@@ -78,7 +78,7 @@ if ( ! defined( 'YITH_WCSTRIPE' ) ) {
 if ( defined( 'YITH_WCSTRIPE_VERSION' ) ) {
 	return;
 }else{
-	define( 'YITH_WCSTRIPE_VERSION', '1.2.9' );
+	define( 'YITH_WCSTRIPE_VERSION', '1.3.0' );
 }
 
 if ( ! defined( 'YITH_WCSTRIPE_FILE' ) ) {
@@ -100,6 +100,8 @@ if ( ! defined( 'YITH_WCSTRIPE_DIR' ) ) {
 if ( ! defined( 'YITH_WCSTRIPE_INC' ) ) {
 	define( 'YITH_WCSTRIPE_INC', YITH_WCSTRIPE_DIR . 'includes/' );
 }
+
+
 
 if ( ! function_exists( 'YITH_WCStripe' ) ) {
 	/**
@@ -123,7 +125,7 @@ if ( ! function_exists( 'YITH_WCStripe' ) ) {
 
 if ( ! function_exists( 'yith_stripe_constructor' ) ) {
 	function yith_stripe_constructor() {
-		load_plugin_textdomain( 'yith-stripe', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'yith-woocommerce-stripe', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		YITH_WCStripe();
 	}

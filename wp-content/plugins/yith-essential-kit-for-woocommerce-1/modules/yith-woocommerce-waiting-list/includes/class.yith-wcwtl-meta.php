@@ -103,13 +103,14 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 
 			$title = __( 'Waiting list', 'yith-woocommerce-waiting-list' );
 			// get product
-			$product = wc_get_product( $post->ID );
+			$product_id = $post->ID;
+			$product    = wc_get_product( $product_id );
 
-			if( $product->product_type == 'simple' && ! $product->is_in_stock() ) {
+			if( $product->is_type( 'simple' ) && ! $product->is_in_stock() ) {
 				// add metabox
-				$this->add_meta( $product->id, $title );
+				$this->add_meta( $product_id, $title );
 			}
-			elseif( $product->product_type == 'variable' ) {
+			elseif( $product->is_type( 'variable' ) ) {
 				// get variation
 				$variations = $product->get_available_variations();
 
@@ -209,9 +210,10 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 
 
 			$product_id = intval( $_REQUEST['product'] );
+			$product    = wc_get_product( $product_id );
 
-			// get waitlist users for product
-			$users = yith_waitlist_get_registered_users( $product_id );
+			// get waiting list users for product
+			$users = yith_waitlist_get_registered_users( $product );
 
 			if( ! empty( $users ) ) {
 				// send mail
@@ -225,7 +227,7 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 				$msg    = apply_filters( 'yith_wcwtl_send_mail_success', __( 'Email sent correctly.', 'yith-woocommerce-waiting-list' ) );
 				$send   = true;
 				// empty waitlist
-				yith_waitlist_empty( $product_id );
+				yith_waitlist_empty( $product );
 			}
 			else {
 				$msg    = apply_filters( 'yith_wcwtl_send_mail_error', __( 'An error has occurred, please try again.', 'yith-woocommerce-waiting-list' ) );

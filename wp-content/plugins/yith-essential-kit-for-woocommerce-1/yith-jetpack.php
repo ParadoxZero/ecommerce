@@ -202,11 +202,10 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
         public function plugin_fw_loader() {
             if ( ! defined( 'YIT_CORE_PLUGIN' ) ) {
                 global $plugin_fw_data;
-                if( ! empty( $plugin_fw_data ) ) {
+                if ( ! empty( $plugin_fw_data ) ) {
                     $plugin_fw_file = array_shift( $plugin_fw_data );
                     require_once( $plugin_fw_file );
                 }
-                
             }
         }
 

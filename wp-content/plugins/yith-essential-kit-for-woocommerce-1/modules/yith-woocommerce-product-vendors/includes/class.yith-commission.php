@@ -310,7 +310,16 @@ if ( ! class_exists( 'YITH_Commission' ) ) {
 			if ( $item = $this->get_item() ) {
 				$order = $this->get_order();
 
-				return $this->_product = $order->get_product_from_item( $item );
+				if( YITH_Vendors()->is_wc_2_7_or_greather && is_callable( array( $item, 'get_product' ) ) ){
+                    $this->_product = $item->get_product();
+                }
+
+                else {
+				    $this->_product = $order->get_product_from_item( $item );
+                }
+
+
+				return $this->_product;
 			}
 
 			return $this->_product = false;
@@ -384,11 +393,13 @@ if ( ! class_exists( 'YITH_Commission' ) ) {
                 return false;
             }
 
+            $order_date = yit_get_prop( $order, 'order_date' );
+
 			if ( 'display' == $context ) {
-				return date_i18n( 'M j, Y - h:i', strtotime( $order->order_date ) );
+				return date_i18n( 'M j, Y - h:i', strtotime( $order_date ) );
 			}
 
-			return $order->order_date;
+			return $order_date;
 		}
 
 		/**
@@ -398,8 +409,8 @@ if ( ! class_exists( 'YITH_Commission' ) ) {
 		 * @since 1.0
 		 * @return mixed
 		 */
-		public function get_amount( $context = '' ) {
-			return 'display' == $context ? wc_price( $this->amount ) : $this->amount;
+		public function get_amount( $context = '', $args = array() ) {
+			return 'display' == $context ? wc_price( $this->amount, $args ) : $this->amount;
 		}
 
 		/**
@@ -562,9 +573,10 @@ if ( ! class_exists( 'YITH_Commission' ) ) {
 			// retrieve refunds from order
 			/** @var $refund WC_Order_Refund */
 			foreach ( $order->get_refunds() as $refund ) {
-				$commissions_refunded = get_post_meta( $refund->id, '_refunded_commissions', true );
+			    $refund_id = yit_get_prop( $refund, 'id' );
+				$commissions_refunded = get_post_meta( $refund_id, '_refunded_commissions', true );
 				if ( isset( $commissions_refunded[ $this->id ] ) ) {
-					$this->_refunds[ $refund->id ] = $commissions_refunded[ $this->id ];
+					$this->_refunds[ $refund_id ] = $commissions_refunded[ $this->id ];
 				}
 			}
 
@@ -609,6 +621,20 @@ if ( ! class_exists( 'YITH_Commission' ) ) {
 
 			return $return;
 		}
+
+		/**
+         *
+         */
+		public function get_order_status( $order = false ){
+		    if( ! $order ){
+                $order = $this->get_order();
+            }
+
+            $wc_order_status = wc_get_order_statuses();
+		    $order_status = yit_get_prop( $order, 'post_status' );
+
+            return isset( $wc_order_status[ $order_status ] ) ? $wc_order_status[ $order_status ] : $order_status;
+        }
 	}
 }
 

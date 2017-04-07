@@ -94,7 +94,6 @@
     $('#yith_wpv_report_abuse_link').yith_wpv_option_deps( '#yith_wpv_report_abuse_link_text', 'select', 'none', false );
     vendor_name_style.yith_wpv_option_deps( '#yith_vendors_color_name', 'select', 'theme', true );
     vendor_name_style.yith_wpv_option_deps( '#yith_vendors_color_name_hover', 'select', 'theme', true );
-    $('#yith_wpv_vendors_my_account_registration').yith_wpv_option_deps( '#yith_wpv_vendors_my_account_registration_auto_approve', 'checkbox', undefined, false );
     vendor_order_refund.yith_wpv_option_deps( '#yith_wpv_vendors_option_order_synchronization', 'checkbox', undefined, false );
     vendor_order_refund.yith_wpv_option_deps( '#yith_wpv_vendors_option_order_refund_synchronization', 'checkbox', undefined, false );
     vendor_order_refund.yith_wpv_option_deps( '#yith_wpv_vendors_option_order_hide_customer', 'checkbox', undefined, false );
@@ -141,16 +140,23 @@
         }
     }
 
-    //Remove product reviews from product detail page
-    if( yith_vendors_caps.reviews == 'no' && $body.hasClass('vendor_limited_access') ){
-        if( $body.hasClass('post-type-product') ){
-            $('#commentsdiv').remove();
+    if( $body.hasClass('vendor_limited_access') ){
+        //Remove product reviews from product detail page
+        if( yith_vendors_caps.reviews == 'no' ){
+            if( $body.hasClass('post-type-product') ){
+                $('#commentsdiv').remove();
+            }
         }
 
-        if( $body.hasClass('post-type-shop_order') ){
-            $('.wc-order-edit-line-item').remove();
+        //Remove order unable caps
+        if( $body.hasClass('post-type-shop_order') && ! $body.hasClass('vendor_quote_management') ){
+            $( '.wc-order-edit-line-item' ).remove();
+            $( '.wc-order-edit-line-item-actions' ).remove();
+            $( 'a.delete-order-tax' ).remove();
         }
     }
+
+
 
     // Quick/Bulk product edit
     var inline_tag = $('.inline-edit-tags');

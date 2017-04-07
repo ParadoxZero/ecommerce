@@ -83,6 +83,9 @@ if( !class_exists( 'YITH_WCCL_Frontend' ) ) {
 
             $attributes = $product->get_variation_attributes();
 
+            // get default attributes
+            $selected_attributes = is_callable( array( $product, 'get_default_attributes' ) ) ? $product->get_default_attributes() : $product->get_variation_default_attributes();
+
             /** FIX WOO 2.1 */
             $wc_get_template = function_exists('wc_get_template') ? 'wc_get_template' : 'woocommerce_get_template';
 
@@ -90,7 +93,7 @@ if( !class_exists( 'YITH_WCCL_Frontend' ) ) {
             $wc_get_template( 'single-product/add-to-cart/variable-wccl.php', array(
                 'available_variations'  => $product->get_available_variations(),
                 'attributes'   			=> $attributes,
-                'selected_attributes' 	=> $product->get_variation_default_attributes(),
+                'selected_attributes' 	=> $selected_attributes,
                 'attributes_types'      => $this->get_variation_attributes_types( $attributes )
             ), '', YITH_WCCL_DIR . 'templates/' );
         }
@@ -163,7 +166,9 @@ if( !class_exists( 'YITH_WCCL_Frontend' ) ) {
             if( version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.4', '>=' ) ) {
                 return;
             }
-
+                
+            $product_id = ywccl_check_wc_version( '2.6', '>=' ) ? $product->get_id() : $product->id;
+            
             ob_start();
 
             ?>
@@ -175,8 +180,8 @@ if( !class_exists( 'YITH_WCCL_Frontend' ) ) {
                 <button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters('single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), $product->product_type); ?></button>
             </div>
 
-            <input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
-            <input type="hidden" name="product_id" value="<?php echo esc_attr( $product->ID ); ?>" />
+            <input type="hidden" name="add-to-cart" value="<?php echo $product_id; ?>" />
+            <input type="hidden" name="product_id" value="<?php echo esc_attr( $product_id ); ?>" />
             <input type="hidden" name="variation_id" class="variation_id" value="" />
 
             <?php

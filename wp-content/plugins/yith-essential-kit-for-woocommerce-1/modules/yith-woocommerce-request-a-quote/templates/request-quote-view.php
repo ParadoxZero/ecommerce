@@ -25,15 +25,15 @@ if( count($raq_content) == 0):
         </thead>
 		<tbody>
 	<?php foreach ( $raq_content as $key => $raq ):
-
-		$_product = wc_get_product(  isset( $raq['variation_id'] ) ? $raq['variation_id'] : $raq['product_id'] );
+		$product_id = ( isset( $raq['variation_id'] ) && $raq['variation_id'] != '' ) ? $raq['variation_id'] : $raq['product_id'];
+		$_product = wc_get_product(  $product_id );
         if( !isset( $_product ) || !is_object($_product) ) continue;
     ?>
 			<tr class="cart_item">
 
 				<td class="product-remove">
 					<?php
-						echo apply_filters( 'yith_ywraq_item_remove_link', sprintf( '<a href="#"  data-remove-item="%s" data-wp_nonce="%s"  data-product_id="%d" class="yith-ywraq-item-remove remove" title="%s">&times;</a>', $key, wp_create_nonce( 'remove-request-quote-' . $_product->id ), $_product->id,  __( 'Remove this item', 'yith-woocommerce-request-a-quote' ) ), $key );
+						echo apply_filters( 'yith_ywraq_item_remove_link', sprintf( '<a href="#"  data-remove-item="%s" data-wp_nonce="%s"  data-product_id="%d" class="yith-ywraq-item-remove remove" title="%s">&times;</a>', $key, wp_create_nonce( 'remove-request-quote-' . $product_id ), $product_id,  __( 'Remove this item', 'yith-woocommerce-request-a-quote' ) ), $key );
 					?>
                     <img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
 				</td>
@@ -48,22 +48,30 @@ if( count($raq_content) == 0):
 					?>
 				</td>
 
-				<td class="product-name">
-					<a href="<?php echo $_product->get_permalink() ?>"><?php echo $_product->get_title() ?></a>
+				<td class="product-name" data-title="Product">
 					<?php
+					$title = $_product->get_title();
 
-					sprintf( '<a href="%s">%s</a>', $_product->get_permalink( ), $_product->get_title() );
+					if ( $_product->get_sku() != '' && get_option( 'ywraq_show_sku' ) == 'yes' ) {
+						$title .=' '. apply_filters( 'ywraq_sku_label', __( ' SKU:', 'yith-woocommerce-request-a-quote' ) ) . $_product->get_sku();
+					}
+					?>
+                    <a href="<?php echo $_product->get_permalink() ?>"><?php echo $title ?></a>
+					<?php
 					// Meta data
 
 					$item_data = array();
 
 					// Variation data
+
 					if ( ! empty( $raq['variation_id'] ) && is_array( $raq['variations'] ) ) {
 
 						foreach ( $raq['variations'] as $name => $value ) {
-                            $label = '';
-							if ( '' === $value )
+							$label = '';
+
+							if ( '' === $value ) {
 								continue;
+							}
 
 							$taxonomy = wc_attribute_taxonomy_name( str_replace( 'attribute_pa_', '', urldecode( $name ) ) );
 
@@ -75,49 +83,55 @@ if( count($raq_content) == 0):
 								}
 								$label = wc_attribute_label( $taxonomy );
 
-							// If this is a custom option slug, get the options name
-                            } else {
-                                $value              = apply_filters( 'woocommerce_variation_option_name', $value );
-                                $custom_att = str_replace( 'attribute_', '', $name);
+							} else {
 
-                                if ( $custom_att != '' ) {
-                                    $label = wc_attribute_label( $custom_att );
-                                } else {
-                                    $label = $name;
-                                }
-                            }
+								if ( strpos( $name, 'attribute_' ) !== false ) {
+									$custom_att = str_replace( 'attribute_', '', $name );
 
+									if ( $custom_att != '' ) {
+										$label = wc_attribute_label( $custom_att );
+									} else {
+										$label = $name;
+									}
+								}
 
-                        $item_data[] = array(
+							}
+
+							$item_data[] = array(
 								'key'   => $label,
 								'value' => $value
 							);
 						}
 					}
 
+					$item_data = apply_filters( 'ywraq_request_quote_view_item_data', $item_data, $raq, $_product );
+
+
 					// Output flat or in list format
 					if ( sizeof( $item_data ) > 0 ) {
-							foreach ( $item_data as $data ) {
-								echo esc_html( $data['key'] ) . ': ' . wp_kses_post( $data['value'] ) . "\n";
-							}
+						foreach ( $item_data as $data ) {
+							echo esc_html( $data['key'] ) . ': ' . wp_kses_post( $data['value'] ) . "\n";
 						}
+					}
+
 
 					?>
 				</td>
 
 
-				<td class="product-quantity">
+                <td class="product-quantity" data-title="Quantity">
 					<?php
-						$product_quantity = woocommerce_quantity_input( array(
-                            'input_name'  => "raq[{$key}][qty]",
-							'input_value' => $raq['quantity'],
-							'max_value'   => apply_filters('ywraq_quantity_max_value', $_product->backorders_allowed() ? '' : $_product->get_stock_quantity() ),
-							'min_value'   => '0'
-						), $_product, false );
+					$product_quantity = woocommerce_quantity_input( array(
+						'input_name'  => "raq[{$key}][qty]",
+						'input_value' => apply_filters( 'ywraq_quantity_input_value', $raq['quantity'] ),
+						'max_value'   => apply_filters( 'ywraq_quantity_max_value', $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(), $_product ),
+						'min_value'   => apply_filters( 'ywraq_quantity_min_value', 0, $_product ),
+						'step'        => apply_filters( 'ywraq_quantity_step_value', 1, $_product )
+					), $_product, false );
 
-					    echo $product_quantity;
+					echo $product_quantity;
 					?>
-				</td>
+                </td>
 
                 <td class="product-subtotal">
                     <?php

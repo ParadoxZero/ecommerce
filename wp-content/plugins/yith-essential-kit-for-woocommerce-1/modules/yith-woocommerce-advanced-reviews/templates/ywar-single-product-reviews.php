@@ -5,10 +5,12 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 global $review_stats;
 global $product;
+$product_id = yit_get_prop( $product, 'id' );
 ?>
 
 <div id="reviews_summary">
-    <h3><?php _e('Customers\' review', 'yith-woocommerce-advanced-reviews') ?></h3>
+
+    <h3><?php echo $customer_reviews_label; ?></h3>
 
     <?php do_action('ywar_summary_prepend', $product) ?>
 
@@ -19,7 +21,7 @@ global $product;
             ?>
 
             <div class="ywar_review_row">
-                <?php do_action('ywar_summary_row_prepend', $i, $product->id) ?>
+                <?php do_action('ywar_summary_row_prepend', $i, $product_id) ?>
 
                 <span
                     class="ywar_stars_value"><?php printf(_n('%s star', '%s stars', $i, 'yith-woocommerce-advanced-reviews'), $i); ?></span>
@@ -37,7 +39,7 @@ global $product;
 					</span>
 				</span>
 
-                <?php do_action('ywar_summary_row_append', $i, $product->id) ?>
+                <?php do_action('ywar_summary_row_append', $i, $product_id) ?>
             </div>
         <?php endfor; ?>
     </div>

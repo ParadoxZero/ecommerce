@@ -138,7 +138,7 @@ return array(
                     'ywcm_message_expire' => array(
                         'label' => __( 'Expiration date (optional)', 'yith-woocommerce-cart-messages' ),
                         'desc'  => __( 'Choose a date until this message will appear', 'yith-woocommerce-cart-messages' ),
-                        'type'  => 'datepicker',
+                        'type'  => 'text',
                         'std'   => '' ),
 
 

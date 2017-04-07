@@ -57,13 +57,12 @@ class YITH_YWEV_Report_EU_VAT_Taxes extends WC_Admin_Report {
 		$hide_sidebar = true;
 
 		include( YITH_YWEV_TEMPLATE_DIR . '/report/yith-html-report-eu-vat.php' );
-	}
+	}/** @noinspection PhpInconsistentReturnPointsInspection */
 
 
 	/**
 	 * Get the main chart
 	 *
-	 * @return string
 	 */
 	public function get_main_chart() {
 		$start_date = date( "Y-m-d", $this->start_date );

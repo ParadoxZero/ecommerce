@@ -579,9 +579,10 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 
 			foreach ( array( 'order_id', 'vendor_id', 'status', 'paged', 'm', 's', 'orderby', 'order', 'product_id' ) as $key ) {
 				if ( isset( $_REQUEST[ $key ] ) ) {
-					$default_args[ $key ] = $_REQUEST[ $key ];
+					//$default_args[ $key ] = $_REQUEST[ $key ];
 				}
 			}
+
 			$q = wp_parse_args( $q, $default_args );
 
 			// Fairly insane upper bound for search string lengths.
@@ -796,7 +797,7 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 					$fields = $q['fields'];
 				}
 			}
-//@TODO: Controllare fields
+
 			$res = $wpdb->get_col( "SELECT $found_rows DISTINCT $fields FROM $wpdb->commissions c $join WHERE 1=1 $where $groupby $orderby $limits" );
 
 			// return count
@@ -845,13 +846,22 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 
 			// check all items of order to know if there is some vendor to credit and what are the products to process
 			foreach ( $order->get_items() as $item_id => $item ) {
-				$_product = $order->get_product_from_item( $item );
-				$vendor   = yith_get_vendor( $_product, 'product' );
+                $_product = null;
+
+                if( YITH_Vendors()->is_wc_2_7_or_greather && is_callable( array( $item, 'get_product' ) ) ){
+                    $_product = $item->get_product();
+                }
+
+                else {
+                    $_product = $order->get_product_from_item( $item );
+                }
+
+				$vendor = yith_get_vendor( $_product, 'product' );
 
 				if ( $vendor->is_valid() ) {
 
 					// calculate amount
-					$amount = $this->calculate_commission( $vendor, $order, $item );
+					$amount = $this->calculate_commission( $vendor, $order, $item, $item_id );
 
 					// no amount to apply
 					if ( empty( $amount ) ) {
@@ -859,25 +869,67 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 					}
 
 					$args = array(
-						'line_item_id' => $item_id,
-						'order_id'     => $order->id,
-						'user_id'      => $vendor->get_owner(),
-						'vendor_id'    => $vendor->id,
-						'amount'       => $amount
+						'line_item_id'  => $item_id,
+						'order_id'      => $order_id,
+						'user_id'       => $vendor->get_owner(),
+						'vendor_id'     => $vendor->id,
+						'amount'        => $amount,
+						'last_edit'     => current_time( 'mysql' ),
+						'last_edit_gmt' => current_time( 'mysql', 1 )
 					);
 
+					$_product_commission = yit_get_prop( $_product, 'product_commission' );
+
 					// get commission from product if exists
-					if ( ! empty( $_product->product_commission ) ) {
-						$args['rate'] = (float) $_product->product_commission / 100;
+					if ( ! empty( $_product_commission ) ) {
+						$args['rate'] = (float) $_product_commission / 100;
 					}
 
 					// add commission in pending
 					$commission_id = YITH_Commission()->add( $args );
 
+					$commission_included_tax    = 'yes' == get_option( 'yith_wpv_include_tax', 'no' );
+					$commission_included_coupon = 'yes' == get_option( 'yith_wpv_include_coupon', 'no' );
+
+					if(! empty( $commission_id ) ){
+					    //Add note to commission to know if the commission have benne calculated included or escluded tax and coupon
+					    $tax    = $commission_included_tax    ? _x( 'included', 'means: Vendor commission have been calculated: tax included', 'yith-woocommerce-product-vendors' ) : _x( 'excluded', 'means: Vendor commission have been calculated: tax excluded', 'yith-woocommerce-product-vendors' );
+					    $coupon = $commission_included_coupon ? _x( 'included', 'means: Vendor commission have been calculated: tax included', 'yith-woocommerce-product-vendors' ) : _x( 'excluded', 'means: Vendor commission have been calculated: tax excluded', 'yith-woocommerce-product-vendors' );
+					    $msg = sprintf( '%s:<br>* %s <em>%s</em><br>* %s <em>%s</em>',
+					            _x( 'Vendor commission have been calculated', 'part of: Vendor commission have been calculated: tax included', 'yith-woocommerce-product-vendors'  ),
+					            _x( 'tax', 'part of: tax included or tax excluded', 'yith-woocommerce-product-vendors'  ),
+                                $tax,
+                                _x( 'coupon', 'part of: coupon included or coupon excluded', 'yith-woocommerce-product-vendors'  ),
+                                $coupon
+                        );
+
+					    $commission = YITH_Commission( $commission_id );
+					    $commission->add_note( apply_filters( 'yith_wcmv_new_commission_note', $msg ) );
+                    }
+
 					// add line item to retrieve simply the commission associated (parent order)
 					wc_add_order_item_meta( $item_id, '_commission_id', $commission_id );
 
-					do_action( 'yith_wcmv_after_single_register_commission', $commission_id, $item_id, '_commission_id', $order );
+					// add commission_included_tax and _commission_included_coupon to parent and vendor order
+                    $parent_item_id = wc_get_order_item_meta( $item_id, '_parent_line_item_id', true );
+                    $parent_item_id = is_array( $parent_item_id ) ? array_shift ( $parent_item_id ) : $parent_item_id;
+					$parent_item_id = absint( $parent_item_id );
+
+					$item_ids = array(
+                        'parent' => $parent_item_id,
+                        'child'  => $item_id
+                    );
+
+                    foreach( $item_ids as $type => $id ){
+                        wc_add_order_item_meta( $id, '_commission_included_tax',    $commission_included_tax ? 'yes' : 'no' );
+                        wc_add_order_item_meta( $id, '_commission_included_coupon', $commission_included_coupon ? 'yes' : 'no' );
+
+                        do_action( 'yith_wcmv_add_extra_commission_order_item_meta', $id );
+                    }
+
+                    $this->register_commission_to_parent_order( $commission_id, $item_id, '_commission_id', $order );
+
+                    do_action( 'yith_wcmv_after_single_register_commission', $commission_id, $item_id, '_commission_id', $order );
 				}
 			}
 
@@ -896,13 +948,23 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function calculate_commission( $vendor, $order, $item ) {
+		public function calculate_commission( $vendor, $order, $item, $item_id ) {
 
 			//check for product commission
-			$_product = $order->get_product_from_item( $item );
+            $_product = null;
+
+            if( YITH_Vendors()->is_wc_2_7_or_greather && is_callable( array( $item, 'get_product' ) ) ){
+                $_product = $item->get_product();
+            }
+
+            else {
+                $_product = $order->get_product_from_item( $item );
+            }
+
+            $_product_commission = yit_get_prop( $_product, 'product_commission' );
 
 			// Get percentage for commission
-			$commission = ! empty( $_product->product_commission ) ? (float) $_product->product_commission / 100 : (float) $vendor->get_commission();
+			$commission = ! empty( $_product_commission ) ? (float) $_product_commission / 100 : (float) $vendor->get_commission();
 
 			// If commission is 0% then go no further
 			if ( ! $commission ) {
@@ -916,7 +978,9 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 			$include_tax = apply_filters( 'yith_wcmv_include_tax_in_commissions', 'no' == get_option( 'yith_wpv_include_tax', 'no' ) ? false : true );
 
 			// Retrieve the real amount of single item, with right discounts applied and without taxes
-			$line_total = (float) $order->$get_item_amount( $item, $include_tax, false ) * $item['qty'];
+
+			$line_total =  $order->$get_item_amount( $item, $include_tax, false ) * $item['qty'];
+            $line_total = (float) apply_filters( 'yith_wcmv_get_line_total_amount_for_commission', $line_total, $order, $item, $item_id );
 
 			// If total is 0 after discounts then go no further
 			if ( ! $line_total ) {
@@ -931,7 +995,7 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 				return 0;
 			}
 
-			return $amount;
+			return apply_filters( 'yith_wcmv_calculate_commission_amount', $amount, $vendor, $order, $item, $item_id );
 		}
 
 		/**
@@ -1103,15 +1167,17 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 		 */
 		public function register_commission_refund( $new_refund_id ) {
 			$refund = new WC_Order_Refund( $new_refund_id );
-			$order = wc_get_order( $refund->post->post_parent );
+			$refund_parent_id = wp_get_post_parent_id( $new_refund_id );
+			$order = wc_get_order( $refund_parent_id );
 			$refunds = array();
 			$global_refunds = array();  // save the refund objects of global refunds
 			$total_refunded = array();
 
 			// reset commissions calculating (must be before next foreach)
 			foreach ( $order->get_refunds() as $_refund ) {
-				$this->remove_refund_commission_helper( $_refund->id );
-				$this->remove_refund_commission( $_refund->id, false );
+			    $_refund_id = yit_get_prop( $refund, 'id' );
+				$this->remove_refund_commission_helper( $_refund_id );
+				$this->remove_refund_commission( $_refund_id, false );
 			}
 
 			// single refunds
@@ -1123,7 +1189,8 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 				/** @var WC_Order_Refund $_refund */
 				foreach ( $_refund->get_items() as $item_id => $item ) {
 					$original_item_id = $item['refunded_item_id'];
-					if ( $commission_id = $order->get_item_meta( $original_item_id, '_commission_id', true ) ) {
+					$commission_id = wc_get_order_item_meta( $original_item_id, '_commission_id', true );
+					if ( $commission_id ) {
 						$refund_amount = $item['line_total'];
 
 						if ( $refund_amount != 0 ) {
@@ -1139,37 +1206,83 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 
 							$amount = (float) $refund_amount * $commission->rate;
 
+							$_refund_id = yit_get_prop( $_refund, 'id' );
+
 							// register the amount
-							$refunds[ $_refund->id ][ $commission_id ] = $amount;
+							$refunds[ $_refund_id ][ $commission_id ] = $amount;
 						}
 					}
 				}
 
 				// detect if there is some global refund applied in this refund
-				if ( $_refund->get_refund_amount() - abs( $line_items_refund ) > 0 ) {
-					$_refund->refund_amount = $_refund->get_refund_amount() - abs( $line_items_refund );
+				if ( yit_get_refund_amount( $_refund ) - abs( $line_items_refund ) > 0 ) {
+					$refund_amount = yit_get_refund_amount( $_refund ) - abs( $line_items_refund );
+					yit_set_refund_amount( $_refund, $refund_amount );
 					$global_refunds[] = $_refund;
 				}
-
 			}
 
 			// manage the global refunds
 			foreach ( $global_refunds as $_refund ) {
-				$rate_to_refund = $_refund->get_refund_amount() / ( $order->get_total() - abs( array_sum( $total_refunded ) ) );
-
+				$rate_to_refund = yit_get_refund_amount( $_refund ) / ( $order->get_total() - abs( array_sum( $total_refunded ) ) );
 				foreach ( $order->get_items() as $item_id => $item ) {
-					$commission_id = $order->get_item_meta( $item_id, '_commission_id', true );
+                    $commission_id = wc_get_order_item_meta( $item_id, '_commission_id', true );
 					if ( $commission_id ) {
 						$commission = YITH_Commission( $commission_id );
 
-						$to_refund = ( $order->get_line_total( $item, false, false ) - $order->get_total_refunded_for_item( $item_id ) ) * $rate_to_refund;
+                        /**
+                         * Check if the commissions included tax
+                         */
+                        $commission_included_tax = wc_get_order_item_meta( $item_id, '_commission_included_tax', true );
+
+                        /**
+                         * Check if order item meta exist
+                         * Multi Vendor version 1.10.2 or greater
+                         */
+                        $included_tax = false;
+                        if( $commission_included_tax !== '' ){
+                            $included_tax = 'yes' == $commission_included_tax;
+                        }
+
+                        /**
+                         * Order item meta doesn't exist
+                         * Multi Vendor version 1.10.1 or lower
+                         */
+                        else{
+                            $included_tax = 'yes' == get_option('yith_wpv_include_tax', 'no');
+                        }
+
+                        /**
+                         * Check if the commissions included coupon
+                         */
+                        $commission_included_coupon = wc_get_order_item_meta( $item_id, '_commission_included_coupon', true );
+
+                        $included_coupon = false;
+                        if( $commission_included_coupon !== '' ){
+                            $included_coupon = 'yes' == $commission_included_coupon;
+                        }
+
+                        /**
+                         * Order item meta doesn't exist
+                         * Multi Vendor version 1.10.1 or lower
+                         */
+                        else{
+                            $included_coupon = 'yes' == get_option('yith_wpv_include_coupon', 'no');
+                        }
+
+                        $get_total = $included_coupon ? 'get_line_total' : 'get_line_subtotal';
+
+						$to_refund = ( $order->$get_total( $item, $included_tax, false ) - $order->get_total_refunded_for_item( $item_id ) ) * $rate_to_refund;
+
 						$amount = (float) abs( $to_refund * $commission->get_rate() ) * -1;
 
+						$_global_refund_id = yit_get_prop( $_refund, 'id' );
+
 						// register the amount
-						if ( ! isset( $refunds[ $_refund->id ][ $commission_id ] ) ) {
-							$refunds[ $_refund->id ][ $commission_id ] = $amount;
+						if ( ! isset( $refunds[ $_global_refund_id ][ $commission_id ] ) ) {
+							$refunds[ $_global_refund_id ][ $commission_id ] = $amount;
 						} else {
-							$refunds[ $_refund->id ][ $commission_id ] += $amount;
+							$refunds[ $_global_refund_id ][ $commission_id ] += $amount;
 						}
 					}
 				}
@@ -1335,7 +1448,8 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 			if( $product && 'post.php' == $pagenow && isset( $_GET['post'] ) && $order = wc_get_order( $_GET['post'] ) ){
 				$line_items = $order->get_items( 'line_item' );
 				foreach( $line_items as $line_item_id => $line_item ){
-					if( $line_item['product_id'] == $product->id ){
+					$product_id = yit_get_prop( $product, 'id' );
+					if( $line_item['product_id'] == $product_id ){
 						$commission_id = wc_get_order_item_meta( $line_item_id, '_commission_id', true );
 						$admin_url = YITH_Commission( $commission_id )->get_view_url( 'admin' );
 						$attribute_label = '_commission_id' == $meta_key ? sprintf( "<a href='%s' class='%s'>" . __( 'commission_id', 'yith-woocommerce-product-vendors' ) . '</a>', $admin_url, 'commission-id-label' ) : $attribute_label;
@@ -1396,6 +1510,19 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
 
 			return $last_inserted_id;
 		}
+
+        /**
+         * Add commission id from parent to child order
+         *
+         * @internal moved from YITH_Orders
+         * @since WooCommerce 2.7
+         */
+        public function register_commission_to_parent_order ( $commission_id, $child_item_id, $key, $suborder ) {
+            // add line item to retrieve simply the commission associated (child order)
+            $order_class = get_class( YITH_Vendors()->orders );
+            $parent_item_id = $order_class::get_parent_item_id ( $suborder, $child_item_id );
+            ! empty( $parent_item_id ) && wc_add_order_item_meta ( $parent_item_id, '_child_' . $key, $commission_id );
+        }
 	}
 }
 

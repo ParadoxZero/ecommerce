@@ -147,8 +147,8 @@ return array(
             'premium-url'       => 'yith-woocommerce-color-and-label-variations',
             'premium-dir'     => 'yith-woocommerce-color-label-variations',
             'short_description' => 'The best way to offer a complete overview on all options available for your products: with one plugin only you can add unlimited variations.',
-            'version'           => '1.1.6',
-            'last_updated'      => '2015-08-12',
+            'version'           => '1.2.6',
+            'last_updated'      => '2017-04-01',
             'repository'        => 'yith'
         ),
 

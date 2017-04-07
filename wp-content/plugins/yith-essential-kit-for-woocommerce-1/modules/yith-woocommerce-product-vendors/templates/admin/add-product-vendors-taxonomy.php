@@ -10,9 +10,7 @@
 ?>
 <div class="form-field yith-choosen">
     <label for="yith_vendor_owner"><?php _e( 'Vendor Shop Owner', 'yith_wc_product_vendors' ); ?></label>
-    <input type="hidden" class="wc-customer-search" id="key_user" name="yith_vendor_data[owner]" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'woocommerce' ); ?>" data-allow_clear="true" />
-    <br />
-    <span class="description"><?php _e( 'User that can manage products in this vendor shop and view sale reports.', 'yith_wc_product_vendors' ); ?></span>
+    <?php yit_add_select2_fields( $shop_owner_args ); ?>
 </div>
 
 <div class="form-field">

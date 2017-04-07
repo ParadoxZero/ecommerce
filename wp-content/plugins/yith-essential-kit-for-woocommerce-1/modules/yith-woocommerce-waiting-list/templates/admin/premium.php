@@ -41,6 +41,7 @@
     .section .section-title h2{
         display: table-cell;
         vertical-align: middle;
+        line-height: 25px;
     }
 
     .section-title{
@@ -195,12 +196,11 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Waiting List</span> to benefit from all features!
+                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Waiting List%2$s to benefit from all features!','yith-woocommerce-waiting-list'),'<span class="highlight">','</span>' );?>
                 </p>
                 <a href="<?php echo YITH_WCWTL_Admin()->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <span class="highlight"><?php _e('UPGRADE','yith-woocommerce-waiting-list');?></span>
+                    <span><?php _e('to the premium version','yith-woocommerce-waiting-list');?></span>
                 </a>
             </div>
 
@@ -210,18 +210,14 @@
         <h1>Premium Features</h1>
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/01.png" alt="Review Title" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/01.png" />
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/01-icon.png" alt="Custom messages"/>
-                    <h2>Custom messages</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/01-icon.png"/>
+                    <h2><?php _e('Custom messages','yith-woocommerce-waiting-list');?></h2>
                 </div>
-                <p>
-                    Notifications shown to your users during their subscription to the list are entirely customizable.
-                    Write the message text you want to show both for <b>successful subscription</b> and for <b>unsuccessful
-                    subscription</b>.
-                </p>
+                <?php echo sprintf( __('Notifications shown to your users during their subscription to the list are entirely customizable.%3$s Write the message text you want to show both for %1$ssuccessful subscription%2$s and for %1$sunsuccessful subscription%2$s','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
             </div>
         </div>
     </div>
@@ -229,34 +225,33 @@
         <div class="landing-container">
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/02-icon.png" alt="Attachment List" />
-                    <h2>Send emails automatically</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/02-icon.png"/>
+                    <h2><?php _e('Send emails automatically','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    An option explicitly conceived to relieve you of the task to manually generate the email as soon as
-                    the product status is set as “Available”. In fact, with the premium version, <b>email sending is
-                    automatic</b> and allows you to automatically manage them and keep your users up to date.
+                    <?php echo sprintf( __('An option explicitly conceived to relieve you of the task to manually generate the email as soon as the product status is set as “Available”. %3$sIn fact, with the premium version, %1$semail sending is automatic%2$s and allows you to automatically manage them and keep your users up to date.','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
+                </p>
+                <p>
+
                 </p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/02.png" alt="Attachment List" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/02.png" />
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YITH_WCWTL_URL ?>assets/images/03-bg.png) no-repeat #fff; background-position: 85% 100%">
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/03.png" alt="Vote the review" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/03.png" />
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/03-icon.png" alt="Vote the review" />
-                    <h2>Keep the list after sending the email</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/03-icon.png" />
+                    <h2><?php _e('Keep the list after sending the email','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    If you do not want your list is emptied after the product comes back as “available”, enable the
-                    option <b>“Keep the list after email”</b> and you will be able to generate a new email for users in that
-                    list whenever you want.
+                    <?php echo sprintf( __('If you do not want your list is emptied after the product comes back as "available", enable the option %1$s"Keep the list after email"%2$s and you will be able to generate a new email for users in that list whenever you want.','yith-woocommerce-waiting-list'),'<b>','</b>' ); ?>
                 </p>
             </div>
         </div>
@@ -265,34 +260,33 @@
         <div class="landing-container">
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/04-icon.png" alt="Number" />
-                    <h2>Customize the style</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/04-icon.png" />
+                    <h2><?php _e('Customize the style','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    A rich panel option from which you can shape buttons for subscription and deletion from the list and
-                    suit them to the layout of your shop. <b>Details are what make the difference</b> and you must have the
-                    best tools to get the best results.
+                    <?php echo sprintf( __('A rich panel option from which you can shape buttons for subscription and deletion from the list and suit them to the layout of your shop. %1$sDetails are what make the difference%2$s and you must have the best tools to get the best results.','yith-woocommerce-waiting-list'),'<b>','</b>' ); ?>
                 </p>
-
             </div>
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/04.png" alt="Number" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/04.png" />
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YITH_WCWTL_URL ?>assets/images/05-bg.png) no-repeat #fff; background-position: 85% 75%">
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/05.png" alt="Review Title" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/05.png" />
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/05-icon.png" alt="Review Title"/>
-                    <h2>Notification email</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/05-icon.png" />
+                    <h2><?php _e('Notification email','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    Any time users sends a subscription request, they will be instantly sent a notification email that confirms they have been successfully added to the list.
-                    Moreover, from the same email <b>they will be able to unsubscribe</b> from the list whenever they wanted.
+                    <?php echo sprintf( __('Any time users sends a subscription request, they will be instantly sent a notification email that confirms they have been successfully added to the list. %3$sMoreover, from the same email %1$sthey will be able to unsubscribe%2$s from the list whenever they wanted.','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
+                </p>
+                <p>
+
                 </p>
             </div>
         </div>
@@ -301,34 +295,33 @@
         <div class="landing-container">
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/06-icon.png" alt="Attachment List" />
-                    <h2>Custom email content</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/06-icon.png" />
+                    <h2><?php _e('Custom email content','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    The plugin generates two types of email, one that confirms a successful subscription and abother one
-                    to inform users that the product is back in store. For both of them, <b>you can customize contents and
-                    template file as you like</b>. Product data can be recovered dynamically using specific placeholders.
+                    <?php echo sprintf( __('The plugin generates two types of email, one that confirms a successful subscription and abother one to inform users that the product is back in store. For both of them, %1$syou can customize contents and template file as you like%2$s. Product data can be recovered dynamically using specific placeholders.','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
+                </p>
+                <p>
+
                 </p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/06.png" alt="Attachment List" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/06.png" />
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YITH_WCWTL_URL ?>assets/images/07-bg.png) no-repeat #fff; background-position: 85% 100%">
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/07.png" alt="Vote the review" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/07.png" />
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/07-icon.png" alt="Vote the review" />
-                    <h2>Exclusion List</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/07-icon.png" />
+                    <h2><?php _e('Exclusion List','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    Do you want that the plugin works only for some and not all “out of stock” products? <b>Exclusion list
-                    table</b> has been developed to meet your need and to allow you to exclude some specific products for
-                    which no email has to be sent as they come back in stock.
+                    <?php echo sprintf( __('Do you want that the plugin works only for some and not all "out of stock" products? %1$sExclusion list table%2$s has been developed to meet your need and to allow you to exclude some specific products for which no email has to be sent as they come back in stock.','yith-woocommerce-waiting-list'),'<b>','</b>' ); ?>
                 </p>
             </div>
         </div>
@@ -337,18 +330,54 @@
         <div class="landing-container">
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/08-icon.png" alt="Number" />
-                    <h2>Waiting list Checklist</h2>
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/08-icon.png" />
+                    <h2><?php _e('Waiting list Checklist','yith-woocommerce-waiting-list');?></h2>
                 </div>
                 <p>
-                    “Waiting List Checklist” tab allows you to check any moment the status of waiting lists for
-                    out-of-stock products. For each of them, you have the following options available: <b>delete list</b>, <b>send
-                    email</b> and a <b>button through which you can access to the list with users</b>.
-                    Nothing prevents you from adding a new user to the list whenever you want.
+                    <?php echo sprintf( __('"Waiting List Checklist" tab allows you to check any moment the status of waiting lists for
+                    %1$sout-of-stock products%2$s. ','yith-woocommerce-waiting-list'),'<b>','</b>' ); ?>
+                </p>
+                <p>
+                    <?php echo sprintf( __('For each of them, you have the following options available: %1$sdelete list%2$s, %1$ssend email%2$s and a %1$sbutton through which you can access to the list with users%2$s. %3$sNothing prevents you from adding a new user to the list whenever you want.','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
                 </p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/08.png" alt="Number" />
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/08.png" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear" style="background: url(<?php echo YITH_WCWTL_URL ?>assets/images/09-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/09.png" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/09-icon.png" />
+                    <h2><?php _e('Mandrill','yith-woocommerce-waiting-list');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('The use of Mandrill is recommended to those who need to manage in an %1$sadvanced way%2$s the email sending for their shop.%3$s The integration with %1$sMandrill%2$s allows managing also those emails sent by YITH WooCommerce Waiting List in an optimal way.','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YITH_WCWTL_URL ?>assets/images/10-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WCWTL_URL ?>assets/images/10-icon.png" />
+                    <h2><?php _e('Shortcode','yith-woocommerce-waiting-list');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('The shortcode has been conceived to allow your users to register to a specific product %1$swaiting list%2$s in any spot of the site not only necessarily on the product page.%3$s Manage your contents in the best possible way and place the button %1$sstrategically%2$s in your pages.','yith-woocommerce-waiting-list'),'<b>','</b>','<br>' ); ?>
+                </p>
+                <p>
+
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_WCWTL_URL ?>assets/images/10.png" />
             </div>
         </div>
     </div>
@@ -356,12 +385,11 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Waiting List</span> to benefit from all features!
+                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Waiting List%2$s to benefit from all features!','yith-woocommerce-waiting-list'),'<span class="highlight">','</span>' );?>
                 </p>
                 <a href="<?php echo YITH_WCWTL_Admin()->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <span class="highlight"><?php _e('UPGRADE','yith-woocommerce-waiting-list');?></span>
+                    <span><?php _e('to the premium version','yith-woocommerce-waiting-list');?></span>
                 </a>
             </div>
         </div>

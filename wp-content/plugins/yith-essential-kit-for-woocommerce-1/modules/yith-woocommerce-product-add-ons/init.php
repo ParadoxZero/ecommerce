@@ -2,7 +2,7 @@
 /**
  * Plugin Name: YITH WooCommerce Product Add-Ons
  * Description: YITH WooCommerce Product Add-Ons
- * Version: 1.0.3
+ * Version: 1.0.5
  * Author: YITHEMES
  * Author URI: http://yithemes.com/
  * Text Domain: yith-woocommerce-product-add-ons
@@ -13,7 +13,7 @@
  *
  * @author  YITHEMES
  * @package YITH WooCommerce Product Add-Ons
- * @version 1.0.3
+ * @version 1.0.4
  */
 /*  Copyright 2016  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -59,6 +59,8 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 ! defined( 'YITH_WAPO_DIR' ) && define( 'YITH_WAPO_DIR', plugin_dir_path( __FILE__ ) );
 
+
+
 // This version can't be activate if premium version is active  ________________________________________
 if ( defined( 'YITH_WAPO_PREMIUM' ) ) {
     function yith_wapo_install_free_admin_notice() {
@@ -82,7 +84,7 @@ if ( defined( 'YITH_WAPO_PREMIUM' ) ) {
 ! defined( 'YITH_WAPO_TEMPLATE_ADMIN_PATH' ) && define( 'YITH_WAPO_TEMPLATE_ADMIN_PATH', YITH_WAPO_TEMPLATE_PATH . '/yith_wapo/admin/' );
 ! defined( 'YITH_WAPO_TEMPLATE_FRONTEND_PATH' ) && define( 'YITH_WAPO_TEMPLATE_FRONTEND_PATH', YITH_WAPO_TEMPLATE_PATH . '/yith_wapo/frontend/' );
 ! defined( 'YITH_WAPO_ASSETS_URL' ) && define( 'YITH_WAPO_ASSETS_URL', YITH_WAPO_URL . 'assets' );
-! defined( 'YITH_WAPO_VERSION' ) && define( 'YITH_WAPO_VERSION', '1.0.3' );
+! defined( 'YITH_WAPO_VERSION' ) && define( 'YITH_WAPO_VERSION', '1.0.4' );
 ! defined( 'YITH_WAPO_DB_VERSION' ) && define( 'YITH_WAPO_DB_VERSION', '1.0.1' );
 ! defined( 'YITH_WAPO_FILE' ) && define( 'YITH_WAPO_FILE', __FILE__ );
 ! defined( 'YITH_WAPO_SLUG' ) && define( 'YITH_WAPO_SLUG', 'yith-woocommerce-advanced-product-options' );

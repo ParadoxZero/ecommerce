@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YIT WooCommerce Cart Messages\n"
 "POT-Creation-Date: 2016-06-10 15:42+0200\n"
-"PO-Revision-Date: 2016-06-10 15:42+0200\n"
+"PO-Revision-Date: 2016-08-22 16:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: Yithemes <plugins@yithemes.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
 "__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
 "_nx_noop:4c,1,2\n"
@@ -172,6 +172,12 @@ msgid ""
 "YITH WooCommerce Cart Messages is available in an outstanding PREMIUM "
 "version with many new options, <a href=\""
 msgstr ""
+"Puoi trovare la pagina opzioni di YITH WooCommerce Cart Messages nella tab "
+"YITH Plugins.\n"
+"Da questo menu puoi accedere a tutte le impostazioni dei nostri plugin "
+"attivati.\n"
+"YITH WooCommerce Cart Messages è disponibile in un'eccellente versione "
+"PREMIUM con molte nuove opzioni, <a href=\""
 
 #: plugin-options/metabox/ywcm_metabox.php:14
 msgid "Message Settings"
@@ -193,6 +199,11 @@ msgid ""
 "{products} specifies which of the listed product is in the cart;<br>\r\n"
 "{required_quantity} states the exact number of product to purchase."
 msgstr ""
+"Puoi modificare il testo utilizzando i seguenti segnaposto: <br>\n"
+"{remaining_amount} indica l'importo da mancante per raggiungere la spesa "
+"minima per l'ordine; <br>\n"
+"{products} specifica quali dei prodotti elencati si trova nel carrello;<br>\n"
+"{required_quantity} riporta il numero esatto di prodotti da acquistare."
 
 #: plugin-options/metabox/ywcm_metabox.php:47
 msgid "Required quantity"
@@ -200,15 +211,15 @@ msgstr "Quantità richiesta"
 
 #: plugin-options/metabox/ywcm_metabox.php:48
 msgid "The minimum total quantity of above selected products."
-msgstr ""
+msgstr "Spesa minima totale dei prodotti sopra selezionati."
 
 #: plugin-options/metabox/ywcm_metabox.php:58
 msgid "Threshold amount"
-msgstr "Importo soglia"
+msgstr "Importo limite"
 
 #: plugin-options/metabox/ywcm_metabox.php:59
 msgid "Threshold amount after which notice should start appear."
-msgstr ""
+msgstr "Importo limite superato il quale mostrare il messaggio."
 
 #: plugin-options/metabox/ywcm_metabox.php:70
 msgid "Select products"
@@ -232,7 +243,7 @@ msgstr "Modifica il messaggio"
 
 #: plugin-options/metabox/ywcm_metabox.php:127
 msgid "Text Button (optional)"
-msgstr ""
+msgstr "Testo del pulsante (opzionale)"
 
 #: plugin-options/metabox/ywcm_metabox.php:128
 msgid ""
@@ -252,7 +263,7 @@ msgstr "URL del pulsante call to action"
 
 #: plugin-options/metabox/ywcm_metabox.php:139
 msgid "Expiration date (optional)"
-msgstr ""
+msgstr "Data di scadenza (opzionale)"
 
 #: plugin-options/metabox/ywcm_metabox.php:140
 msgid "Choose a date until this message will appear"
@@ -271,6 +282,8 @@ msgid ""
 "Upgrade to the PREMIUM VERSION\r\n"
 "of YITH WooCommerce Cart Messages to benefit from all features!"
 msgstr ""
+"Aggiorna alla VERSIONE PREMIUM\n"
+"di YITH WOOCOMMERCE CART MESSAGES per usufruire di tutte le funzionalità!"
 
 #: plugin-options/settings-options.php:35
 msgid "Get Support and Pro Features"
@@ -305,22 +318,24 @@ msgid ""
 "Upgrade to the %1$spremium version%2$s of %1$sYITH WooCommerce Cart Messages"
 "%2$s to benefit from all features!"
 msgstr ""
+"Aggiorna alla %1$sversione premium%2$s di %1$sYITH WooCommerce Cart Messages"
+"%2$s per usufruire di tutte le funzionalità!"
 
 #: templates/admin/premium.php:202 templates/admin/premium.php:300
 msgid "UPGRADE"
-msgstr ""
+msgstr "AGGIORNA"
 
 #: templates/admin/premium.php:203 templates/admin/premium.php:301
 msgid "to the premium version"
-msgstr ""
+msgstr "alla versione premium"
 
 #: templates/admin/premium.php:212
 msgid "create message regarding"
-msgstr ""
+msgstr "crea messaggio per"
 
 #: templates/admin/premium.php:217
 msgid "CREATE MESSAGES REGARDING A MINIMUM AMOUNT TO SPEND"
-msgstr ""
+msgstr "CREA MESSAGGI PER UNA SOGLIA MINIMA DI SPESA"
 
 #: templates/admin/premium.php:219
 #, php-format
@@ -411,6 +426,8 @@ msgid ""
 "Upgrade to the premium version of YITH WooCommerce Cart Messages to benefit "
 "from all features!"
 msgstr ""
+"Aggiorna alla VERSIONE PREMIUM\n"
+"di YITH WOOCOMMERCE CART MESSAGES per usufruire di tutte le funzionalità!"
 
 #: yith-cart-messages-functions.php:11
 msgid "All categories"

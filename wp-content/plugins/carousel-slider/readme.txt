@@ -4,7 +4,7 @@ Tags: woocommerce, shortcode, images, carousel, carousel slider, image carousel,
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,7 +68,30 @@ https://www.youtube.com/watch?v=kYgp6wp27lM
 If you still need help. visit [WordPress codex](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
 
 == Frequently Asked Questions ==
-Do you have questions or issues with Carousel Slider? [Ask for support here](http://wordpress.org/support/plugin/carousel-slider)
+
+= How to use shortcode/slider in theme template file? =
+By default, Carousel slider only load scripts when you use shortcode in TinyMCE editor or use Carousel Slider Widget. This helps to reduce two unnecessary HTTP request for Style and Script when you are not using the slider.
+If you want to use shortcode in your theme directly, you need to tell the plugin to load scripts for your perticular page or template in your (theme/child theme) functions.php file. To load scripts, you can use the following filter hook.
+For example, if you want to use shortcode only for your front page, add the following filter hook in your theme functions.php file.
+
+`add_filter('carousel_slider_load_scripts', 'carousel_slider_load_scripts');
+function carousel_slider_load_scripts( $load_scripts ) {
+	// To use only for front page
+	if ( is_front_page() ) {
+		return true;
+	}
+	return $load_scripts;
+}`
+
+or write the following code to always load the slider scripts and style.
+
+`add_filter('carousel_slider_load_scripts', 'carousel_slider_load_scripts');
+function carousel_slider_load_scripts( $load_scripts ) {
+	return true;
+}`
+
+Now you can use the following function at your theme template file replacing `YOUR_SLIDER_ID` with actual carousel slider id.
+`<?php echo do_shortcode('[carousel_slide id='YOUR_SLIDER_ID']") ?>` 
 
 == Screenshots ==
 
@@ -81,6 +104,12 @@ Do you have questions or issues with Carousel Slider? [Ask for support here](htt
 7. Front-end example of image lightbox.
 
 == Changelog ==
+
+= version 1.7.1 - 2017-04-05 =
+* New   - WooCommerce 3.0.0 compatibility
+* Fixed - get_product() has been replaced with wc_get_product()
+* Fixed - get_rating_html() has been replaced with wc_get_rating_html()
+* Fixed - Fixed id was called incorrectly (Product properties should not be accessed directly) notice.
 
 = version 1.7.0 - 2017-03-12 =
 * Added - WooCommerce Product carousel.

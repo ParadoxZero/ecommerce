@@ -41,8 +41,10 @@ if( !class_exists( 'YITH_Woocompare' ) ) {
          */
         public function __construct() {
 
-            // init widget
             add_action( 'widgets_init', array( $this, 'registerWidgets' ) );
+
+	        // Load Plugin Framework
+	        add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
 
             if( $this->is_frontend() ) {
 
@@ -53,14 +55,14 @@ if( !class_exists( 'YITH_Woocompare' ) ) {
             }
             elseif( $this->is_admin() ) {
 
-                // Load Plugin Framework
-                add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
-
-                // require admin class
+		        // requires admin classes
                 require_once('class.yith-woocompare-admin.php');
 
 	            $this->obj = new YITH_Woocompare_Admin();
             }
+
+	        // add image size
+	        YITH_Woocompare_Helper::set_image_size();
 
             return $this->obj;
         }
@@ -72,7 +74,7 @@ if( !class_exists( 'YITH_Woocompare' ) ) {
         public function is_frontend() {
             $is_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
 	        $context_check = isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'frontend';
-	        $actions_to_check = array( 'woof_draw_products' );
+	        $actions_to_check = apply_filters( 'yith_woocompare_actions_to_check_frontend', array( 'woof_draw_products' ) );
 	        $action_check = isset( $_REQUEST['action'] ) && in_array( $_REQUEST['action'], $actions_to_check );
 
             return (bool) ( ! is_admin() || ( $is_ajax && ( $context_check || $action_check ) ) );
@@ -84,7 +86,8 @@ if( !class_exists( 'YITH_Woocompare' ) ) {
          */
         public function is_admin() {
             $is_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
-            return (bool) ( is_admin() || $is_ajax && isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'admin' );
+	        $is_admin = ( is_admin() || $is_ajax && isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'admin' );
+            return apply_filters( 'yith_woocompare_check_is_admin', (bool) $is_admin );
         }
 
 	    /**

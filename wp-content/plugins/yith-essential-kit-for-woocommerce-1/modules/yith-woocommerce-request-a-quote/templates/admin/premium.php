@@ -469,6 +469,41 @@
             </div>
         </div>
     </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YITH_YWRAQ_URL ?>assets/images/25-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWRAQ_URL ?>assets/images/25-icon.png" />
+                    <h2><?php _e('Edit the shipping and billing addresses','yith-woocommerce-request-a-quote');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __( 'You can edit the users\' shipping and billing addresses while creating the quote. This is useful, for example, if your users wish to receive the order at a different address rather than the one available on their profile.','yith-woocommerce-request-a-quote' ),'<b>','</b>' );?>
+                </p>
+                <p>
+                    <?php echo sprintf( __('And that\'s not all! You can also %1$sprevent the users from editing the checkout fields%2$s and avoid changes of the data previously inserted. ','yith-woocommerce-request-a-quote'),'<b>','</b>'); ?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_YWRAQ_URL ?>assets/images/25.png" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear" style="background: url(<?php echo YITH_YWRAQ_URL ?>assets/images/26-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_YWRAQ_URL ?>assets/images/26.png" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWRAQ_URL?>assets/images/26-icon.png" />
+                    <h2><?php _e('Prevent changes to shipping method ','yith-woocommerce-request-a-quote');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('Enrich your proposal by adding shipping fees. You can optionally choose whether to let users select or not a %1$sshipping method different from the one specified in the quote%2$s during the checkout process. ','yith-woocommerce-request-a-quote'),'<b>','</b>' );?>
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="section section-odd clear" style="background: url(<?php echo YITH_YWRAQ_URL ?>assets/images/17-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
         <div class="landing-container">
             <div class="col-2">

@@ -637,17 +637,22 @@ if ( !class_exists( 'YITH_Request_Quote' ) ) {
 		    $variations      = array();
 		    $error           = false;
 
-		    $add_to_cart_handler = apply_filters( 'woocommerce_add_to_quote_handler', $adding_to_quote->product_type, $adding_to_quote );
-
-		    if ( 'variation' === $add_to_cart_handler ) {
-			    if ( isset( $adding_to_quote->variation_id ) ) {
-				    $product_id   = $adding_to_quote->id;
-				    $variation_id = $adding_to_quote->variation_id;
+		    if ( $adding_to_quote->is_type( 'variation' ) ) {
+			    $var_id = yit_get_prop( $adding_to_quote, 'variation_id', true );
+			    if ( ! empty( $var_id ) ) {
+				    $product_id   = $adding_to_quote->get_id();
+				    $variation_id = $var_id;
 			    }
 		    }
-		    if ( 'variable' === $add_to_cart_handler ) {
+
+		    if ( $adding_to_quote->is_type( 'variable' ) ) {
 			    if ( empty( $variation_id ) ) {
-				    $variation_id = $adding_to_quote->get_matching_variation( wp_unslash( $_POST ) );
+				    if ( is_callable( $adding_to_quote, 'get_matching_variation' ) ) {
+					    $variation_id = $adding_to_quote->get_matching_variation( wp_unslash( $_POST ) );
+				    } else {
+					    $data_store   = WC_Data_Store::load( 'product' );
+					    $variation_id = $data_store->find_matching_product_variation( $adding_to_quote, wp_unslash( $_POST ) );
+				    }
 			    }
 			    if ( ! empty( $variation_id ) ) {
 				    $attributes = $adding_to_quote->get_attributes();
@@ -670,12 +675,13 @@ if ( !class_exists( 'YITH_Request_Quote' ) ) {
 							    $value = wc_clean( stripslashes( $_REQUEST[ $taxonomy ] ) );
 						    }
 
+						    $variation_data = yit_get_prop( $variation, 'data', true );
 						    // Get valid value from variation
-						    $valid_value = isset( $variation->variation_data[ $taxonomy ] ) ? $variation->variation_data[ $taxonomy ] : '';
+						    $valid_value = isset( $variation_data['attributes'][ $attribute['name'] ] ) ? $variation_data['attributes'][ $attribute['name'] ] : '';
 
 						    // Allow if valid
 						    if ( '' === $valid_value || $valid_value === $value ) {
-							    $variations[ $taxonomy ] = $value;
+							    $raq_data[ $taxonomy ] = $value;
 							    continue;
 						    }
 
@@ -699,12 +705,11 @@ if ( !class_exists( 'YITH_Request_Quote' ) ) {
 			    return;
 		    }
 
-		    $raq_data = array(
+		    $raq_data = array_merge( array(
 			    'product_id'   => $product_id,
 			    'variation_id' => $variation_id,
 			    'quantity'     => $quantity,
-			    'variation'    => $variations
-		    );
+		    ), $raq_data );
 
 		    $return = $this->add_item( $raq_data );
 
@@ -715,9 +720,7 @@ if ( !class_exists( 'YITH_Request_Quote' ) ) {
 			    $message = apply_filters( 'yith_ywraq_product_already_in_list_message', __( 'Product already in the list.', 'yith-woocommerce-request-a-quote' ) );
 			    wc_add_notice( $message, 'notice' );
 		    }
-
 	    }
-
     }
 }
 

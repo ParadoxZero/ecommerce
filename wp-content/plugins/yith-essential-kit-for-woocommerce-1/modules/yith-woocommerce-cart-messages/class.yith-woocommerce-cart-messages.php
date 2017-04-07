@@ -57,8 +57,11 @@ if ( !class_exists( 'YWCM_Cart_Messages' ) ) {
         public function __construct() {
 
             $this->create_menu_items();
+	        if ( ! is_admin() ) {
+		        add_action( 'wp_loaded', array( $this, 'load_messages' ), 30 );
+	        }
 
-            add_action( 'init', array( $this, 'load_messages'));
+
 
             //Add action links
             add_filter( 'plugin_action_links_' . plugin_basename( YITH_YWCM_DIR . '/' . basename( YITH_YWCM_FILE ) ), array( $this, 'action_links' ) );
@@ -76,7 +79,10 @@ if ( !class_exists( 'YWCM_Cart_Messages' ) ) {
                 add_action( 'admin_init', array( $this, 'register_pointer' ) );
             }
 
+            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
         }
+
+
 
         /**
          * Load the messages
@@ -86,6 +92,8 @@ if ( !class_exists( 'YWCM_Cart_Messages' ) ) {
          */
         public function load_messages(){
             $this->messages = YWCM_Cart_Message()->get_messages();
+
+
         }
 
         /**
@@ -105,7 +113,27 @@ if ( !class_exists( 'YWCM_Cart_Messages' ) ) {
             add_action( 'yith_woocommerce_cart_messages_premium', array( $this, 'premium_tab' ) );
         }
 
+        /**
+         * Enqueue style scripts in administrator
+         *
+         * Enqueue style and scripts files
+         *
+         * @since    1.0
+         * @author   Emanuela Castorina <emanuela.castorina@yithemes.com>
+         * @return  void
+         */
 
+	    public function admin_enqueue_scripts() {
+
+		    if ( get_post_type() != 'ywcm_message' ) {
+			    return;
+		    }
+		    wp_enqueue_style( 'yith_ywcm', YITH_YWCM_ASSETS_URL . '/css/admin.css' );
+		    wp_enqueue_script( 'jquery-ui-datepicker' );
+		    wp_enqueue_script( 'jquery-ui-slider' );
+		    wp_enqueue_script( 'ywcm_timepicker', YITH_YWCM_ASSETS_URL . '/js/jquery-ui-timepicker-addon.min.js', array( 'jquery' ), YITH_YWCM_VERSION, true );
+		    wp_enqueue_script( 'yith_ywcm_admin', YITH_YWCM_ASSETS_URL . '/js/ywcm-admin' . YITH_YWCM_SUFFIX . '.js', array( 'ywcm_timepicker' ), YITH_YWCM_VERSION, true );
+	    }
         /**
          * Load YIT Plugin Framework
          *
@@ -288,20 +316,22 @@ if ( !class_exists( 'YWCM_Cart_Messages' ) ) {
             $products_in_cart         = array();
             $products_in_cart_titles  = array();
 
+			if(WC()->cart ){
+				foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+					$product    = $values['data'];
+					$product_id = $product->get_id();
+					$parent_id  = yit_get_base_product_id( $product );
 
-            foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
-                $product      = $values['data'];
-                $variation_id = ( isset( $values['variation_id'] ) && $values['variation_id'] ) ? $values['variation_id'] : null;
+		        if (  $products == '' || in_array( $product_id, $products ) || in_array( $parent_id, $products ) ) {
 
+			        $products_in_cart[]                     = $product;
+			        $products_in_cart_titles[ $product_id ] = $product->get_title();
+			        $product_in_cart_quantity += $values['quantity'];
+		        }
 
-                if ( in_array( $product->id, $products ) || in_array( $variation_id, $products ) ) {
-                    $products_in_cart[] = $values['data'];
+				}
+			}
 
-                    $products_in_cart_titles[$product->id] = $product->get_title();
-                    $product_in_cart_quantity += $values['quantity'];
-                }
-
-            }
 
             if( empty($products_in_cart_titles) ) {
                 return false;
@@ -362,15 +392,19 @@ if ( !class_exists( 'YWCM_Cart_Messages' ) ) {
             $category_in_cart        = array();
 
             foreach ( $categories as $category ) {
-                foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
-                    $product = $values['data'];
-                    if ( has_term( $category, 'product_cat', $product->id ) ) {
-                        if ( !in_array( $category, $category_in_cart ) ) {
-                            $category_in_cart[] = $category;
-                        }
-                        $products_in_cart_titles[$product->id] = $product->get_title();
-                    }
-                }
+            	if( WC()->cart ){
+		            foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+			            $product = $values['data'];
+			            $product_id = $product->get_id();
+			            $parent = yit_get_base_product_id( $product );
+			            if ( has_term( $category, 'product_cat', $product->get_id() ) || has_term( $category, 'product_cat', $parent )  ) {
+				            if ( ! in_array( $category, $category_in_cart ) ) {
+					            $category_in_cart[] = $category;
+				            }
+				            $products_in_cart_titles[ $product->get_id() ] = $product->get_title();
+			            }
+		            }
+	            }
             }
 
             if ( empty( $category_in_cart ) ) {

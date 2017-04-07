@@ -34,6 +34,11 @@
     display: inline-block;
 }
 
+.woocommerce form .form-row .ywapo_input_container.ywapo_input_container_radio label,
+.woocommerce form .form-row .ywapo_input_container.ywapo_input_container_checkbox label {
+    cursor: pointer;
+}
+
 .woocommerce form .form-row .ywapo_input_container.ywapo_input_container_labels label {
     cursor: pointer;
 }

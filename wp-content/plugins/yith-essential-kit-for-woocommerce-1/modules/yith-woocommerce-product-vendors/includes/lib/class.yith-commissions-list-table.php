@@ -89,6 +89,8 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
          */
         public function prepare_items() {
 
+            $items = array();
+
             // sets pagination arguments
             $per_page     = $this->get_items_per_page( 'edit_commissions_per_page' );
             $current_page = absint( $this->get_pagenum() );
@@ -103,7 +105,7 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
             );
 
             if( ! empty( $_GET['orderby'] ) ){
-                $args['ordeby'] = $_GET['orderby'];
+                $args['orderby'] = $_GET['orderby'];
             }
 
             if( ! empty( $_GET['order'] ) ){
@@ -119,6 +121,10 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
                 $args['user_id'] = get_current_user_id();
             }
 
+            if( ! empty( $_GET['vendor_id'] ) ){
+                $args['vendor_id'] = $_GET['vendor_id'];
+            }
+
             $args = apply_filters( 'yith_wpv_commissions_table_args', $args );
 
             $commission_ids = YITH_Commissions()->get_commissions( $args );
@@ -130,10 +136,8 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
             $sortable              = $this->get_sortable_columns();
             $this->_column_headers = array( $columns, $hidden, $sortable );
 
-            $items = array();
-
             foreach ( $commission_ids as $commission_id ) {
-                $items[ $commission_id ] = YITH_Commission( $commission_id );
+                $items[] = YITH_Commission( $commission_id );
             }
 
             // retrieve data for table
@@ -200,7 +204,8 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
 
                 case 'commission_id':
                     $order = wc_get_order( $rec->order_id );
-                    $order ? printf( '<a href="%s"><strong>#%d</strong></a>', $rec->get_view_url( 'admin' ), $rec->id ) : printf( '<strong>#%d</strong>', $rec->id );
+                    $commission_url = apply_filters( 'yith_wcmv_commissions_list_table_commission_url', $rec->get_view_url( 'admin' ), $rec );
+                    $order ? printf( '<a href="%s"><strong>#%d</strong></a>', $commission_url, $rec->id ) : printf( '<strong>#%d</strong>', $rec->id );
                     break;
 
                 case 'commission_status':
@@ -223,7 +228,7 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
 
                     if ( ! empty( $user_info ) ) {
 
-                        $current_user_can = current_user_can( 'edit_users' ) || get_current_user_id() == $user_info->ID;
+                        $current_user_can = apply_filters( 'yith_wcmv_commissions_list_table_can_edit_users', current_user_can( 'edit_users' ) || get_current_user_id() == $user_info->ID );
 
                         $username = $current_user_can ? '<a href="user-edit.php?user_id=' . absint( $user_info->ID ) . '">' : '';
 
@@ -240,24 +245,28 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
 
                     }
                     else {
-                        if ( $order->billing_first_name || $order->billing_last_name ) {
-                            $username = trim( $order->billing_first_name . ' ' . $order->billing_last_name );
+                        $billing_first_name = yit_get_prop( $order, 'billing_first_name', true );
+                        $billing_last_name  = yit_get_prop( $order, 'billing_last_name', true );
+                        if ( $billing_first_name || $billing_last_name ) {
+                            $username = trim( $billing_first_name . ' ' . $billing_last_name );
                         }
                         else {
                             $username = __( 'Guest', 'woocommerce' );
                         }
                     }
 
+                    $order_id = yit_get_prop( $order, 'id', true );
                     $order_number    = '<strong>#' . esc_attr( $order->get_order_number() ) . '</strong>';
-                    $order_uri       = '<a href="' . admin_url( 'post.php?post=' . absint( $order->id ) . '&action=edit' ) . '">' . $order_number . '</a>';
+                    $order_uri       = apply_filters( 'yith_wcmv_commissions_list_table_order_url', admin_url( 'post.php?post=' . absint( $order_id ) . '&action=edit' ), $rec, $order );
+                    $order_uri_html  = '<a href="' . $order_uri . '">' . $order_number . '</a>';
                     $order_info      = $this->_vendor->is_super_user() ? $order_uri :  apply_filters( 'yith_wcmv_commissions_order_column', $order_number, $order->get_order_number() );
 
                     if( $this->_vendor->is_super_user() ){
-                        $order_info = $order_uri;
+                        $order_info = $order_uri_html;
                     }
 
-                    else if( defined( 'YITH_WPV_PREMIUM' ) && YITH_WPV_PREMIUM && $this->_vendor->has_limited_access() && wp_get_post_parent_id( $order->id )&& in_array($order->id, $this->_vendor->get_orders() ) ){
-                        $order_info = $order_uri;
+                    else if( defined( 'YITH_WPV_PREMIUM' ) && YITH_WPV_PREMIUM && $this->_vendor->has_limited_access() && wp_get_post_parent_id( $order_id )&& in_array( $order_id, $this->_vendor->get_orders() ) ){
+                        $order_info = $order_uri_html;
                     }
 
                     else {
@@ -266,8 +275,10 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
 
                     printf( _x( '%s by %s', 'Order number by user', 'yith-woocommerce-product-vendors' ), $order_info, $username );
 
-                    if ( $order->billing_email ) {
-                        echo '<small class="meta email"><a href="' . esc_url( 'mailto:' . $order->billing_email ) . '">' . esc_html( $order->billing_email ) . '</a></small>';
+                    $billing_email = yit_get_prop( $order, 'billing_email', true );
+
+                    if ( $billing_email ) {
+                        echo '<small class="meta email"><a href="' . esc_url( 'mailto:' . $billing_email ) . '">' . esc_html( $billing_email ) . '</a></small>';
                     }
 
                     do_action( 'yith_wpv_after_order_column', $order );
@@ -280,7 +291,7 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
                         return '<small class="meta">-</small>';
                     }
 
-                    $product_url = get_edit_post_link( $product['product_id'] );
+                    $product_url = apply_filters( 'yith_wcmv_commissions_list_table_product_url', get_edit_post_link( $product['product_id'] ), $product, $rec );
                     return ! empty( $product_url ) ? "<a target='_blank' href='{$product_url}'><strong>{$product['name']}</strong></a>" : "<strong>{$product['name']}</strong>";
                     break;
 
@@ -307,17 +318,25 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
                         return "<em>" . __( 'Vendor deleted', 'yith-woocommerce-product-vendors' ) . "</em>";
                     }
 
-                    $vendor_url  = get_edit_term_link( $vendor->id, $vendor->taxonomy );
+                    $vendor_url  = apply_filters( 'yith_wcmv_commissions_list_table_vendor_url', get_edit_term_link( $vendor->id, $vendor->taxonomy ), $vendor, $rec );
                     $vendor_name = $vendor->name;
                     return ! empty( $vendor_url ) ? "<a href='{$vendor_url}' target='_blank'>{$vendor_name}</a>" : $vendor_name;
                     break;
 
                 case 'amount':
-                    return wc_price( $rec->amount );
+                    /** @var WC_Order $order */
+                    $order = wc_get_order( $rec->order_id );
+                    $args = array();
+
+                    if( $order instanceof WC_Order ){
+                        $args['currency'] = yith_wcmv_get_order_currency( $order );
+                    }
+                    return $rec->get_amount('display', $args );
                     break;
 
                 case 'user_actions':
-                    printf( '<a class="button tips view" href="%1$s" data-tip="%2$s">%2$s</a>', $rec->get_view_url( 'admin' ), __( 'View', 'yith-woocommerce-product-vendors' ) );
+                    $details_url = apply_filters( 'yith_wcmv_commissions_list_table_commission_url', $rec->get_view_url( 'admin' ), $rec );
+                    printf( '<a class="button tips view" href="%1$s" data-tip="%2$s">%2$s</a>', $details_url, __( 'View', 'yith-woocommerce-product-vendors' ) );
                     break;
 
                 case 'date':
@@ -339,17 +358,17 @@ if ( ! class_exists( 'YITH_Commissions_List_Table' ) ) {
                     break;
 
                 case 'date_edit':
-                    $date   = ! empty( $rec->last_edit ) && strpos( $rec->last_edit, '0000-00-00' ) ? $rec->last_edit : $rec->get_date();
+                    $date   = ! empty( $rec->last_edit ) && strpos( $rec->last_edit, '0000-00-00' ) === false ? $rec->last_edit : $rec->get_date();
                     $t_time = date_i18n( __( 'Y/m/d g:i:s A' ), mysql2date( 'U', $date ) );
                     $m_time = $date;
                     $time   = mysql2date( 'G', ! empty( $rec->last_edit_gmt ) && strpos( $rec->last_edit_gmt, '0000-00-00' ) ? $rec->last_edit : $rec->get_date() );
 
                     $time_diff = time() - $time;
 
-	                if ( $time_diff > 0 && $time_diff < WEEK_IN_SECONDS )
-		                $h_time = sprintf( __( '%s ago', 'yith-woocommerce-product-vendors' ), human_time_diff( $time ) );
-	                else
-		                $h_time = mysql2date( __( 'Y/m/d', 'yith-woocommerce-product-vendors' ), $m_time );
+                    if ( $time_diff > 0 && $time_diff < WEEK_IN_SECONDS )
+                        $h_time = sprintf( __( '%s ago', 'yith-woocommerce-product-vendors' ), human_time_diff( $time ) );
+                    else
+                        $h_time = mysql2date( __( 'Y/m/d', 'yith-woocommerce-product-vendors' ), $m_time );
 
                     echo $h_time ? '<abbr title="' . $t_time . '">' . $h_time . '</abbr>' : '<small class="meta">-</small>';
                     break;

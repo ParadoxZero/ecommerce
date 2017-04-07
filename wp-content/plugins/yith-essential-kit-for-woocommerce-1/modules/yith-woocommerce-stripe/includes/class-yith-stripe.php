@@ -50,6 +50,29 @@ if( ! class_exists( 'YITH_WCStripe' ) ){
 		public $admin = null;
 
 		/**
+		 * Zero decimals currencies
+		 *
+		 * @var array Zero decimals currencies
+		 */
+		public static $zero_decimals = array(
+			'BIF',
+			'CLP',
+			'DJF',
+			'GNF',
+			'JPY',
+			'KMF',
+			'KRW',
+			'MGA',
+			'PYG',
+			'RWF',
+			'VND',
+			'VUV',
+			'XAF',
+			'XOF',
+			'XPF'
+		);
+
+		/**
 		 * Returns single instance of the class
 		 *
 		 * @return \YITH_WCStripe
@@ -155,7 +178,7 @@ if( ! class_exists( 'YITH_WCStripe' ) ){
 			$order          = wc_get_order( $order_id );
 
 			// check if payment method is Stripe
-			if ( $order->payment_method != self::$gateway_id ) {
+			if ( yit_get_prop( $order, 'payment_method' ) != self::$gateway_id ) {
 				return;
 			}
 
@@ -164,8 +187,13 @@ if( ! class_exists( 'YITH_WCStripe' ) ){
 				return;
 			}
 
+			// lets third party plugin skip this execution
+			if( ! apply_filters( 'yith_stripe_skip_capture_charge', true, $order_id ) ){
+				return;
+			}
+
 			$transaction_id = $order->get_transaction_id();
-			$captured = strcmp( $order->captured, 'yes' ) == 0;
+			$captured = strcmp( yit_get_prop( $order, 'captured' ), 'yes' ) == 0;
 
 			if ( $captured ) {
 				return;
@@ -181,7 +209,7 @@ if( ! class_exists( 'YITH_WCStripe' ) ){
 				$gateway->init_stripe_sdk();
 
 				if ( ! $transaction_id ) {
-					throw new \Stripe\Error\Api( __( 'Stripe Credit Card Refund failed because the Transaction ID is missing.', 'yith-stripe' ) );
+					throw new \Stripe\Error\Api( __( 'Stripe Credit Card Charge failed because the Transaction ID is missing.', 'yith-woocommerce-stripe' ) );
 				}
 
 				// capture
@@ -192,7 +220,7 @@ if( ! class_exists( 'YITH_WCStripe' ) ){
 
 			} catch( \Stripe\Error\Api $e ) {
 				$message = isset( $gateway->errors[ $e->getCode() ] ) ? $gateway->errors[ $e->getCode() ] : $e->getMessage();
-				$order->add_order_note( __( 'Charge not captured.', 'yith-stripe' ) . '<br />' . $message );
+				$order->add_order_note( __( 'Charge not captured.', 'yith-woocommerce-stripe' ) . '<br />' . $message );
 
 				if ( is_admin() ) {
 					wp_die( $message );
@@ -200,6 +228,62 @@ if( ! class_exists( 'YITH_WCStripe' ) ){
 
 				wc_add_notice( $message, 'error' );
 			}
+		}
+
+		/**
+		 * Returns order details for hosted checkout
+		 */
+		public function send_checkout_details() {
+			check_ajax_referer( 'yith-stripe-refresh-details', 'refresh-details', true );
+
+			wp_send_json( array(
+				'amount'          => self::get_amount( WC()->cart->total ),
+				'currency'        => strtolower( get_woocommerce_currency() )
+			) );
+		}
+
+		/**
+		 * Get Stripe amount to pay
+		 *
+		 * @param $total
+		 * @param string $currency
+		 *
+		 * @return float
+		 * @since 1.0.0
+		 */
+		public static function get_amount( $total, $currency = '' ) {
+			if ( empty( $currency ) ) {
+				$currency = get_woocommerce_currency();
+			}
+
+			if ( ! in_array( $currency, self::$zero_decimals ) ) {
+				$total *= 100;
+			}
+
+			return absint( $total );
+		}
+
+		/**
+		 * Get original amount
+		 *
+		 * @param $total
+		 * @param string $currency
+		 *
+		 * @return float
+		 * @since 1.0.0
+		 */
+		public static function get_original_amount( $total, $currency = '' ) {
+			if ( empty( $currency ) ) {
+				$currency = get_woocommerce_currency();
+			}
+
+			if ( in_array( $currency, self::$zero_decimals ) ) {
+				$total = absint( $total );
+			} else {
+				$total /= 100;
+			}
+
+			return $total;
 		}
 	}
 }

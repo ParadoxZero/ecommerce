@@ -46,12 +46,12 @@ if( ! class_exists( 'YITH_WCAUTHNET_Admin' ) ) {
 		/**
 		 * @var string Premium landing url
 		 */
-		protected $_premium_landing = 'http://yithemes.com/themes/plugins/yith-woocommerce-authorize-net/';
+		protected $_premium_landing = 'https://yithemes.com/themes/plugins/yith-woocommerce-authorize-net/';
 
 		/**
 		 * @var string official documentation url
 		 */
-		protected $_official_documentation = 'http://yithemes.com/docs-plugins/yith-woocommerce-authorizenet-payment-gateway/';
+		protected $_official_documentation = 'https://yithemes.com/docs-plugins/yith-woocommerce-authorizenet-payment-gateway/';
 
 		/**
 		 * Returns single instance of the class
@@ -191,7 +191,7 @@ if( ! class_exists( 'YITH_WCAUTHNET_Admin' ) ) {
 		 * @param $plugin_data
 		 * @param $status
 		 *
-		 * @return   Array
+		 * @return   array
 		 * @since    1.0
 		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @use plugin_row_meta

@@ -53,6 +53,8 @@ if ( ! defined( 'YLC_TEMPLATE_PATH' ) ) {
 	define( 'YLC_TEMPLATE_PATH', YLC_DIR . 'templates' );
 }
 
+
+
 function ylc_free_init() {
 
 	/* Load text domain */

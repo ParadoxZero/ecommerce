@@ -201,7 +201,7 @@ if( ! class_exists( 'YITH_WCAUTHNET_Credit_Card_Gateway' ) ){
 				),
 				'transaction_key' => array(
 					'title' => __( 'Transaction Key', 'yith-wcauthnet' ),
-					'type' => 'text',
+					'type' => 'password',
 					'description' => __( 'A unique key used to validate requests to Authorize.net (it can be recovered in the "API Login ID and Transaction Key" section)', 'yith-wcauthnet' )
 				),
 				'md5_hash' => array(
@@ -332,7 +332,7 @@ if( ! class_exists( 'YITH_WCAUTHNET_Credit_Card_Gateway' ) ){
 			$order = wc_get_order( $order_id );
 			$order_number = $order->get_order_number();
 			$order_total = $order->get_total();
-			$order_currency = $order->get_order_currency();
+			$order_currency = method_exists( $order, 'get_currency' ) ? $order->get_currency() : $order->get_order_currency();
 
 			// Define variables to use in the template
 			$login_id = $this->login_id;
@@ -345,22 +345,22 @@ if( ! class_exists( 'YITH_WCAUTHNET_Credit_Card_Gateway' ) ){
 			$description = 'Order ' . $order_number;
 			$show_form = 'PAYMENT_FORM';
 			$currency_code = $order_currency;
-			$first_name = $order->billing_first_name;
-			$last_name = $order->billing_last_name;
-			$company = $order->billing_company;
-			$address = $order->billing_address_1 . ' ' . $order->billing_address_2;
-			$country = $order->billing_country;
-			$phone = $order->billing_phone;
-			$state = $order->billing_state;
-			$city = $order->billing_city;
-			$zip = $order->billing_postcode;
-			$email = $order->billing_email;
-			$ship_to_first_name = $order->shipping_first_name;
-			$ship_to_last_name = $order->shipping_last_name;
-			$ship_to_address = $order->shipping_address_1;
-			$ship_to_city = $order->shipping_city;
-			$ship_to_zip = $order->shipping_postcode;
-			$ship_to_state = $order->shipping_state;
+			$first_name = yit_get_prop( $order, 'billing_first_name', true );
+			$last_name = yit_get_prop( $order, 'billing_last_name', true );
+			$company = yit_get_prop( $order, 'billing_company', true );
+			$address = yit_get_prop( $order, 'billing_address_1', true ). ' ' . yit_get_prop( $order, 'billing_address_2', true );
+			$country = yit_get_prop( $order, 'billing_country', true );
+			$phone = yit_get_prop( $order, 'billing_phone', true );
+			$state = yit_get_prop( $order, 'billing_state', true );
+			$city = yit_get_prop( $order, 'billing_city', true );
+			$zip = yit_get_prop( $order, 'billing_postcode', true );
+			$email = yit_get_prop( $order, 'billing_email', true );
+			$ship_to_first_name = yit_get_prop( $order, 'shipping_first_name', true );
+			$ship_to_last_name = yit_get_prop( $order, 'shipping_last_name', true );
+			$ship_to_address = yit_get_prop( $order, 'shipping_address_1', true );
+			$ship_to_city = yit_get_prop( $order, 'shipping_city', true );
+			$ship_to_zip = yit_get_prop( $order, 'shipping_postcode', true );
+			$ship_to_state = yit_get_prop( $order, 'shipping_state', true );
 			$cancel_url = function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : WC()->cart->get_checkout_url();
 			$cancel_button_label = apply_filters( 'yith_wcauthnet_cancel_button_label', __( 'Cancel Payment', 'yith-wcauthnet' ) );
 			$relay_url = esc_url( add_query_arg( 'wc-api', $this->id, user_trailingslashit( home_url() ) ) );
@@ -505,7 +505,7 @@ if( ! class_exists( 'YITH_WCAUTHNET_Credit_Card_Gateway' ) ){
 					$order->payment_complete( $trans_id );
 
 					if( ! empty( $trans_account_number ) ){
-						update_post_meta( $order->id, 'x_card_num', $trans_account_number );
+						yit_save_prop( $order, 'x_card_num', $trans_account_number );
 					}
 
 					if ( 'yes' == $this->debug ) {

@@ -38,6 +38,6 @@ if( $type == 'radio' ) {
 
 echo '<div class="ywapo_input_container '.$class_container.'">';
 
-echo sprintf( '%s<input data-typeid="%s" data-price="%s" data-pricetype="%s" data-index="%s" type="%s" name="%s[%s]" value="%s" %s %s class="%s" %s %s %s/>%s',$before_label, esc_attr( $type_id ) , esc_attr( $price_calculated ), esc_attr( $price_type ), $index, esc_attr( $type )  , esc_attr( $name ) , $key  , esc_attr( $value ) , ($required ? 'required' : '') , ($checked ? 'checked' : '') , implode( ' ' , $input_classes ) , $min_html , $max_html , $disabled, $after_label  );
+echo sprintf( '%s<input id="%s" data-typeid="%s" data-price="%s" data-pricetype="%s" data-index="%s" type="%s" name="%s[%s]" value="%s" %s %s class="%s" %s %s %s/>%s',$before_label, $control_id, esc_attr( $type_id ) , esc_attr( $price_calculated ), esc_attr( $price_type ), $index, esc_attr( $type )  , esc_attr( $name ) , $key  , esc_attr( $value ) , ($required ? 'required' : '') , ($checked ? 'checked' : '') , implode( ' ' , $input_classes ) , $min_html , $max_html , $disabled, $after_label  );
 
 echo '</div>';

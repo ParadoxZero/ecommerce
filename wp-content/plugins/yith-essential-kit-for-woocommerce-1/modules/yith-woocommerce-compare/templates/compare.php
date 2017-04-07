@@ -49,12 +49,14 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
     <title><?php _e( 'Product Comparison', 'yith-woocommerce-compare' ) ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11" />
 
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
+    <?php wp_head() ?>
+
+    <?php do_action( 'yith_woocompare_popup_head' ) ?>    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
     <link rel="stylesheet" href="<?php echo $this->stylesheet_url() ?>" type="text/css" />
     <link rel="stylesheet" href="<?php echo YITH_WOOCOMPARE_URL ?>assets/css/colorbox.css"/>
     <link rel="stylesheet" href="<?php echo YITH_WOOCOMPARE_URL ?>assets/css/jquery.dataTables.css"/>
-
-    <?php wp_head() ?>
 
     <style type="text/css">
         body.loading {
@@ -80,7 +82,7 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
     <thead>
     <tr>
         <th>&nbsp;</th>
-        <?php foreach( $products as $i => $product ) : ?>
+        <?php foreach( $products as $product_id => $product ) : ?>
             <td></td>
         <?php endforeach; ?>
     </tr>
@@ -88,7 +90,7 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
     <tfoot>
     <tr>
         <th>&nbsp;</th>
-        <?php foreach( $products as $i => $product ) : ?>
+        <?php foreach( $products as $product_id => $product ) : ?>
             <td></td>
         <?php endforeach; ?>
     </tr>
@@ -104,11 +106,17 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
     <?php else : ?>
         <tr class="remove">
             <th>&nbsp;</th>
-            <?php foreach( $products as $i => $product ) : $product_class = ( $i % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product->id ?>
+            <?php
+            $index = 0;
+            foreach( $products as $product_id => $product ) :
+                $product_class = ( $index % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product_id ?>
                 <td class="<?php echo $product_class; ?>">
-                    <a href="<?php echo add_query_arg( 'redirect', 'view', $this->remove_product_url( $product->id ) ) ?>" data-product_id="<?php echo $product->id; ?>"><?php _e( 'Remove', 'yith-woocommerce-compare' ) ?> <span class="remove">x</span></a>
+                    <a href="<?php echo add_query_arg( 'redirect', 'view', $this->remove_product_url( $product_id ) ) ?>" data-product_id="<?php echo $product_id; ?>"><?php _e( 'Remove', 'yith-woocommerce-compare' ) ?> <span class="remove">x</span></a>
                 </td>
-            <?php endforeach ?>
+                <?php
+                ++$index;
+            endforeach;
+            ?>
         </tr>
 
         <?php foreach ( $fields as $field => $name ) : ?>
@@ -120,7 +128,10 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
                     <?php if ( $field == 'image' ) echo '<div class="fixed-th"></div>'; ?>
                 </th>
 
-                <?php foreach( $products as $i => $product ) : $product_class = ( $i % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product->id; ?>
+                <?php
+                $index = 0;
+                foreach( $products as $product_id => $product ) :
+                    $product_class = ( $index % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product_id; ?>
                     <td class="<?php echo $product_class; ?>"><?php
                         switch( $field ) {
 
@@ -138,7 +149,9 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
                         }
                         ?>
                     </td>
-                <?php endforeach ?>
+                    <?php
+                    ++$index;
+                endforeach; ?>
 
             </tr>
 
@@ -148,9 +161,14 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
             <tr class="price repeated">
                 <th><?php echo $fields['price'] ?></th>
 
-                <?php foreach( $products as $i => $product ) : $product_class = ( $i % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product->id ?>
+                <?php
+                $index = 0;
+                foreach( $products as $product_id => $product ) :
+                    $product_class = ( $index % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product_id ?>
                     <td class="<?php echo $product_class ?>"><?php echo $product->fields['price'] ?></td>
-                <?php endforeach; ?>
+                    <?php
+                    ++$index;
+                endforeach; ?>
 
             </tr>
         <?php endif; ?>
@@ -159,9 +177,16 @@ $localized_table_text = apply_filters ( 'wpml_translate_single_string', $table_t
             <tr class="add-to-cart repeated">
                 <th><?php echo $fields['add-to-cart'] ?></th>
 
-                <?php foreach( $products as $i => $product ) : $product_class = ( $i % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product->id ?>
-                    <td class="<?php echo $product_class ?>"><?php woocommerce_template_loop_add_to_cart(); ?></td>
-                <?php endforeach; ?>
+                <?php
+                $index = 0;
+                foreach( $products as $product_id => $product ) :
+                    $product_class = ( $index % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product_id ?>
+                    <td class="<?php echo $product_class ?>">
+                        <?php woocommerce_template_loop_add_to_cart(); ?>
+                    </td>
+                    <?php
+                    ++$index;
+                endforeach; ?>
 
             </tr>
         <?php endif; ?>

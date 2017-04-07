@@ -43,28 +43,39 @@ $group = new YITH_WAPO_Group( $id );
 				<tr>
 					<th scope="row"><label for="products_id"><?php echo __( 'Products', 'yith-woocommerce-product-add-ons' ); ?></label></th>
 					<td>
-
-						<input type="hidden" class="wc-product-search" style="width: 350px;" id="products_id" name="products_id"
-							data-placeholder="<?php esc_attr_e( 'Applied to...', 'yith-woocommerce-product-add-ons' ); ?>"
-							data-action="woocommerce_json_search_products"
-							data-multiple="true"
-							data-exclude=""
-							data-selected="<?php
-						
-								$product_ids = array_filter( array_map( 'absint', explode( ',', $group->products_id ) ) );
-								$json_ids    = array();
-
-								foreach ( $product_ids as $product_id ) {
-									$product = wc_get_product( $product_id );
-									if ( is_object( $product ) ) {
-										$json_ids[ $product_id ] = wp_kses_post( html_entity_decode( $product->get_formatted_name(), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+						<?php if ( version_compare( WC_VERSION, '2.7', '<' ) ) : ?>
+							<input type="hidden" class="wc-product-search" style="width: 350px;" id="products_id" name="products_id"
+								data-placeholder="<?php esc_attr_e( 'Applied to...', 'yith-woocommerce-product-add-ons' ); ?>"
+								data-action="woocommerce_json_search_products"
+								data-multiple="true"
+								data-exclude=""
+								data-selected="<?php
+									$product_ids = array_filter( array_map( 'absint', explode( ',', $group->products_id ) ) );
+									$json_ids    = array();
+									foreach ( $product_ids as $product_id ) {
+										$product = wc_get_product( $product_id );
+										if ( is_object( $product ) ) {
+											$json_ids[ $product_id ] = wp_kses_post( html_entity_decode( $product->get_formatted_name(), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+										}
 									}
-								}
-
-								echo esc_attr( json_encode( $json_ids ) );
-								?>"
-							value="<?php echo implode( ',', array_keys( $json_ids ) ); ?>"
-						/>
+									echo esc_attr( json_encode( $json_ids ) );
+									?>"
+								value="<?php echo implode( ',', array_keys( $json_ids ) ); ?>"
+							/>
+						<?php else : ?>
+							<select name="products_id[]" id="products_id" class="wc-product-search"
+						    	data-placeholder="<?php esc_attr_e( 'Applied to...', 'yith-woocommerce-product-add-ons' ); ?>"
+						    	multiple="multiple">
+						        <?php
+						        $products_array = explode( ',', $group->products_id );
+						        foreach ( $products_array as $key => $value ) :
+						        	if ( $value > 0 ) :
+							        	$base_product = wc_get_product( $value ); ?>
+							        	<option selected="selected" value="<?php echo $value; ?>"><?php echo $base_product->get_title(); ?> (#<?php echo $value; ?>)</option>
+						        	<?php endif; ?>
+						        <?php endforeach; ?>
+						    </select>
+						<?php endif; ?>
 
 					</td>
 				</tr>
@@ -72,7 +83,10 @@ $group = new YITH_WAPO_Group( $id );
 				<tr>
 					<th scope="row"><label for="categories_id"><?php echo __( 'Categories', 'yith-woocommerce-product-add-ons' ); ?></label></th>
 					<td>
-						<select name="categories_id[]" class="categories_id-select2" multiple="multiple" placeholder="Applied to..."><?php
+						<select name="categories_id[]" class="categories_id-select2"
+							placeholder="<?php esc_attr_e( 'Applied to...', 'yith-woocommerce-product-add-ons' ); ?>"
+							multiple="multiple">
+							<?php
 
 							$categories_array = explode( ',', $group->categories_id );
 							echo_product_categories_childs_of( 0, 0, $categories_array );

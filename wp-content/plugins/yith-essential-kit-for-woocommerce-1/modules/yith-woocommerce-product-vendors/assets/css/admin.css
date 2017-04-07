@@ -403,9 +403,29 @@ input#yith_vendor_vat.valid {
     margin-right: 8px;
 }
 
+#commissions-filter .data_search_wrapper{
+    float: left;
+}
+
+
+
+#vendor_data_search.yith-wpv-commissions,
 #product_data_search.yith-wpv-commissions{
     width: 50%;
     display: inline;
+}
+
+#product_data_search .select2-container,
+#vendor_data_search .select2-container {
+    width: auto !important;
+}
+
+#commissions-filter p.search-box{
+    margin-bottom:15px;
+}
+
+#commissions-filter .tablenav .tablenav-pages{
+    margin-top: 15px;
 }
 
 #plugin-fw-wc span.description {
@@ -438,18 +458,27 @@ input#yith_vendor_vat.valid {
 body.vendor_limited_access .woocommerce_order_items_wrapper table.woocommerce_order_items td.line_tax .delete-order-tax,
 body.vendor_limited_access .woocommerce_order_items_wrapper table.woocommerce_order_items th.line_tax .delete-order-tax,
 body.vendor_limited_access:not(.vendor_refund_management):not(.vendor_quote_management ) .wc-order-items-editable .wc-order-edit-line-item-actions,
+body.vendor_limited_access:not(.vendor_refund_management) .wc-order-items-editable .wc-order-totals .wc-order-edit-line-item,
 body.vendor_limited_access:not(.vendor_refund_management) .wc-order-items-editable .wc-order-totals .wc-order-edit-line-item-actions,
 body.vendor_limited_access:not(.vendor_refund_management):not(.vendor_quote_management ) #woocommerce-order-items .add-items .button.refund-items,
 body.vendor_limited_access #woocommerce-order-items .add-items .description,
 body.vendor_limited_access #woocommerce-order-items .add-items .add-line-item,
 body.vendor_limited_access #woocommerce-order-items .add-items .add-order-tax,
-body.vendor_limited_access #woocommerce-order-items .add-items .calculate-tax-action,
+body.vendor_limited_access:not(.vendor_quote_management ) #woocommerce-order-items .add-items .calculate-tax-action,
 body.vendor_limited_access:not(.vendor_quote_management ) #woocommerce-order-items .add-items .calculate-action,
 body.vendor_super_user.vendor_suborder_detail .woocommerce_order_items_wrapper table.woocommerce_order_items td.line_tax .delete-order-tax,
 body.vendor_super_user.vendor_suborder_detail .woocommerce_order_items_wrapper table.woocommerce_order_items th.line_tax .delete-order-tax,
 body.vendor_super_user.vendor_suborder_detail #woocommerce-order-items .wc-order-data-row p.add-items button:not(.refund-items),
 body.vendor_super_user.vendor_suborder_detail #woocommerce-order-items .add-items .description {
     display: none;
+}
+
+body.vendor_limited_access #woocommerce-order-items .wc-order-item-bulk-edit{
+    display: none!important;
+}
+
+body.vendor_limited_access #woocommerce-order-items #order_line_items tr.selected{
+    background: #fff!important;
 }
 
 span.vacation-date-field {
@@ -567,6 +596,12 @@ span.vacation-date-field {
 /* Green Valley Fix */
 .vendor_super_user.post-type-shop_order .subsubsub li.mine {
     display: none;
+}
+
+/* WC 2.7 fix */
+.woocommerce.toplevel_page_yith_vendor_commissions .form-field .select2-container,
+.post-type-product.taxonomy-yith_shop_vendor .form-field .select2-container {
+    width: 100%!important;
 }
 
 /* Responsive */

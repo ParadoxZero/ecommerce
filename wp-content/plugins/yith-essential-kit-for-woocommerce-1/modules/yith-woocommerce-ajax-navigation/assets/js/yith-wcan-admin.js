@@ -57,7 +57,7 @@ jQuery(function ($) {
             style.hide();
         }
 
-        if( data.value == 'list' || data.value == 'tags' || data.value == 'brands' ){
+        if( data.value == 'list' || data.value == 'tags' || data.value == 'brands' || data.value == 'categories' ){
             show_count.show();
         } else {
             show_count.hide();

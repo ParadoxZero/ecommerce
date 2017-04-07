@@ -48,7 +48,7 @@ if ( !class_exists( 'YITH_WCBM_Post_Types' ) ) {
 
             $args = array(
                 'labels'              => $labels,
-                'public'              => true,
+                'public'              => false,
                 'show_ui'             => true,
                 'menu_position'       => 10,
                 'exclude_from_search' => true,

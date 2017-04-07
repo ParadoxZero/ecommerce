@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Authorize.net\n"
-"POT-Creation-Date: 2016-06-17 17:26+0200\n"
+"POT-Creation-Date: 2017-04-04 15:41+0200\n"
 "PO-Revision-Date: 2015-04-29 15:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
@@ -36,7 +36,7 @@ msgid "Authorize.net"
 msgstr ""
 
 #: ../includes/class.yith-wcauthnet-admin.php:175
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:286
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:303
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:286
 msgid "Settings"
 msgstr ""
@@ -64,136 +64,136 @@ msgid "Pay with Authorize.net"
 msgstr ""
 
 #: ../includes/class.yith-wcauthnet-credit-card-gateway.php:96
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:159
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:176
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:96
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:159
 msgid "Proceed to Authorize.net"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:137
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:154
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:137
 msgid "Enable/Disable"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:139
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:156
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:139
 msgid "Enable Authorize.net Payment"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:143
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:160
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:143
 msgid "Title"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:145
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:162
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:145
 msgid ""
 "This option lets you change the title that users see during the checkout."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:146
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:163
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:146
 msgid "Authorize.net Payment"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:150
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:167
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:150
 msgid "Description"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:152
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:169
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:152
 msgid ""
 "This option lets you change the description that users see during checkout."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:153
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:170
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:153
 msgid "Accepts Payments. Anywhere"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:156
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:173
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:156
 msgid "Order Button Text"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:158
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:175
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:158
 msgid ""
 "This option lets you change the label of the button that users see during "
 "the checkout."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:163
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:180
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:163
 msgid "Acceptance logos"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:165
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:182
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:165
 msgid "Select which credit card logo to display on your checkout page"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:171
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:188
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:171
 msgid "Visa"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:172
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:189
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:172
 msgid "MasterCard"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:173
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:190
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:173
 msgid "American Express"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:174
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:191
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:174
 msgid "Discover"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:175
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:192
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:175
 msgid "Diner's Club"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:176
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:193
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:176
 msgid "JCB"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:181
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:198
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:181
 msgid "Login ID"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:183
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:200
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:183
 msgid ""
 "Univocal ID login associated to the account of the admin (it can be "
 "recovered in the \"API Login ID and Transaction Key\" section)"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:186
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:203
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:186
 msgid "Transaction Key"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:188
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:205
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:188
 msgid ""
 "A unique key used to validate requests to Authorize.net (it can be recovered "
 "in the \"API Login ID and Transaction Key\" section)"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:191
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:208
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:191
 msgid "Md5 Hash"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:193
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:210
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:193
 msgid ""
 "A unique key used to validate the answers from Authorize.net (it can be set "
@@ -203,58 +203,58 @@ msgid ""
 "protected with SSL."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:196
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:213
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:196
 msgid "Enable Authorize.net sandbox"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:198
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:215
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:198
 msgid "Activate the sandbox mode to test the configuration"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:201
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:218
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:201
 msgid "Transaction type"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:203
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:220
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:203
 msgid "Select which type of transaction you want to send"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:208
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:225
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:208
 msgid "Authorize & Capture"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:209
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:226
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:209
 msgid "Authorize only"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:214
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:231
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:214
 msgid "Debug Log"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:216
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:233
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:216
 #, php-format
 msgid "Log of the Authorize.net events inside <code>%s</code>"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:274
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:291
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:274
 msgid "Please enter Login ID and Transaction Key for Authorize.net gateway."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:291
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:308
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:291
 msgid "Getting started"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:292
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:309
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:292
 msgid ""
 "An Authorize.Net Payment Gateway account allows you to accept credit cards "
@@ -263,46 +263,46 @@ msgid ""
 "businesses."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:294
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:311
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:294
 msgid "Sign up now"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:294
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:311
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:294
 msgid "Learn more"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:348
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:365
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:348
 msgid "Cancel Payment"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:417
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:434
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:417
 msgid "N/D"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:428
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:445
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:428
 msgid "Authorize.net API error: unknown error."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:429
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:446
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:429
 msgid "Unknown error"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:449
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:451
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:466
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:468
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:449
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:451
 #, php-format
 msgid "Validation error: Authorize.net amounts do not match with (%s)."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:462
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:464
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:479
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:481
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:462
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:464
 #, php-format
@@ -311,20 +311,20 @@ msgid ""
 "than (%s)."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:478
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:480
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:495
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:497
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:478
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:480
 msgid "Validation error: MD5 Hash control failed."
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:487
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:504
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:487
 #, php-format
 msgid "Authorize.net payment completed (message: %s). Transaction ID: %s"
 msgstr ""
 
-#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:503
+#: ../includes/class.yith-wcauthnet-credit-card-gateway.php:520
 #: ../includes/legacy/class.yith-wcauthnet-credit-card-gateway.php:503
 #, php-format
 msgid "Payment error: %s"

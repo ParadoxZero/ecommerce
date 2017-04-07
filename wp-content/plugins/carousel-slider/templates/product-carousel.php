@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! function_exists('WC')) {
+if ( ! defined( 'WC_VERSION' ) ) {
 	if ( current_user_can( 'manage_options' ) ){
 		echo sprintf( esc_html__( 'Carousel Slider needs %s to work for products carousel.', 'carousel-slider' ), sprintf('<a href="https://wordpress.org/plugins/woocommerce/" target="_blank" >%s</a>', __('WooCommerce', 'carousel-slider')) );
 	}
@@ -180,18 +180,18 @@ $_product_btn_text_color 	= get_post_meta( $id, '_product_button_text_color', tr
 </style>
 <div <?php echo join(" ", $this->carousel_options($id)); ?>>
 	<?php foreach ( $posts as $post ): setup_postdata( $post );?>
-		<?php $product = get_product( $post->ID ); ?>
+		<?php $product = wc_get_product( $post->ID ); ?>
 		<div class="product carousel-slider__product">
 			<?php
-				echo sprintf('<a class="woocommerce-LoopProduct-link" href="%s">', get_the_permalink( $product->id ));
+				echo sprintf('<a class="woocommerce-LoopProduct-link" href="%s">', get_the_permalink( $post->ID ));
 				// Post Thumbnail
-	            if( has_post_thumbnail($product->id) ) {
+	            if( has_post_thumbnail($post->ID) ) {
 					if ( $_lazy_load_image == 'on' ) {
-		                $image_src = get_the_post_thumbnail_url( $product->id, $_image_size );
+		                $image_src = get_the_post_thumbnail_url( $post->ID, $_image_size );
 		                echo sprintf( '<img class="owl-lazy" data-src="%1$s" />', $image_src );
 		            }
 		            else {
-		                $image_src = get_the_post_thumbnail_url( $product->id, $_image_size );
+		                $image_src = get_the_post_thumbnail_url( $post->ID, $_image_size );
 		                echo sprintf( '<img src="%1$s" />', $image_src );
 		            }
 	            }
@@ -199,14 +199,17 @@ $_product_btn_text_color 	= get_post_meta( $id, '_product_button_text_color', tr
 
 	            // Show title
 	            if ($_product_title == 'on') {
-		            echo sprintf('<a href="%1$s"><h3>%2$s</h3></a>', get_the_permalink( $product->id ), get_the_title( $product->id ));
+		            echo sprintf('<a href="%1$s"><h3>%2$s</h3></a>', get_the_permalink( $post->ID ), get_the_title( $post->ID ));
 	            }
 			
 	            // Show Rating
 				if($_product_rating == 'on'){
-					if($product->get_rating_html()){
+					if ( version_compare( WC_VERSION, "3.0.0", ">=" )) {
+						echo wc_get_rating_html( $product->get_average_rating() );
+					} else {
 						echo $product->get_rating_html();
 					}
+
 				}
 				// Sale Product batch
 				if ( $product->is_on_sale() && $_product_onsale == 'on' ){
@@ -226,8 +229,8 @@ $_product_btn_text_color 	= get_post_meta( $id, '_product_button_text_color', tr
 
 				if ( $_product_quick_view == 'on' ) {
 	                wp_enqueue_script( 'magnific-popup' );
-					$ajax_url = wp_nonce_url( add_query_arg( array( 'ajax' => 'true', 'action' => 'carousel_slider_quick_view', 'product_id' => $product->id, 'slide_id' => $id ), admin_url( 'admin-ajax.php' ) ), 'carousel_slider_quick_view');
-					echo sprintf('<a class="magnific-popup button quick_view" href="%1$s" data-product-id="%2$s">%3$s</a>', $ajax_url, $product->id, __('Quick View', 'carousel-slider'));
+					$ajax_url = wp_nonce_url( add_query_arg( array( 'ajax' => 'true', 'action' => 'carousel_slider_quick_view', 'product_id' => $post->ID, 'slide_id' => $id ), admin_url( 'admin-ajax.php' ) ), 'carousel_slider_quick_view');
+					echo sprintf('<a class="magnific-popup button quick_view" href="%1$s" data-product-id="%2$s">%3$s</a>', $ajax_url, $post->ID, __('Quick View', 'carousel-slider'));
 				}
 
 				// WooCommerce Wishlist

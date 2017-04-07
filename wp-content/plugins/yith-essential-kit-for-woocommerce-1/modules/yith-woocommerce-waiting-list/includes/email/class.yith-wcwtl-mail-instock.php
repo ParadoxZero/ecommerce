@@ -103,7 +103,11 @@ if ( ! class_exists( 'YITH_WCWTL_Mail_Instock' ) ) {
 			$this->replace['product-title']    = $this->object->get_title();
 			// replace product link
 			$this->find['product-link']        = '{product_link}';
-			$link =  ( $this->get_email_type() == 'html' ) ? '<a href="' . get_permalink( $this->object->id ) . '">' . apply_filters( 'yith_waitlist_link_label_instock_email', __( 'link', 'yith-woocommerce-waiting-list' ) ) . '</a>' : get_permalink( $this->object->id );
+            // build link
+            $link_label = apply_filters( 'yith_waitlist_link_label_instock_email', __( 'link', 'yith-woocommerce-waiting-list' ) );
+            $link =  ( $this->get_email_type() == 'html' ) ? '<a href="' . $this->object->get_permalink() . '">' . $link_label . '</a>' : $this->object->get_permalink();
+            // let third part filter link
+            $link = apply_filters( 'yith_waitlist_link_html_instock_email', $link, $this->object, $this->get_email_type() );
 			$this->replace['product-link']     = $link;
 
 			if ( ! $this->is_enabled() ) {
@@ -145,7 +149,7 @@ if ( ! class_exists( 'YITH_WCWTL_Mail_Instock' ) ) {
 		public function get_content_html() {
 
             $args = apply_filters( 'yith_wcwtl_email_instock_args', array(
-                'product_link'  => get_permalink( $this->object->id ),
+                'product_link'  => $this->object->get_permalink(),
                 'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_custom_option_content(),
                 'email'         => $this
@@ -171,7 +175,7 @@ if ( ! class_exists( 'YITH_WCWTL_Mail_Instock' ) ) {
 
             $args = apply_filters( 'yith_wcwtl_email_subscribe_plain_args', array(
                 'product_title'   => $this->object->get_title(),
-                'product_link'  => get_permalink( $this->object->id ),
+                'product_link'  => $this->object->get_permalink(),
                 'email_heading' => $this->get_heading(),
                 'email_content' => $this->get_custom_option_content()
             ));

@@ -12,6 +12,7 @@ use \Stripe\Error;
 use \Stripe\Customer;
 use \Stripe\Plan;
 use \Stripe\Subscription;
+use \Stripe\Invoice;
 
 class YITH_Stripe_API {
 
@@ -332,6 +333,31 @@ class YITH_Stripe_API {
 	public function cancel_subscription( $customer, $subscription_id ) {
 		$subscription = $this->get_subscription( $customer, $subscription_id );
 		return $subscription->cancel();
+	}
+
+	/**
+	 * Get an invoice for subscription
+	 *
+	 * @param $invoice_id
+	 *
+	 * @since 1.0.0
+	 * @return Invoice
+	 */
+	public function get_invoice( $invoice_id ) {
+		return Invoice::retrieve( $invoice_id );
+	}
+
+	/**
+	 * Pay an invoice for subscription
+	 *
+	 * @param $invoice_id
+	 *
+	 * @since 1.0.0
+	 * @return Invoice
+	 */
+	public function pay_invoice( $invoice_id ) {
+		$invoice = $this->get_invoice( $invoice_id );
+		$invoice->pay();
 	}
 
 	/**

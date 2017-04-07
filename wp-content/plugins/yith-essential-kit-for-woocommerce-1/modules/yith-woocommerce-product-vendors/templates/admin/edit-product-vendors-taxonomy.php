@@ -13,14 +13,7 @@
         <label for="key_user"><?php _e( 'Vendor Shop Owner', 'yith_wc_product_vendors' ); ?></label>
     </th>
     <td>
-        <input type="hidden"
-               class="wc-customer-search"
-               id="key_user"
-               name="yith_vendor_data[owner]"
-               data-placeholder="<?php esc_attr_e( 'Search for a shop owner&hellip;', 'yith_wc_product_vendors' ); ?>"
-               data-selected="<?php echo esc_attr( $owner ); ?>"
-               value="<?php echo esc_attr( $owner_id ); ?>"
-               data-allow_clear="true" />
+        <?php yit_add_select2_fields( $shop_owner_args ); ?>
         <br />
         <span class="description"><?php _e( 'User that can manage products in this shop and view sale reports.', 'yith_wc_product_vendors' ); ?></span>
     </td>

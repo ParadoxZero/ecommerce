@@ -13,70 +13,77 @@ if ( ! defined( 'YITH_WCWTL' ) ) {
 
 if( ! function_exists( 'yith_waitlist_get' ) ) {
 	/**
-	 * Get waitlist for product id
+	 * Get waiting list for product id
 	 *
 	 * @since 1.0.0
-	 * @param int $id
+	 * @param object|integer $product
 	 * @return array
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_get( $id ) {
-		$id = intval( $id );
-		return get_post_meta( $id, YITH_WCWTL_META, true );
+	function yith_waitlist_get( $product ) {
+		if( ! is_object( $product ) ) {
+			$product = wc_get_product( $product );
+		}
+		return yit_get_prop( $product, YITH_WCWTL_META, true );
 	}
 }
 
 if( ! function_exists( 'yith_waitlist_save' ) ) {
 	/**
-	 * Save waitlist for product id
+	 * Save waiting list for product id
 	 *
 	 * @since 1.0.0
-	 * @param int $id
-	 * @param array $waitlist
+	 * @param object|integer $product
+	 * @param array $list
 	 * @return void
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_save( $id, $waitlist ) {
-		$id = intval( $id );
-		update_post_meta( $id, YITH_WCWTL_META, $waitlist );
+	function yith_waitlist_save( $product, $list ) {
+		if( ! is_object( $product ) ) {
+			$product = wc_get_product( $product );
+		}
+		yit_save_prop( $product, YITH_WCWTL_META, $list );
 	}
 }
 
 if( ! function_exists( 'yith_waitlist_user_is_register' ) ) {
 	/**
-	 * Check if user is already register for a waitlist
+	 * Check if user is already register for a waiting list
 	 *
 	 * @since 1.0.0
 	 * @param string $user
-	 * @param array $waitlist
+	 * @param array $list
 	 * @return bool
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_user_is_register( $user, $waitlist ) {
-		return in_array( $user, $waitlist );
+	function yith_waitlist_user_is_register( $user, $list ) {
+		return is_array( $list ) && in_array( $user, $list );
 	}
 }
 
 if( ! function_exists( 'yith_waitlist_register_user' ) ) {
 	/**
-	 * Register user to waitlist
+	 * Register user to waiting list
 	 *
 	 * @since 1.0.0
 	 * @param string $user User email
-	 * @param int $id Product id
+	 * @param object|int $product
 	 * @return bool
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_register_user( $user, $id ) {
+	function yith_waitlist_register_user( $user, $product ) {
+		if( ! is_object( $product ) ) {
+			$product = wc_get_product( $product );
+		}
 
-		$waitlist = yith_waitlist_get( $id );
+		$list = yith_waitlist_get( $product );
 
-		if ( ! is_email( $user ) || ( is_array( $waitlist ) && yith_waitlist_user_is_register( $user, $waitlist ) ) )
+		if ( ! is_email( $user ) || yith_waitlist_user_is_register( $user, $list ) )
 			return false;
 
-		$waitlist[] = $user;
-		// save it
-		yith_waitlist_save( $id, $waitlist );
+		$list[] = $user;
+		// save it in product meta
+		yith_waitlist_save( $product, $list );
 
 		return true;
 	}
@@ -84,22 +91,22 @@ if( ! function_exists( 'yith_waitlist_register_user' ) ) {
 
 if( ! function_exists( 'yith_waitlist_unregister_user' ) ) {
 	/**
-	 * Unregister user from waitlist
+	 * Unregister user from waiting list
 	 *
 	 * @since 1.0.0
 	 * @param string $user User email
-	 * @param int $id Product id
+	 * @param object|integer $product Product id
 	 * @return bool
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_unregister_user( $user, $id ) {
+	function yith_waitlist_unregister_user( $user, $product ) {
 
-		$waitlist = yith_waitlist_get( $id );
+		$list = yith_waitlist_get( $product );
 
-		if( is_array( $waitlist ) && yith_waitlist_user_is_register( $user, $waitlist ) ) {
-			$waitlist = array_diff( $waitlist, array ( $user ) );
-			// save it
-			yith_waitlist_save( $id, $waitlist );
+		if( yith_waitlist_user_is_register( $user, $list ) ) {
+			$list = array_diff( $list, array ( $user ) );
+			// save it in product meta
+			yith_waitlist_save( $product, $list );
 			return true;
 		}
 
@@ -112,17 +119,17 @@ if( ! function_exists( 'yith_waitlist_get_registered_users' ) ) {
 	 * Get registered users for product waitlist
 	 *
 	 * @since 1.0.0
-	 * @param int $id Product id
+	 * @param object|integer $product
 	 * @return mixed
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_get_registered_users( $id ) {
+	function yith_waitlist_get_registered_users( $product ) {
 
-		$waitlist = yith_waitlist_get( $id );
+		$list = yith_waitlist_get( $product );
 		$users = array();
 
-		if( is_array( $waitlist ) ) {
-			foreach( $waitlist as $key => $email ) {
+		if( is_array( $list ) ) {
+			foreach( $list as $key => $email ) {
 				$users[] = $email;
 			}
 		}
@@ -136,12 +143,16 @@ if( ! function_exists( 'yith_waitlist_empty' ) ) {
 	 * Empty waitlist by product id
 	 *
 	 * @since 1.0.0
-	 * @param int $id Product id
+	 * @param object|integer $product
 	 * @return void
 	 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 	 */
-	function yith_waitlist_empty( $id ) {
-		update_post_meta( $id, YITH_WCWTL_META, array() );
+	function yith_waitlist_empty( $product ) {
+		if( ! is_object( $product ) ) {
+			$product = wc_get_product( $product );
+		}
+		// now empty waiting list
+		yit_save_prop( $product, YITH_WCWTL_META, array() );
 	}
 }
 

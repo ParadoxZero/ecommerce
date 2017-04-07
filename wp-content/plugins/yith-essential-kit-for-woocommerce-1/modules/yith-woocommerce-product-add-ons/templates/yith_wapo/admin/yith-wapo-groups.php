@@ -95,11 +95,13 @@ $show_vendor_column = YITH_WAPO::$is_vendor_installed && ( !isset( $vendor_user 
 					if ( $value->products_id ) {
 
 						$products_id = explode( ',', trim( $value->products_id, ',' ) );
-
+						
 						echo '<ul class="products_list">';
 						foreach ( $products_id as $key_2 => $value_2 ) {
-							$result = $wpdb->get_row( "SELECT post_title FROM {$wpdb->prefix}posts WHERE ID='$value_2'" );
-							echo '<li><a href="post.php?post=' . $value_2 . '&action=edit">' . $result->post_title . '</a></li>';
+							if ( $value_2 > 0 ) {
+								$result = $wpdb->get_row( "SELECT post_title FROM {$wpdb->prefix}posts WHERE ID='$value_2'" );
+								echo '<li><a href="post.php?post=' . $value_2 . '&action=edit">' . $result->post_title . '</a></li>';
+							}
 						}
 						echo '</ul>';
 

@@ -7,7 +7,7 @@ Text Domain: yith-essential-kit-for-woocommerce-1
 Domain Path: /languages/
 Author: YIThemes
 Author URI: http://yithemes.com/
-Version: 1.3.8
+Version: 1.4.3
 */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -26,6 +26,7 @@ p.yith-wcbm-badge-txt {
     position    : relative;
     display     : block;
     text-indent : 0;
+    line-height : 0;
 }
 
 .yith-wcbm-badge img {
@@ -36,17 +37,27 @@ span.onsale {
     z-index : 10;
 }
 
+/* Shortcode */
+.yith-wcbm-shortcode-badge-container .container-image-and-badge {
+    display : inline-block;
+}
+
 /* ============================================================================================
  *            T h e m e s  a n d   p l u g i n s    C o m p a t i b i l i t y
  * ============================================================================================
 */
+
+/* - - - hide in cart items - - - */
+.cart_item .yith-wcbm-badge {
+    display : none !important;
+}
 
 /* - - - hide badges on product thumbnails - - - - */
 .product-thumbnails .yith-wcbm-badge {
     display : none !important;
 }
 
-/* - - - - - - F L A T S O M E - - - - - - */
+/* ----- Flatsome ----- */
 .iosSlider.product-thumbnails .yith-wcbm-badge {
     display : none !important;
 }
@@ -59,32 +70,53 @@ span.onsale {
     position : static !important;
 }
 
-/* ----- WISHLIST ----- */
+/* ----- Wishlist ----- */
 #yith-wcwl-form .yith-wcbm-badge {
     display : none !important;
 }
 
-/* ---- FREQUENTLY BOUGHT TOGETHER --- */
-.yith-wfbt-section .yith-wcbm-badge, .yith-wfbt-form .yith-wcbm-badge{
-    display:none !important;
+/* ---- Frequently Bough together ---- */
+.yith-wfbt-section .yith-wcbm-badge, .yith-wfbt-form .yith-wcbm-badge {
+    display : none !important;
 }
 
-/*---- SAVE FOR LATER ---- */
+/*---- Save for later ---- */
 #ywsfl_container_list .yith-wcbm-badge {
     display : none !important;
 }
 
-/* ---------- AJAX SEARCH ---------- */
+/* ---- Quick View ---- */
+.yith-quick-view-nav .container-image-and-badge {
+    position : static !important;
+    width    : 100% !important;
+    padding  : 0 !important;
+}
+
+.yith-quick-view-nav .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ---------- Ajax Search ---------- */
 .yith-ajaxsearchform-container .yith-wcbm-badge {
-    display: none !important;
+    display : none !important;
 }
 
 /* ---------- Product Bundles -------------- */
 .yith-wcpb-product-bundled-items .yith-wcbm-badge {
-    display: none !important;
+    display : none !important;
 }
 
 /* ------ Storefront Sticky Add to Cart -------- */
 .ssatc-sticky-add-to-cart .yith-wcbm-badge {
+    display : none !important;
+}
+/* ------ Request a Quote ------- */
+.yith-ywraq-list-widget-wrapper .yith-wcbm-badge {
     display: none !important;
+}
+
+/* ------ Basel Theme -------- */
+body.yith-wcbm-theme-basel .container-image-and-badge > img,
+body.yith-wcbm-theme-basel .container-image-and-badge *:not(.yith-wcbm-badge) img {
+    width : 100%;
 }

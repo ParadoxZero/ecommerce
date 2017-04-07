@@ -26,6 +26,8 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
      * @property    string     $store_email
      * @property    string     $paypal_email
      * @property    string     $enable_selling
+     * @property    string     $header_image
+     * @property    string     $avatar
      * @property    string     $payment_type
      * @property    string     $threshold
      * @property    string     $registration_date
@@ -41,6 +43,7 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
      * @property    string     $vat
      * @property    string     $featured_products
      * @property    string     $bank_account
+     * @property    string     $website
      *
      */
     class YITH_Vendor {
@@ -113,7 +116,7 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
                 } elseif ( $vendor instanceof WP_Post ) {
                     $vendor = $vendor->ID;
                 } elseif ( $vendor instanceof WC_Product ) {
-                    $vendor = $vendor->id;
+                    $vendor = yit_get_base_product_id( $vendor );
                 }
 
                 $terms = wp_get_post_terms ( $vendor, self::$taxonomy );
@@ -237,40 +240,63 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
                 return $this->_changed[ $key ];
             }
 
-            $value = YITH_Vendors()->get_term_meta( $this->id, $key );
+            $vendor_id = $this->id;
+
+            $value = YITH_Vendors()->get_term_meta( $vendor_id, $key );
 
             // defaults
             $defaults = array (
                 'payment_type' => 'instant',
                 'threshold'    => 50,
             );
+
             foreach ( $defaults as $std_key => $std_value ) {
                 $key == $std_key && ! isset( $this->$key ) && $value = $std_value;
             }
 
             // Get values or default if not set
-            if ( 'admins' === $key ) {
-                $value = $this->get_admins ();
-            } else {
-                if ( 'taxonomy' === $key ) {
+            switch( $key ){
+                case 'admins':
+                    $value = $this->get_admins();
+                    break;
+
+                case 'owner':
+                    $value = $this->get_owner();
+                    break;
+
+                case 'taxonomy':
                     $value = self::$taxonomy;
-                } else {
-                    if ( 'socials' === $key && empty( $value ) ) {
-                        $value = array ();
-                    } else {
-                        if ( 'registration_date' === $key && empty( $value ) ) {
-                            $owner_id = $this->get_owner ();
-                            if ( ! empty( $owner_id ) ) {
-                                $owner = get_user_by ( 'id', $owner_id );
-                                $value = $owner->user_registered;
-                            }
-                        } else {
-                            if ( isset( $this->term->$key ) ) {
-                                $value = $this->term->$key;
-                            }
+                    break;
+
+                case 'socials':
+                    if( empty( $value ) ){
+                        $value = array();
+                    }
+                    break;
+
+                case 'registration_date':
+                    if( empty( $value ) ){
+                        $owner_id = $this->get_owner();
+                        if ( ! empty( $owner_id ) ) {
+                            $owner = get_user_by ( 'id', $owner_id );
+                            $value = $owner->user_registered;
                         }
                     }
-                }
+                    break;
+
+                case 'enable_selling':
+                    $value = $this->get_enable_selling();
+                    break;
+
+                case 'pending':
+                    $value = $this->get_pending();
+                    break;
+
+                default:
+                    if ( isset( $this->term->$key ) ) {
+                        $value = $this->term->$key;
+                    }
+                    break;
             }
 
             return $value;
@@ -376,7 +402,7 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
         public function get_owner () {
             $args  = array (
                 'meta_key'     => self::$_usermetaOwner,
-                'meta_value'   => $this->id,
+                'meta_value'   => yith_wcmv_get_wpml_vendor_id( $this->id ),
                 'meta_compare' => '=',
                 'fields'       => 'ids',
                 'number'       => 1,
@@ -396,13 +422,41 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
         public function get_admins () {
             $args   = array (
                 'meta_key'     => self::$_usermetaKey,
-                'meta_value'   => $this->id,
+                'meta_value'   => yith_wcmv_get_wpml_vendor_id ($this->id ),
                 'meta_compare' => '=',
                 'fields'       => 'ids',
             );
             $admins = get_users ( $args );
 
             return $admins;
+        }
+
+        /**
+         * Get enabled selling cap for vendor
+         *
+         * @return   bool
+         * @since    1.11.2
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         */
+        public function get_enable_selling () {
+            $vendor_id = yith_wcmv_get_wpml_vendor_id ($this->id );
+            $return = get_term_meta( $vendor_id, 'enable_selling', true );
+
+            return $return;
+        }
+
+        /**
+         * Get enabled selling cap for vendor
+         *
+         * @return   bool
+         * @since    1.11.2
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         */
+        public function get_pending () {
+            $vendor_id = yith_wcmv_get_wpml_vendor_id ($this->id );
+            $return = get_term_meta( $vendor_id, 'pending', true );
+
+            return $return;
         }
 
         /**
@@ -763,7 +817,7 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
             yith_wcpv_get_template ( $template, array (
                 'order'               => $order,
                 'vendor'              => $this,
-                'items'               => $order->get_items (),
+                'items'               => $order->get_items(),
                 'show_download_links' => $show_download_links,
                 'show_sku'            => $show_sku,
                 'show_purchase_note'  => $show_purchase_note,

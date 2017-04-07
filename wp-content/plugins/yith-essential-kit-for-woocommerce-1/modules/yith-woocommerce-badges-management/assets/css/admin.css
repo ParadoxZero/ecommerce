@@ -119,10 +119,9 @@ table.table-mini-title th {
     text-transform : uppercase;
 }
 
-h3#preview-title {
+h3#preview_title {
     text-align    : center;
-    margin-bottom: 20px;
-    font-size: 15px;
+    margin-bottom : 2px;
 }
 
 #preview-bg {
@@ -321,11 +320,85 @@ div#preview-desc {
     position      : absolute;
     background    : url('spinner.gif') no-repeat;
     border-radius : 5px;
-    border-radius : 5px;
     opacity       : 0.7;
     width         : 20px;
     height        : 20px;
     top           : 65px;
     left          : 65px;
     z-index       : 999;
+}
+
+/* ----- Metabox Badge in Product Edit Page ----- */
+
+#yith-wcbm-badge_metabox select {
+    width : 100%;
+}
+
+.yith-wcbm-datepicker {
+    width : 205px;
+}
+
+#yith-wcbm-metabox-schedule-options .yith-wcbm-delete-input {
+    font-size   : 25px;
+    line-height : 30px;
+    cursor      : pointer;
+}
+
+#yith-wcbm-metabox-schedule-options .yith-wcbm-delete-input:hover {
+    color : #cc1014;
+}
+
+#yith-wcbm-metabox-schedule-options {
+    background : #f9f9f9;
+    border     : 1px solid #dfdfdf;
+}
+
+#yith-wcbm-metabox-schedule-options h3 {
+    text-transform : uppercase;
+    margin         : 0;
+    font-weight    : 600;
+    font-size      : 12px;
+    padding        : 10px;
+    color          : #333;
+    background     : #f1f1f1;
+}
+
+#yith-wcbm-metabox-schedule-container {
+    padding : 10px;
+}
+
+#yith-wcbm-metabox-schedule-options p {
+    margin : 0 0 7px 0;
+}
+
+#yith-wcbm-metabox-schedule-options input[type=text] {
+    border             : 1px solid #c9c9c9;
+    -webkit-box-shadow : inset 0 1px 2px rgba(0, 0, 0, .07);
+    box-shadow         : inset 0 1px 2px rgba(0, 0, 0, .07);
+    background-color   : #fff;
+    color              : #32373c;
+    outline            : 0;
+    -webkit-transition : .05s border-color ease-in-out;
+    transition         : .05s border-color ease-in-out;
+}
+
+.post-type-yith-wcbm-badge .column-ID {
+    width : 100px;
+}
+
+th.column-yith_wcbm_preview, td.column-yith_wcbm_preview {
+    text-align : center;
+    width      : 250px;
+}
+
+td.column-yith_wcbm_preview {
+    height     : 60px;
+    vertical-align : middle;
+}
+
+.column-yith_wcbm_preview .yith-wcbm-badge {
+    position : relative;
+    display  : inline-block;
+    left     : 0;
+    top      : 0;
 }

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH Woocommerce Compare\n"
-"POT-Creation-Date: 2016-10-19 15:39+0200\n"
-"PO-Revision-Date: 2016-10-19 15:39+0200\n"
+"POT-Creation-Date: 2017-03-22 10:28+0100\n"
+"PO-Revision-Date: 2017-03-22 10:28+0100\n"
 "Last-Translator: Nicola Mustone <mail@nicolamustone.it>\n"
 "Language-Team: Your Inspiration Themes <support@yithemes.com>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.10\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -29,8 +29,8 @@ msgstr ""
 
 #: includes/class.yith-woocompare-admin.php:156
 #: includes/class.yith-woocompare-admin.php:157
-#: includes/class.yith-woocompare-frontend.php:446
-#: plugin-options/general-options.php:40 plugin-options/general-options.php:41
+#: includes/class.yith-woocompare-frontend.php:484
+#: plugin-options/general-options.php:41 plugin-options/general-options.php:42
 #: widgets/class.yith-woocompare-widget.php:51
 msgid "Compare"
 msgstr "Comparar"
@@ -70,23 +70,23 @@ msgstr ""
 msgid "Do you want to hard crop the image?"
 msgstr ""
 
-#: includes/class.yith-woocompare-frontend.php:186
+#: includes/class.yith-woocompare-frontend.php:211
 msgid "Added"
 msgstr "Adicionado"
 
-#: includes/class.yith-woocompare-frontend.php:187 templates/compare.php:49
+#: includes/class.yith-woocompare-frontend.php:212 templates/compare.php:49
 msgid "Product Comparison"
 msgstr "Comparação de Produtos"
 
-#: includes/class.yith-woocompare-frontend.php:330
+#: includes/class.yith-woocompare-frontend.php:368
 msgid "In stock"
 msgstr "No estoque"
 
-#: includes/class.yith-woocompare-frontend.php:649
+#: includes/class.yith-woocompare-frontend.php:675
 msgid "No products to compare"
 msgstr "Não há produtos à comparar"
 
-#: includes/class.yith-woocompare-frontend.php:659 templates/compare.php:109
+#: includes/class.yith-woocompare-frontend.php:688 templates/compare.php:112
 msgid "Remove"
 msgstr "Remover"
 
@@ -117,11 +117,11 @@ msgstr "Disponibilidade"
 
 #: includes/class.yith-woocompare-helper.php:51
 msgid "Weight"
-msgstr ""
+msgstr "Peso"
 
 #: includes/class.yith-woocompare-helper.php:52
 msgid "Dimensions"
-msgstr ""
+msgstr "Dimensões"
 
 #: init.php:40
 msgid ""
@@ -144,70 +144,70 @@ msgid "Link or Button"
 msgstr "Link ou Botão"
 
 #: plugin-options/general-options.php:25
-msgid "Choose if you want to use a link or a button for the action button."
-msgstr "Seleciona se deseja usar link ou botão para a ação do botão"
+msgid "Choose if you want to use a link or a button for the comepare actions."
+msgstr ""
 
-#: plugin-options/general-options.php:31
+#: plugin-options/general-options.php:32
 msgid "Link"
 msgstr "Link"
 
-#: plugin-options/general-options.php:32
+#: plugin-options/general-options.php:33
 msgid "Button"
 msgstr "Botão"
 
-#: plugin-options/general-options.php:37
+#: plugin-options/general-options.php:38
 msgid "Link/Button text"
 msgstr "Texto Link/Botão"
 
-#: plugin-options/general-options.php:38
+#: plugin-options/general-options.php:39
 msgid "Type the text to use for the button or the link of the compare."
 msgstr "Insira o texto usado no botão de comparação."
 
-#: plugin-options/general-options.php:46
+#: plugin-options/general-options.php:47
 msgid "Show button in single product page"
 msgstr "Mostrar na página de produto único"
 
-#: plugin-options/general-options.php:47
+#: plugin-options/general-options.php:48
 msgid "Say if you want to show the button in the single product page."
 msgstr "Marque para mostrar na página de produto único"
 
-#: plugin-options/general-options.php:55
+#: plugin-options/general-options.php:56
 msgid "Show button in products list"
 msgstr "Mostrar na lista de produtos"
 
-#: plugin-options/general-options.php:56
+#: plugin-options/general-options.php:57
 msgid "Say if you want to show the button in the products list."
 msgstr "Marque para mostrar na lista de produtos"
 
-#: plugin-options/general-options.php:64
+#: plugin-options/general-options.php:65
 msgid "Open automatically lightbox"
 msgstr "Abrir lightbox automaticamente"
 
-#: plugin-options/general-options.php:65
+#: plugin-options/general-options.php:66
 msgid "Open link after click into \"Compare\" button\"."
 msgstr "Abre link após clicar no botão de comparação."
 
-#: plugin-options/general-options.php:78
+#: plugin-options/general-options.php:79
 msgid "Table Settings"
 msgstr "Opções de tabela"
 
-#: plugin-options/general-options.php:85
-msgid "Table title"
-msgstr ""
-
 #: plugin-options/general-options.php:86
-msgid "Type the text to use for the table title."
-msgstr ""
+msgid "Table title"
+msgstr "Título da tabela"
 
-#: plugin-options/general-options.php:88 plugin-options/general-options.php:89
+#: plugin-options/general-options.php:87
+msgid "Type the text to use for the table title."
+msgstr "Digite o texto para utilizar na tabela de título"
+
+#: plugin-options/general-options.php:89 plugin-options/general-options.php:90
 msgid "Compare products"
 msgstr "Comparar produtos"
 
-#: plugin-options/general-options.php:94
+#: plugin-options/general-options.php:95
 msgid "Fields to show"
 msgstr "Campos a mostrar"
 
-#: plugin-options/general-options.php:95
+#: plugin-options/general-options.php:96
 msgid ""
 "Select the fields to show in the comparison table and order them by "
 "drag&drop (are included also the woocommerce attributes)"
@@ -215,27 +215,27 @@ msgstr ""
 "Selecione os campos a mostrar na tabela de comparação e organize-os "
 "arrastando e soltando (atributos do Woocommerce também são incluídos)"
 
-#: plugin-options/general-options.php:103
+#: plugin-options/general-options.php:104
 msgid "Repeat \"Price\" field"
 msgstr ""
 
-#: plugin-options/general-options.php:104
+#: plugin-options/general-options.php:105
 msgid "Repeat the \"Price\" field at the end of the table"
 msgstr ""
 
-#: plugin-options/general-options.php:112
+#: plugin-options/general-options.php:113
 msgid "Repeat \"Add to cart\" field"
 msgstr ""
 
-#: plugin-options/general-options.php:113
+#: plugin-options/general-options.php:114
 msgid "Repeat the \"Add to cart\" field at the end of the table"
 msgstr ""
 
-#: plugin-options/general-options.php:121
+#: plugin-options/general-options.php:122
 msgid "Image size"
 msgstr "Tamanho da imagem"
 
-#: plugin-options/general-options.php:122
+#: plugin-options/general-options.php:123
 msgid "Set the size for the images"
 msgstr "Especifique um tamanho para as imagens"
 
@@ -248,7 +248,7 @@ msgstr ""
 
 #: templates/admin/premium.php:234 templates/admin/premium.php:424
 msgid "UPGRADE"
-msgstr ""
+msgstr "ATUALIZAR"
 
 #: templates/admin/premium.php:235 templates/admin/premium.php:425
 msgid "to the premium version"
@@ -419,6 +419,9 @@ msgstr ""
 #: widgets/class.yith-woocompare-widget.php:50
 msgid "Clear all"
 msgstr "Limpar tudo"
+
+#~ msgid "Choose if you want to use a link or a button for the action button."
+#~ msgstr "Seleciona se deseja usar link ou botão para a ação do botão"
 
 #~ msgid "The widget show the list of products added in the compare table."
 #~ msgstr ""

@@ -81,6 +81,9 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 
 			// enqueue frontend js
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
+
+            // shortcode for print form
+            add_shortcode( 'ywcwtl_form', array( $this, 'shortcode_form' ) );
 		}
 
 		/**
@@ -93,6 +96,7 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 		public function register_scripts(){
 			$min = ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ) ? '' : '.min';
 			wp_register_script( 'yith-wcwtl-frontend', YITH_WCWTL_ASSETS_URL . '/js/frontend'.$min.'.js', array( 'jquery'), YITH_WCWTL_VERSION, true );
+			wp_register_style( 'yith-wcwtl-frontend', YITH_WCWTL_ASSETS_URL . '/css/ywcwtl.css', array(), YITH_WCWTL_VERSION, 'all' );
 		}
 
 		/**
@@ -105,6 +109,7 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 		public function enqueue_scripts() {
             if( ! $this->scripts_enqueued ) {
                 wp_enqueue_script('yith-wcwtl-frontend');
+                wp_enqueue_style('yith-wcwtl-frontend');
 
                 // all scripts enqueued
                 $this->scripts_enqueued = true;
@@ -115,13 +120,13 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
          * Check if the product can have the waitlist form
          *
          * @since 1.1.3
-         * @param object $product The product to check
+         * @param object $product WC Product The product to check
          * @return boolean
          * @author Francesco Licandro
          */
         public function can_have_waitlist( $product ){
 
-            $return = ! ( ! in_array( $product->product_type, array( 'simple', 'variable', 'variation' ) ) || $product->is_in_stock() );
+            $return = ! ( ! $product->is_type( array( 'simple', 'variable', 'variation' ) ) || $product->is_in_stock() );
 
             // can third part filter this result
             return apply_filters( 'yith_wcwtl_can_product_have_waitlist', $return, $product );
@@ -141,11 +146,20 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 
 				$this->current_product = wc_get_product( $post->ID );
 
-				if( $this->current_product->product_type == 'variable' ){
-					add_action( 'woocommerce_stock_html', array( $this, 'output_form' ), 20, 3 );
+                if( ! $this->current_product ) {
+                    return;
+                }
+
+				// check for WooCommerce 3.0.0
+				if( function_exists( 'wc_get_stock_html' ) ) {
+					add_filter( 'woocommerce_get_stock_html', array( $this, 'output_form_3_0'), 20, 2 );
 				}
 				else {
-					add_action( 'woocommerce_stock_html', array( $this, 'output_form' ), 20, 2 );
+					if ($this->current_product->is_type('variable')) {
+						add_action('woocommerce_stock_html', array($this, 'output_form'), 20, 3);
+					} else {
+						add_action('woocommerce_stock_html', array($this, 'output_form'), 20, 2);
+					}
 				}
 			}
 		}
@@ -167,15 +181,34 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 				$product = $this->current_product;
 			}
 
-            // if can't have waitlist return
-            if( ! $this->can_have_waitlist( $product ) ){
-                return $html;
-            }
+			// check first id product is excluded
+			if( is_callable( array( $product, 'get_id' ) ) ) {
+				$id = $product->get_id();
+			}
+			else {
+				$id = isset( $product->variation_id ) ? $product->variation_id : $product->id;
+			}
 
-            // first enqueue scripts
-            $this->enqueue_scripts();
+			ob_start();
+			echo do_shortcode( '[ywcwtl_form product_id="' . $id .'"]' );
 
-			return $html . $this->the_form( $product );
+			// then add form to current html
+			$html .= ob_get_clean();
+
+			return $html;
+		}
+
+		/**
+		 * Output form for WooCommerce 3.0.0
+		 *
+		 * @since 1.1.0
+		 * @author Francesco Licandro
+		 * @param string $html
+		 * @param object $product
+		 * @return string
+		 */
+		public function output_form_3_0( $html, $product ) {
+			return $this->output_form( $html, false, $product );
 		}
 
 		/**
@@ -189,14 +222,23 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 		 */
 		public function the_form( $product ) {
 
+			/**
+			 * @type $product WC_Product
+			 */
+
 			$html = '';
-
 			$user           = wp_get_current_user();
-			$product_type   = $product->product_type;
-			$product_id     = ( $product_type == 'simple' ) ? $product->id : $product->variation_id;
-			$waitlist       = yith_waitlist_get( $product_id );
-			$url            = ( $product_type == 'simple' ) ? get_permalink( $product->id ) : get_permalink( $product->parent->id );
+			$waitlist       = yith_waitlist_get( $product );
+			$url            = $product->get_permalink();
 
+			// check first id product is excluded
+			if( is_callable( array( $product, 'get_id' ) ) ) {
+				$product_id = $product->get_id();
+			}
+			else {
+				$product_id = isset( $product->variation_id ) ? $product->variation_id : $product->id;
+			}
+			
 			// set query
 			$url = add_query_arg( YITH_WCWTL_META , $product_id, $url );
 			$url = add_query_arg( YITH_WCWTL_META . '-action', 'register', $url );
@@ -208,7 +250,7 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 			$label_button_add   = get_option( 'yith-wcwtl-button-add-label' );
 			$label_button_leave = get_option( 'yith-wcwtl-button-leave-label' );
 
-			if( $product_type != 'variation' && ! $user->exists() ) {
+			if( ! $product->is_type( 'variation' ) && ! $user->exists() ) {
 
 				$html .= '<form method="post" action="' . esc_url( $url ) . '">';
 				$html .= '<label for="yith-wcwtl-email">' . __( 'Email Address', 'yith-woocommerce-waiting-list' ) . '<input type="email" name="yith-wcwtl-email" id="yith-wcwtl-email" /></label>';
@@ -216,12 +258,12 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 				$html .= '</form>';
 
 			}
-			elseif( $product_type == 'variation' && ! $user->exists() ) {
+			elseif( $product->is_type ( 'variation' ) && ! $user->exists() ) {
 
 				$html .= '<input type="email" name="yith-wcwtl-email" id="yith-wcwtl-email" class="wcwtl-variation" />';
 				$html .= '<a href="' . esc_url( $url ) . '" class="button alt">' . $label_button_add . '</a>';
 			}
-			elseif( is_array( $waitlist ) && yith_waitlist_user_is_register( $user->user_email, $waitlist ) ) {
+			elseif( yith_waitlist_user_is_register( $user->user_email, $waitlist ) ) {
 				$url   = add_query_arg( YITH_WCWTL_META . '-action', 'leave', $url );
 				$html .= '<a href="' . esc_url( $url ) . '" class="button button-leave alt">' . $label_button_leave . '</a>';
 			}
@@ -231,7 +273,7 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 
 			$html .= '</div>';
 
-			return $html;
+			return apply_filters( 'yith_wcwtl_form_html', $html, $product );
 		}
 
 		/**
@@ -295,6 +337,42 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 			wp_redirect( esc_url( $dest ) );
 			exit;
 		}
+
+		/**
+         * Shortcode for print waiting list form
+         *
+         * @since 1.0.8
+         * @author Francesco Licandro
+         * @param array $atts
+         * @return string
+         */
+		public function shortcode_form( $atts ) {
+            extract( shortcode_atts( array(
+                'product_id'   => ''
+            ), $atts ) );
+
+			if( $product_id ) {
+				$product = wc_get_product( $product_id );
+			}
+			else {
+				// get global
+				global $product;
+			}
+
+			// exit if product is null or if can't have waitlist
+			if( is_null( $product ) || ! $product || ! $this->can_have_waitlist( $product ) ) {
+				return '';
+			}
+
+			// first enqueue scripts
+			$this->enqueue_scripts();
+
+			ob_start();
+            echo $this->the_form( $product );
+
+            return ob_get_clean();
+        }
+
 
 	}
 }

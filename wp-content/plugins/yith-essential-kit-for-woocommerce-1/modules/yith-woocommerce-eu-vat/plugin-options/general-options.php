@@ -59,33 +59,6 @@ $general_settings = apply_filters( 'yith_ywev_general_settings', $general_settin
 
 $options['general'] = array();
 
-if ( ! defined( 'YITH_YWEV_PREMIUM' ) ) {
-	$intro_tab = array(
-		'section_general_settings_videobox' => array(
-			'name'    => __( 'Upgrade to the PREMIUM VERSION', 'yith-woocommerce-eu-vat' ),
-			'type'    => 'videobox',
-			'default' => array(
-				'plugin_name'               => __( 'YITH WooCommerce EU VAT', 'yith-woocommerce-eu-vat' ),
-				'title_first_column'        => __( 'Discover The Advanced Features', 'yith-woocommerce-eu-vat' ),
-				'description_first_column'  => __( 'Upgrade to the PREMIUM VERSION of YITH WOOCOMMERCE EU VAT to benefit from all features!', 'yith-woocommerce-eu-vat' ),
-				'video'                     => array(
-					'video_id'          => '125126673',
-					'video_image_url'   => YITH_YWEV_ASSETS_IMAGES_URL . 'yith-woocommerce-eu-vat.jpg',
-					'video_description' => __( 'See YITH WooCommerce EU VAT plugin with full premium features in action', 'yith-woocommerce-eu-vat' ),
-				),
-				'title_second_column'       => __( 'Get Support and Pro Features', 'yith-woocommerce-eu-vat' ),
-				'description_second_column' => __( 'Purchasing the premium version of the plugin, you will take advantage of the advanced features of the product and you will get one year of free updates and support through our platform available 24h/24.', 'yith-woocommerce-eu-vat' ),
-				'button'                    => array(
-					'href'  => YITH_YWEV_Plugin_FW_Loader::get_instance()->get_premium_landing_uri(),
-					'title' => 'Get Support and Pro Features'
-				)
-			),
-			'id'      => 'yith_wcas_general_videobox'
-		)
-	);
-
-	$options['general'] = $intro_tab;
-}
 
 $options['general'] = array_merge( $options['general'], $general_settings );
 

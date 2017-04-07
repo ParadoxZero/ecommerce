@@ -12,14 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 $vendor_description = do_shortcode( $vendor_description );
+$vendor_description = call_user_func( '__', $vendor_description, 'yith-woocommerce-product-vendors' );
+
+$vendor_name = call_user_func( '__', $vendor_name, 'yith-woocommerce-product-vendors' );
 ?>
 
 <h2>
     <a href="<?php echo $vendor_url ?>">
-        <?php echo __( $vendor_name, 'yith-woocommerce-product-vendors' ) ?>
+        <?php echo $vendor_name; ?>
     </a>
 </h2>
 
 <div class="vendor-description">
-    <?php echo __( $vendor_description, 'yith-woocommerce-product-vendors' ) ?>
+    <?php echo $vendor_description ?>
 </div>

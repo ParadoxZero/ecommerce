@@ -50,8 +50,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 		 * @access public
 		 * @since 1.0.0
 		 */
-		public $banner_url = 'http://cdn.yithemes.com/plugins/yith_wishlist.php?url';
-		public $banner_img = 'http://cdn.yithemes.com/plugins/yith_wishlist.php';
 		public $doc_url = 'http://yithemes.com/docs-plugins/yith-woocommerce-wishlist/';
 		public $premium_landing_url = 'http://yithemes.com/themes/plugins/yith-woocommerce-wishlist/';
 		public $live_demo_url = 'http://plugins.yithemes.com/yith-woocommerce-wishlist/';
@@ -108,13 +106,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 				YITH_WCWL_Admin_Premium();
 			}
 
-			/**
-			 * Support to WC 2.0.x
-			 */
-			global $woocommerce;
-			$is_woocommerce_2_0 = version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.1', '<' );
-			$is_woocommerce_2_4 = version_compare( $woocommerce->version, '2.4.0', '>=' );
-
 			$this->options = $this->_plugin_options();
 
 			if ( ! defined( 'DOING_AJAX' ) ) {
@@ -122,21 +113,16 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 			}
 
 			add_action( 'init', array( $this, 'init' ), 0 );
+
+			// enqueue scripts
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 20 );
+
+			// add plugin links
 			add_filter( 'plugin_action_links_' . plugin_basename( YITH_WCWL_DIR . 'init.php' ), array( $this, 'action_links' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta' ), 10, 2 );
 
-			if( $is_woocommerce_2_0 ) {
-				add_filter( 'woocommerce_page_settings', array( $this, 'add_page_setting_woocommerce' ) );
-			}
-
 			// saves panel options
-			if( $is_woocommerce_2_4 ){
-				add_filter( 'woocommerce_admin_settings_sanitize_option_yith_wcwl_color_panel', array( $this, 'update_color_options' ) );
-			}
-			else{
-				add_action( 'woocommerce_update_option_yith_wcwl_color_panel', array( $this, 'update_color_options' ) );
-			}
+            add_filter( 'woocommerce_admin_settings_sanitize_option_yith_wcwl_color_panel', array( $this, 'update_color_options' ) );
 
 			// handles custom wc option type
 			add_action( 'woocommerce_admin_field_yith_wcwl_color_panel', array( $this, 'print_color_panel' ) );
@@ -147,9 +133,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 
 			// register pointer methods
 			add_action( 'admin_init', array( $this, 'register_pointer' ) );
-
-			//Apply filters
-			$this->banner_url = apply_filters( 'yith_wcmg_banner_url', $this->banner_url );
 		}
 
 		/**
@@ -205,6 +188,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 			}
 			elseif ( YITH_WCWL_Init()->db_version != $stored_db_version || ! YITH_WCWL_Install()->is_installed() ) {
 				add_action( 'init', array( YITH_WCWL_Install(), 'init' ) );
+				add_action( 'init', 'flush_rewrite_rules' );
 				YITH_WCWL_Install()->default_options( $this->options );
 
 				// Plugin installed
@@ -227,7 +211,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 				foreach ( $option as $id => $color ) {
 					$default_value = isset( $colors_options[$name][$id] ) ? $colors_options[$name][$id] : '';
 					if( isset( $_POST['yith_wcwl_color_' . $name . '_' . $id] ) && ! empty( $_POST['yith_wcwl_color_' . $name . '_' . $id] ) ){
-						$colors_options[$name][$id] = function_exists( 'wc_format_hex' ) ? wc_format_hex( $_POST['yith_wcwl_color_' . $name . '_' . $id] ) : woocommerce_format_hex( $_POST['yith_wcwl_color_' . $name . '_' . $id] );
+						$colors_options[$name][$id] = wc_format_hex( $_POST['yith_wcwl_color_' . $name . '_' . $id] );
 					}
 					else{
 						$colors_options[$name][$id] = $default_value;
@@ -252,24 +236,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 				<h3><?php _e( 'Colors', 'yith-woocommerce-wishlist' ) ?></h3>
 				<?php $this->_styles_options() ?>
 			</div> <?php
-		}
-
-		/**
-		 * Add the select for the Wishlist page in WooCommerce > Settings > Pages
-		 *
-		 * @param array $settings
-		 *
-		 * @return array
-		 * @since 1.0.0
-		 */
-		public function add_page_setting_woocommerce( $settings ) {
-			unset( $settings[count( $settings ) - 1] );
-
-			$setting[] = $this->get_wcwl_page_option();
-
-			$settings[] = array( 'type' => 'sectionend', 'id' => 'page_options' );
-
-			return $settings;
 		}
 
 		/**
@@ -308,7 +274,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 
 				// outdated wc alert
 
-				if( version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.2', '<' ) ){
+				if( version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.5', '<' ) ){
 					$woocommerce_file = $woocommerce->plugin_path;
 					if ( ! is_multisite() && current_user_can( 'delete_plugins' ) ) {
 						$plugin_meta['outdated_wc_alert'] = '<a class="outdated-wc-alert" style="color: red" href="' . wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $woocommerce_file, 'upgrade-plugin_' . $woocommerce_file ) . '">' . __( 'WARNING: This plugin requires at least WooCommerce 2.2! Please, use this link to update it.', 'yith-woocommerce-wishlist' ) . '</a>';
@@ -323,45 +289,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 			}
 
 			return $plugin_meta;
-		}
-
-		/**
-		 * Return the option to add the wishlist page
-		 *
-		 * @access public
-		 * @return mxied array
-		 * @since 1.1.3
-		 */
-		public function get_wcwl_page_option(){
-
-			return array(
-				'name'     => __( 'Wishlist Page', 'yith-woocommerce-wishlist' ),
-				'desc'     => __( 'Page contents: [yith_wcwl_wishlist]', 'yith-woocommerce-wishlist' ),
-				'id'       => 'yith_wcwl_wishlist_page_id',
-				'type'     => 'single_select_page',
-				'std'      => '', // for woocommerce < 2.0
-				'default'  => '', // for woocommerce >= 2.0
-				'class'    => 'chosen_select_nostd',
-				'css'      => 'min-width:300px;',
-				'desc_tip' => false,
-			);
-		}
-
-		/**
-		 * Print the banner
-		 *
-		 * @access protected
-		 * @return void
-		 * @since 1.0.0
-		 */
-		protected function _printBanner() {
-			?>
-			<div class="yith_banner">
-				<a href="<?php echo $this->banner_url ?>" target="_blank">
-					<img src="<?php echo $this->banner_img ?>" alt="" />
-				</a>
-			</div>
-		<?php
 		}
 
 		/**
@@ -895,20 +822,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 
 			ksort( $icons );
 
-			global $woocommerce;
-
-			$is_woocommerce_2_0 =version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.1', '<' );
-
-			$options['general_settings'] = array();
-
-			if( $is_woocommerce_2_0 ){
-				$settings_page = 'WooCommerce &gt; Settings &gt; Pages' ;
-			}
-			else{
-				$settings_page = 'in this settings page';
-			}
-
-			$general_settings_start = array(
+			$options['general_settings'] = array(
 
 				'section_general_settings_videobox' => array(
 					'name'    => __( 'Upgrade to the PREMIUM VERSION', 'yith-woocommerce-wishlist' ),
@@ -916,8 +830,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 					'default' => array(
 						'plugin_name'               => __( 'YITH WooCommerce Wishlist', 'yith-woocommerce-wishlist' ),
 						'title_first_column'        => __( 'Discover the Advanced Features', 'yith-woocommerce-wishlist' ),
-						'description_first_column'  => __( 'Upgrade to the PREMIUM VERSION
-of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-wishlist' ),
+						'description_first_column'  => __( 'Upgrade to the PREMIUM VERSION of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-wishlist' ),
 						'video'                     => array(
 							'video_id'          => '118797844',
 							'video_image_url'   => YITH_WCWL_URL . '/assets/images/video-thumb.jpg',
@@ -942,10 +855,9 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 
 				'wishlist_enable' => array(
 					'name'    => __( 'Enable YITH Wishlist', 'yith-woocommerce-wishlist' ),
-					'desc'    => sprintf( __( 'Enable all plugin features. <strong>Be sure to select at least one option in the Wishlist page menu in %s.</strong> Also, please read the plugin <a href="%s" target="_blank">documentation</a>.', 'yith-woocommerce-wishlist' ), $settings_page, esc_url( $this->doc_url ) ),
+					'desc'    => sprintf( __( 'Enable all plugin features. <strong>Be sure to select at least one option in the Wishlist page menu in this settings page.</strong> Also, please read the plugin <a href="%s" target="_blank">documentation</a>.', 'yith-woocommerce-wishlist' ), esc_url( $this->doc_url ) ),
 					'id'      => 'yith_wcwl_enabled',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'default_wishlist_title' => array(
@@ -955,10 +867,17 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'default' => sprintf( __( 'My wishlist on %s', 'yith-woocommerce-wishlist' ), get_bloginfo( 'name' ) ), // for woocommerce >= 2.0
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
-				)
-			);
-
-			$general_settings_end = array(
+				),
+				'wishlist_page' => array(
+					'name'     => __( 'Wishlist Page', 'yith-woocommerce-wishlist' ),
+					'desc'     => __( 'Page contents: [yith_wcwl_wishlist]', 'yith-woocommerce-wishlist' ),
+					'id'       => 'yith_wcwl_wishlist_page_id',
+					'type'     => 'single_select_page',
+					'default'  => '',
+					'class'    => 'chosen_select_nostd',
+					'css'      => 'min-width:300px;',
+					'desc_tip' => false,
+				),
 				'add_to_wishlist_position' => array(
 					'name'     => __( 'Position', 'yith-woocommerce-wishlist' ),
 					'desc'     => __( 'You can add the button in variable products only after the "Add to Cart" button or using the shortcode [yith_wcwl_add_to_wishlist].', 'yith-woocommerce-wishlist' ),
@@ -978,55 +897,48 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Redirect to cart', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Redirect to cart page if "Add to cart" button is clicked in the wishlist page.', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_redirect_cart',
-					'std'     => 'no', // for woocommerce < 2.0
-					'default' => 'no', // for woocommerce >= 2.0
+					'default' => 'no',
 					'type'    => 'checkbox'
 				),
 				'remove_after_add_to_cart' => array(
 					'name'    => __( 'Remove if added to the cart', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Remove the product from the wishlist if it has been added to the cart.', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_remove_after_add_to_cart',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'add_to_wishlist_text' => array(
 					'name'    => __( '"Add to Wishlist" text', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_add_to_wishlist_text',
-					'std'     => __( 'Add to Wishlist', 'yith-woocommerce-wishlist' ), // for woocommerce < 2.0
-					'default' => __( 'Add to Wishlist', 'yith-woocommerce-wishlist' ), // for woocommerce >= 2.0
+					'default' => __( 'Add to Wishlist', 'yith-woocommerce-wishlist' ),
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
 				'browse_wishlist_text' => array(
 					'name'    => __( '"Browse wishlist" text', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_browse_wishlist_text',
-					'std'     => __( 'Browse Wishlist', 'yith-woocommerce-wishlist' ), // for woocommerce < 2.0
-					'default' => __( 'Browse Wishlist', 'yith-woocommerce-wishlist' ), // for woocommerce >= 2.0
+					'default' => __( 'Browse Wishlist', 'yith-woocommerce-wishlist' ),
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
 				'already_in_wishlist_text' => array(
 					'name'    => __( '"Product already in wishlist" text', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_already_in_wishlist_text',
-					'std'     => __( 'The product is already in the wishlist!', 'yith-woocommerce-wishlist' ), // for woocommerce < 2.0
-					'default' => __( 'The product is already in the wishlist!', 'yith-woocommerce-wishlist' ), // for woocommerce >= 2.0
+					'default' => __( 'The product is already in the wishlist!', 'yith-woocommerce-wishlist' ),
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
 				'product_added_text' => array(
 					'name'    => __( '"Product added" text', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_product_added_text',
-					'std'     => __( 'Product added!', 'yith-woocommerce-wishlist' ), // for woocommerce < 2.0
-					'default' => __( 'Product added!', 'yith-woocommerce-wishlist' ), // for woocommerce >= 2.0
+					'default' => __( 'Product added!', 'yith-woocommerce-wishlist' ),
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
 				'add_to_cart_text' => array(
 					'name'    => __( '"Add to Cart" text', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_add_to_cart_text',
-					'std'     => __( 'Add to Cart', 'yith-woocommerce-wishlist' ), // for woocommerce < 2.0
-					'default' => __( 'Add to Cart', 'yith-woocommerce-wishlist' ), // for woocommerce >= 2.0
+					'default' => __( 'Add to Cart', 'yith-woocommerce-wishlist' ),
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
@@ -1034,8 +946,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Show Unit price', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show unit price for each product in wishlist', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_price_show',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 				),
@@ -1043,8 +954,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Show "Add to Cart" button', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "Add to Cart" button for each product in wishlist', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_add_to_cart_show',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 				),
@@ -1052,8 +962,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Show Stock status', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "In stock" or "Out of stock" label for each product in wishlist', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_stock_show',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 				),
@@ -1061,8 +970,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Show Date of addition', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show the date when users have added a product to the wishlist', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_show_dateadded',
-					'std'     => 'no', // for woocommerce < 2.0
-					'default' => 'no', // for woocommerce >= 2.0
+					'default' => 'no',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 				),
@@ -1070,8 +978,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Add second remove button', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Add a second remove button in the last column, with extended label', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_repeat_remove_button',
-					'std'     => 'no', // for woocommerce < 2.0
-					'default' => 'no', // for woocommerce >= 2.0
+					'default' => 'no',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 				),
@@ -1081,13 +988,6 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'id' => 'yith_wcwl_general_settings'
 				)
 			);
-
-			if( $is_woocommerce_2_0 ) {
-				$options['general_settings'] = array_merge( $general_settings_start, $general_settings_end );
-			}
-			else{
-				$options['general_settings'] = array_merge( $general_settings_start,  array( $this->get_wcwl_page_option() ), $general_settings_end );
-			}
 
 			$options['styles'] = array(
 				'styles_section_start' => array(
@@ -1101,32 +1001,28 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Use buttons', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Use buttons instead of simple anchors.', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_use_button',
-					'std'     => 'no', // for woocommerce < 2.0
-					'default' => 'no', // for woocommerce >= 2.0
+					'default' => 'no',
 					'type'    => 'checkbox'
 				),
 				'custom_css' => array(
 					'name'    => __( 'Custom CSS', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_custom_css',
 					'css'     => 'width:100%; height: 75px;',
-					'std'     => '', // for woocommerce < 2.0
-					'default' => '', // for woocommerce >= 2.0
+					'default' => '',
 					'type'    => 'textarea'
 				),
 				'use_theme_style' => array(
 					'name'    => __( 'Use theme style', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Use the theme style.', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_frontend_css',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'rounded_buttons' => array(
 					'name'    => __( 'Rounded buttons', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Make button corners rounded', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_rounded_corners',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'add_to_wishlist_icon' => array(
@@ -1134,8 +1030,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'desc'     => __( 'Add an icon to the "Add to Wishlist" button', 'yith-woocommerce-wishlist' ),
 					'id'       => 'yith_wcwl_add_to_wishlist_icon',
 					'css'      => 'min-width:300px;width:300px;',
-					'std'      => apply_filters( 'yith_wcwl_add_to_wishlist_std_icon', 'none' ), // for woocommerce < 2.0
-					'default'  => apply_filters( 'yith_wcwl_add_to_wishlist_std_icon', 'none' ), // for woocommerce >= 2.0
+					'default'  => apply_filters( 'yith_wcwl_add_to_wishlist_std_icon', 'none' ),
 					'type'     => 'select',
 					'class'    => 'chosen_select',
 					'desc_tip' => true,
@@ -1146,8 +1041,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'desc'     => __( 'Add an icon to the "Add to Cart" button', 'yith-woocommerce-wishlist' ),
 					'id'       => 'yith_wcwl_add_to_cart_icon',
 					'css'      => 'min-width:300px;width:300px;',
-					'std'      => apply_filters( 'yith_wcwl_add_to_cart_std_icon', 'fa-shopping-cart' ), // for woocommerce < 2.0
-					'default'  => apply_filters( 'yith_wcwl_add_to_cart_std_icon', 'fa-shopping-cart' ), // for woocommerce >= 2.0
+					'default'  => apply_filters( 'yith_wcwl_add_to_cart_std_icon', 'fa-shopping-cart' ),
 					'type'     => 'select',
 					'class'    => 'chosen_select',
 					'desc_tip' => true,
@@ -1172,47 +1066,41 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Share on Facebook', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "Share on Facebook" button', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_share_fb',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'share_on_twitter' => array(
 					'name'    => __( 'Tweet on Twitter', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "Tweet on Twitter" button', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_share_twitter',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'share_on_pinterest' => array(
 					'name'    => __( 'Pin on Pinterest', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "Pin on Pinterest" button', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_share_pinterest',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'share_on_googleplus' => array(
 					'name'    => __( 'Share on Google+', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "Share on Google+" button', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_share_googleplus',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'share_by_email' => array(
 					'name'    => __( 'Share by Email', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'Show "Share by Email" button', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_share_email',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox'
 				),
 				'socials_title' => array(
 					'name'    => __( 'Social title', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_socials_title',
-					'std'     => sprintf( __( 'My wishlist on %s', 'yith-woocommerce-wishlist' ), get_bloginfo( 'name' ) ), // for woocommerce < 2.0
-					'default' => sprintf( __( 'My wishlist on %s', 'yith-woocommerce-wishlist' ), get_bloginfo( 'name' ) ), // for woocommerce >= 2.0
+					'default' => sprintf( __( 'My wishlist on %s', 'yith-woocommerce-wishlist' ), get_bloginfo( 'name' ) ),
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
@@ -1221,16 +1109,14 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'desc'    => __( 'It will be used by Twitter and Pinterest. Use <strong>%wishlist_url%</strong> where you want to show the URL of your wishlist.', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_socials_text',
 					'css'     => 'width:100%; height: 75px;',
-					'std'     => '', // for woocommerce < 2.0
-					'default' => '', // for woocommerce >= 2.0
+					'default' => '',
 					'type'    => 'textarea'
 				),
 				'socials_image' => array(
 					'name'    => __( 'Social image URL', 'yith-woocommerce-wishlist' ),
 					'desc'    => __( 'It will be used by Pinterest.', 'yith-woocommerce-wishlist' ),
 					'id'      => 'yith_wcwl_socials_image_url',
-					'std'     => '', // for woocommerce < 2.0
-					'default' => '', // for woocommerce >= 2.0
+					'default' => '',
 					'type'    => 'text',
 					'css'     => 'min-width:300px;',
 				),
@@ -1257,8 +1143,7 @@ of YITH WOOCOMMERCE WISHLIST to benefit from all features!', 'yith-woocommerce-w
 					'name'    => __( 'Enable slider in wishlist', 'yith-woocommerce-wishlist' ),
 					'desc'    => sprintf( __( 'Choose to enable product slider in wishlist page with linked products (<a href="%s" class="thickbox">Example</a>). %s', 'yith-woocommerce-wishlist' ), $yith_wfbt_thickbox,  ( ! ( defined( 'YITH_WFBT' ) && YITH_WFBT ) ) ? $yith_wfbt_promo : '' ),
 					'id'      => 'yith_wfbt_enable_integration',
-					'std'     => 'yes', // for woocommerce < 2.0
-					'default' => 'yes', // for woocommerce >= 2.0
+					'default' => 'yes',
 					'type'    => 'checkbox',
 					'custom_attributes' => ( ! ( defined( 'YITH_WFBT' ) && YITH_WFBT ) ) ? array( 'disabled' => 'disabled' ) : false
 				),

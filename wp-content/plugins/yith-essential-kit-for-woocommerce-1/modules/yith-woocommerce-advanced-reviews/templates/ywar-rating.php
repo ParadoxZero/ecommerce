@@ -15,9 +15,9 @@ global $YWAR_AdvancedReview;
 if ( get_option( 'woocommerce_enable_review_rating' ) === 'no' ) {
 	return;
 }
-
-$rating_count = $review_count = count( $YWAR_AdvancedReview->get_product_reviews( $product->id ) );
-$average      = $YWAR_AdvancedReview->get_average_rating( $product->id );
+$product_id = yit_get_prop( $product, 'id' );
+$rating_count = $review_count = count( $YWAR_AdvancedReview->get_product_reviews( $product_id ) );
+$average      = $YWAR_AdvancedReview->get_average_rating( $product_id );
 
 if ( $rating_count > 0 ) : ?>
 	<div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope

@@ -2,10 +2,10 @@
 /*
 Plugin Name: 	Carousel Slider
 Plugin URI: 	http://wordpress.org/plugins/carousel-slider
-Description: 	The Easiest Way to Create Image, Logo, Video, Post and Product Carousel.
-Version: 		1.7.0
+Description: 	The Easiest Way to Create Image, Logo, Video, Post and WooCommerce Product Carousel.
+Version: 		1.7.1
 Author: 		Sayful Islam
-Author URI: 	https://profiles.wordpress.org/sayful
+Author URI: 	https://sayfulislam.com
 Text Domain: 	carousel-slider
 Domain Path: 	/languages/
 License: 		GPLv2 or later
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Define Carousel Slider Version
 if ( ! defined( 'CAROUSEL_SLIDER_VERSION' ) ) {
-	define( 'CAROUSEL_SLIDER_VERSION', '1.7.0' );
+	define( 'CAROUSEL_SLIDER_VERSION', '1.7.1' );
 }
 
 if ( ! class_exists( 'Carousel_Slider' ) ):
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 10 );
 			add_action( 'wp_footer', array( $this, 'inline_script' ), 30 );
 			add_action( 'init', array( $this, 'load_textdomain' ) );
-			add_filter( 'widget_text', 'do_shortcode' );
+			add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
 			$this->includes();
 		}
 
@@ -271,6 +271,24 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 			$load_scripts = is_active_widget( false, false, 'widget_carousel_slider', true ) || ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'carousel_slide' ) ) || ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'carousel' ) );
 
 			return apply_filters( 'carousel_slider_load_scripts', $load_scripts );
+		}
+
+		/**
+		 * Add custom footer text on plugins page.
+		 *
+		 * @param string $text
+		 */
+		public function admin_footer_text( $text )
+		{
+			global $post_type, $hook_suffix;
+
+			$footer_text = sprintf(__('If you like %1$s Carousel Slider %2$s please leave us a %3$s rating. A huge thanks in advance!', 'carousel-slider' ), '<strong>', '</strong>', '<a href="https://wordpress.org/support/view/plugin-reviews/carousel-slider?filter=5#postform" target="_blank" data-rated="Thanks :)">&starf;&starf;&starf;&starf;&starf;</a>');
+
+			if ($post_type == 'carousels' || $hook_suffix == 'carousels_page_carousel-slider-documentation') {
+				return $footer_text;
+			}
+
+			return $text;
 		}
 
 		/**

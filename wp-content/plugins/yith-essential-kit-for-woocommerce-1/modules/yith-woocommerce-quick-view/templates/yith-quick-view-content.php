@@ -12,7 +12,7 @@ while ( have_posts() ) : the_post(); ?>
 
  <div class="product">
 
-	<div itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class('product'); ?>>
+	<div id="product-<?php the_ID(); ?>" <?php post_class('product'); ?>>
 
 		<?php do_action( 'yith_wcqv_product_image' ); ?>
 

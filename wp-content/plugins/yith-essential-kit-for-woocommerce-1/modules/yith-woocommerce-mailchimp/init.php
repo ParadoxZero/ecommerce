@@ -67,6 +67,8 @@ if ( ! defined( 'YITH_WCMC_FREE_INIT' ) ) {
 	define( 'YITH_WCMC_FREE_INIT', plugin_basename( __FILE__ ) );
 }
 
+
+
 if( ! function_exists( 'yith_mailchimp_constructor' ) ) {
 	function yith_mailchimp_constructor() {
 		load_plugin_textdomain( 'yith-woocommerce-mailchimp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );

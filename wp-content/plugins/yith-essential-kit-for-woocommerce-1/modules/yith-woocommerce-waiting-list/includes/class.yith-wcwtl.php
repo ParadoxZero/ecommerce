@@ -60,15 +60,15 @@ if ( ! class_exists( 'YITH_WCWTL' ) ) {
 
 			$enable = get_option( 'yith-wcwtl-enable' ) == 'yes';
 
+			// Load Plugin Framework
+			add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
+
 			// Class admin
 			if ( $this->is_admin() ) {
 
 			    // required class
                 require_once( 'class.yith-wcwtl-admin.php' );
                 require_once( 'class.yith-wcwtl-meta.php' );
-
-				// Load Plugin Framework
-				add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
 				
 				YITH_WCWTL_Admin();
 				// add meta in product edit page
@@ -76,7 +76,7 @@ if ( ! class_exists( 'YITH_WCWTL' ) ) {
 					YITH_WCWTL_Meta();
 				}
 			}
-			elseif( $enable ) {
+			elseif( $this->load_frontend() ) {
 
 			    // required class
                 require_once( 'class.yith-wcwtl-frontend.php' );
@@ -122,8 +122,20 @@ if ( ! class_exists( 'YITH_WCWTL' ) ) {
                 'jckqv'
             ) );
             $action_check  = isset( $_REQUEST['action'] ) && in_array( $_REQUEST['action'], $actions_to_check );
+            $is_admin = is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX && ( $context_check || $action_check ) );
 
-            return is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX && ( $context_check || $action_check ) );
+	        return apply_filters( 'yith_wcwtl_check_is_admin', $is_admin );
+        }
+
+		/**
+		 * Check to load frontend class
+		 *
+		 * @since 1.2.0
+		 * @author Francesco Licandro
+		 * @return boolean
+		 */
+		public function load_frontend(){
+			return apply_filters( 'yith_wcwtl_check_load_frontend', get_option( 'yith-wcwtl-enable' ) == 'yes' );
         }
 
 		/**

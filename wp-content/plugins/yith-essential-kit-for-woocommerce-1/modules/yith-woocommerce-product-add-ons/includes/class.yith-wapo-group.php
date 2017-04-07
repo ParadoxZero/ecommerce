@@ -135,6 +135,7 @@ if ( ! class_exists( 'YITH_WAPO_Group' ) ) {
             $new_visibility     = isset( $_POST['visibility'] )     ? $_POST['visibility']      : 0;
             $new_del            = isset( $_POST['del'] )            ? $_POST['del']             : 0;
 
+            $new_products_id = is_array( $new_products_id ) ? implode( ',', $new_products_id ) : $new_products_id;
             $new_categories_id = is_array( $new_categories_id ) ? implode( ',', $new_categories_id ) : $new_categories_id;
 
             $sql = "UPDATE {$wpdb->prefix}yith_wapo_groups SET

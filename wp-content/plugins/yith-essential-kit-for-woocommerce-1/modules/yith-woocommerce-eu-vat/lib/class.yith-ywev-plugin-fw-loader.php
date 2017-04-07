@@ -102,11 +102,15 @@ if ( ! class_exists ( 'YITH_YWEV_Plugin_FW_Loader' ) ) {
          * @return void
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
-        public function plugin_fw_loader () {
-            if ( ! defined ( 'YIT_CORE_PLUGIN' ) ) {
-                require_once ( YITH_YWEV_DIR . 'plugin-fw/yit-plugin.php' );
-            }
-        }
+	    public function plugin_fw_loader() {
+		    if ( !defined( 'YIT_CORE_PLUGIN' ) ) {
+			    global $plugin_fw_data;
+			    if ( !empty( $plugin_fw_data ) ) {
+				    $plugin_fw_file = array_shift( $plugin_fw_data );
+				    require_once( $plugin_fw_file );
+			    }
+		    }
+	    }
 
         /**
          * Add a panel under YITH Plugins tab
@@ -253,7 +257,7 @@ if ( ! class_exists ( 'YITH_YWEV_Plugin_FW_Loader' ) ) {
          * @return  string The premium landing link
          */
         public function get_premium_landing_uri () {
-            return defined ( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
+            return defined ( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing .'?refer_id=1030585';
         }
 
         //region    ****    licence related methods ****

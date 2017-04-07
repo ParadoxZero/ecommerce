@@ -82,7 +82,7 @@ if ( !class_exists( 'YWRR_Blocklist_Table' ) ) {
                                             ) );
 
             $table->options = array(
-                'select_table'     => $wpdb->prefix . 'ywrr_email_blocklist a LEFT JOIN ' . $wpdb->prefix . 'usermeta b ON a.customer_id = b.user_id',
+                'select_table'     => $wpdb->prefix . 'ywrr_email_blocklist a LEFT JOIN ' . $wpdb->base_prefix . 'usermeta b ON a.customer_id = b.user_id',
                 'select_columns'   => array(
                     'a.id',
                     'a.customer_id',

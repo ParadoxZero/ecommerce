@@ -17,9 +17,31 @@
     }
     .section:nth-child(even){
         background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: 85% 75%
     }
     .section:nth-child(odd){
         background-color: #f1f1f1;
+        background-repeat: no-repeat;
+        background-position: 15% 100%;
+    }
+    .section:nth-child(2){
+        background-image: url(<?php echo YITH_YWEV_ASSETS_URL ?>/images/01-bg.png);
+    }
+    .section:nth-child(3){
+        background-image: url(<?php echo YITH_YWEV_ASSETS_URL ?>/images/02-bg.png);
+    }
+    .section:nth-child(4){
+        background-image: url(<?php echo YITH_YWEV_ASSETS_URL ?>/images/03-bg.png);
+    }
+    .section:nth-child(5){
+        background-image: url(<?php echo YITH_YWEV_ASSETS_URL ?>/images/04-bg.png);
+    }
+    .section:nth-child(6){
+        background-image: url(<?php echo YITH_YWEV_ASSETS_URL ?>/images/05-bg.png);
+    }
+    .section:nth-child(7){
+        background-image: url(<?php echo YITH_YWEV_ASSETS_URL ?>/images/06-bg.png);
     }
     .section .section-title img{
         display: table-cell;
@@ -41,6 +63,7 @@
     .section .section-title h2{
         display: table-cell;
         vertical-align: middle;
+        line-height: 25px;
     }
 
     .section-title{
@@ -191,108 +214,128 @@
     }
 </style>
 <div class="landing">
-<div class="section section-cta section-odd">
-    <div class="landing-container">
-        <div class="premium-cta">
-            <p>
-                Upgrade to the <span class="highlight">premium version</span>
-                of <span class="highlight">YITH WooCommerce EU VAT</span> to benefit from all features!
-            </p>
-            <a href="<?php echo YITH_YWEV_Plugin_FW_Loader::get_instance()->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                <span class="highlight">UPGRADE</span>
-                <span>to the premium version</span>
-            </a>
-        </div>
-
-    </div>
-</div>
-<div class="section section-even clear" style="background: url(<?php echo YITH_YWEV_URL ?>assets/images/01-bg.png) no-repeat #fff; background-position: 85% 75%">
-    <h1>Premium Features</h1>
-    <div class="landing-container">
-        <div class="col-1">
-            <img src="<?php echo YITH_YWEV_URL ?>assets/images/01.png" alt="Review Title" />
-        </div>
-        <div class="col-2">
-            <div class="section-title">
-                <img src="<?php echo YITH_YWEV_URL ?>assets/images/01-icon.png" alt="Review Title"/>
-                <h2>The VAT number is now mandatory</h2>
+    <div class="section section-cta section-odd">
+        <div class="landing-container">
+            <div class="premium-cta">
+                <p>
+                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce EU VAT%2$s to benefit from all features!','yith-woocommerce-eu-vat'),'<span class="highlight">','</span>' );?>
+                </p>
+                <a href="<?php echo YITH_YWEV_Plugin_FW_Loader::get_instance()->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
+                    <span class="highlight"><?php _e('UPGRADE','yith-woocommerce-eu-vat');?></span>
+                    <span><?php _e('to the premium version','yith-woocommerce-eu-vat');?></span>
+                </a>
             </div>
-            <p>
-                If you want to open the doors of your shop only to customers with VAT numbers, <b>don't hesitate</b>, a new
-                option has been tailored for you! Thanks to this new feature, only VAT owner will be able to complete a
-                purchase.
-            </p>
         </div>
     </div>
-</div>
-<div class="section section-odd clear" style="background: url(<?php echo YITH_YWEV_URL ?>assets/images/02-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
-    <div class="landing-container">
-        <div class="col-2">
-            <div class="section-title">
-                <img src="<?php echo YITH_YWEV_URL ?>assets/images/02-icon.png" alt="Attachment List" />
-                <h2>EU VAT validation</h2>
+    <div class="section section-even clear one">
+        <h1><?php _e('Premium Features','yith-woocommerce-eu-vat');?></h1>
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/01.png" />
             </div>
-            <p>
-                The plugin makes you verify the VAT number added by customers and act consequentially depending on the
-                result of the check. With an invalid EU VAT, <b>you can block the checkout or charge the taxes of the
-                customer's country</b>, according to the new European laws.
-            </p>
-
-        </div>
-        <div class="col-1">
-            <img src="<?php echo YITH_YWEV_URL ?>assets/images/02.png" alt="Attachment List" />
-        </div>
-    </div>
-</div>
-<div class="section section-even clear" style="background: url(<?php echo YITH_YWEV_URL ?>assets/images/03-bg.png) no-repeat #fff; background-position: 85% 100%">
-    <div class="landing-container">
-        <div class="col-1">
-            <img src="<?php echo YITH_YWEV_URL ?>assets/images/03.png" alt="Vote the review" />
-        </div>
-        <div class="col-2">
-            <div class="section-title">
-                <img src="<?php echo YITH_YWEV_URL ?>assets/images/03-icon.png" alt="Vote the review" />
-                <h2>Geolocalization of the user's country</h2>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/01-icon.png" />
+                    <h2><?php _e('The VAT number is now mandatory','yith-woocommerce-eu-vat');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf(__('If you want to %1$sopen the doors of your shop only to customers with VAT numbers%2$s, don\'t hesitate, a new option has been tailored for you! %3$sThanks to this new feature, only VAT owner will be able to complete a purchase.', 'yith-woocommerce-eu-vat'), '<b>', '</b>','<br>');?>
+                </p>
             </div>
-            <p>
-                Geolocalization lets you trace the origin of the customers checking their IP. You can choose how to
-                operate if the geolocalized country is different from the one expressed by the users: you can allow the
-                purchase, or you can ask explicitly for a confirmation of their origin.
-            </p>
         </div>
     </div>
-</div>
-<div class="section section-odd clear" style="background: url(<?php echo YITH_YWEV_URL ?>assets/images/04-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
-    <div class="landing-container">
-        <div class="col-2">
-            <div class="section-title">
-                <img src="<?php echo YITH_YWEV_URL ?>assets/images/04-icon.png" alt="Number" />
-                <h2>Information summary</h2>
+    <div class="section section-odd clear two">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/02-icon.png" />
+                    <h2><?php _e('Extend the VAT check to your shop country','yith-woocommerce-eu-vat');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf(__('By default, the check on the VAT number applies only to the users purchasing from a different country. With the premium version of the plugin, you can change this behavior and %1$sdetract the VAT for those users who purchase from your same country too%2$s.', 'yith-woocommerce-eu-vat'), '<b>', '</b>');?>
+                </p>
             </div>
-            <p>
-                In the WooCommerce detail page of the order, you can find a box with all the <b>information</b> about the
-                order, like the VAT number added by the users, the amount of the subtraction for digital goods and the
-                country from which the purchase request has been made.
-            </p>
-
-        </div>
-        <div class="col-1">
-            <img src="<?php echo YITH_YWEV_URL ?>assets/images/04.png" alt="Number" />
+            <div class="col-1">
+                <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/02.png" />
+            </div>
         </div>
     </div>
-</div>
-<div class="section section-cta section-odd">
-    <div class="landing-container">
-        <div class="premium-cta">
-            <p>
-                Upgrade to the <span class="highlight">premium version</span>
-                of <span class="highlight">YITH WooCommerce EU VAT</span> to benefit from all features!
-            </p>
-            <a href="<?php echo YITH_YWEV_Plugin_FW_Loader::get_instance()->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                <span class="highlight">UPGRADE</span>
-                <span>to the premium version</span>
-            </a>
+    <div class="section section-even clear three">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/03.png"/>
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/03-icon.png" alt="icon 03"/>
+                    <h2><?php _e('EU VAT validation','yith-woocommerce-eu-vat');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf(__('The plugin makes you verify the VAT number added by customers and act consequentially depending on the result of the check. With an %1$sinvalid EU VAT%2$s, you can %1$sblock the checkout%2$s or %1$scharge the taxes%2$s of the customer\'s country, according to the new European laws.', 'yith-woocommerce-eu-vat'), '<b>', '</b>');?>
+                </p>
+            </div>
         </div>
     </div>
-</div>
+    <div class="section section-odd clear four">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/04-icon.png" />
+                    <h2><?php _e('Geolocalization of the user\'s country','yith-woocommerce-eu-vat');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf(__('Geolocalization lets you trace the origin of the customers checking their IP. %3$sYou can choose how to operate if the %1$sgeolocalized country%2$s is different from the one expressed by the users: you can allow the purchase, or you can ask explicitly for a confirmation of their origin.', 'yith-woocommerce-eu-vat'), '<b>', '</b>','<br>');?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/04.png" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear five">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/05.png"/>
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/05-icon.png"/>
+                    <h2><?php _e('Physical products','yith-woocommerce-eu-vat');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf(__('Not only digital products! One of the biggest news in the plugin is related to the possibility to %1$sapply the VAT discount also to the physical products%2$s, always after the European VAT number check. ', 'yith-woocommerce-eu-vat'), '<b>', '</b>');?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear six">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/06-icon.png" />
+                    <h2><?php _e('Information summary','yith-woocommerce-eu-vat');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf(__('In the WooCommerce detail page of the order, %1$syou can find a box with all the information about the order%2$s, like the VAT number added by the users, the amount of the subtraction for digital goods and the country from which the purchase request has been made.', 'yith-woocommerce-eu-vat'), '<b>', '</b>');?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_YWEV_ASSETS_URL ?>/images/06.png" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="section section-cta section-odd">
+        <div class="landing-container">
+            <div class="premium-cta">
+                <p>
+                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce EU VAT%2$s to benefit from all features!','yith-woocommerce-eu-vat'),'<span class="highlight">','</span>' );?>
+                </p>
+                <a href="<?php echo $this->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
+                    <span class="highlight"><?php _e('UPGRADE','yith-woocommerce-eu-vat');?></span>
+                    <span><?php _e('to the premium version','yith-woocommerce-eu-vat');?></span>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

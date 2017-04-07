@@ -49,7 +49,7 @@ of YITH WooCommerce Tab Manager to benefit from all features!', 'yith-woocommerc
             'name'    => __( 'Enable plugin', 'yith-woocommerce-tab-manager' ),
             'desc'    => '',
             'id'      => 'ywtm_enable_plugin',
-            'default' => 'no',
+            'default' => 'yes',
             'type'    => 'checkbox'
         ),
 

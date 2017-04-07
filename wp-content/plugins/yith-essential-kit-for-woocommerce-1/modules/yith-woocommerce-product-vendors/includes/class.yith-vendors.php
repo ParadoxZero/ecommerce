@@ -98,6 +98,14 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 		public $orders = null;
 
 		/**
+		 * Required classes
+		 *
+		 * @var YITH_Orders | YITH_Orders_Premium
+		 * @since 1.0
+		 */
+		public $require = array();
+
+		/**
 		 * termmeta table
 		 *
 		 * The table woocommerce_termmeta was removed in WooCommerce 2.6
@@ -121,16 +129,20 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 		public $termmeta_term_id = 'term_id';
 
 		/**
-		 * termmeta term_id
-		 *
-		 * The table woocommerce_termmeta was removed in WooCommerce 2.6
-		 * use termmeta table instead, use term_id field instead of woocommerce_term_id
-		 *
+		 * Check if WooCommerce is lower of 2.6
 		 *
 		 * @var string
 		 * @since 1.9.8
 		 */
 		public $is_wc_lower_2_6;
+
+        /**
+         * Check if WooCommerce run version 2.7 or greather
+         *
+         * @var string
+         * @since 1.9.8
+         */
+        public $is_wc_2_7_or_greather;
 
 		/**
 		 * Main Orders Instance
@@ -170,12 +182,19 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 				)
 			);
 
-			$this->is_wc_lower_2_6 = version_compare( WC()->version, '2.6', '<' );
+			$wc_version = WC()->version;
+
+			$this->require = $require;
+
+			$this->is_wc_lower_2_6          = version_compare( $wc_version, '2.6', '<' );
+			$this->is_wc_2_7_or_greather    = version_compare( $wc_version, '2.7', '>=' );
 
 			/* Check for WooCommerce Version */
 			add_action( 'init', array( $this, 'select_termmeta_table' ) );
 
 			$this->_require( $require );
+
+            $this->_add_plugin_image_size();
 
 			/* === START Hooks === */
 
@@ -385,6 +404,7 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 			 /* === Orders === */
             if( 'yes' == get_option( 'yith_wpv_vendors_option_order_management', 'no' ) ){
                 $caps['edit_shop_orders']             = true;
+                $caps['edit_others_shop_orders']      = true;
                 $caps['read_shop_orders']             = true;
                 $caps['delete_shop_orders']           = true;
                 $caps['publish_shop_orders']          = true;
@@ -736,7 +756,7 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 		 *
 		 * @author Andrea Grillo <andrea.grillo@yitheme.com>
 		 * @since  1.9.8
-		 * @return array
+		 * @return void
 		 */
 		public function select_termmeta_table(){
 			global $wpdb;
@@ -749,6 +769,42 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 				$this->termmeta_table 	= $wpdb->termmeta;
 			}
 		}
+
+        /**
+         *
+         * Add image size
+         *
+         * @author Andrea Grillo <andrea.grillo@yitheme.com>
+         * @since  1.11.4
+         * @return void
+         */
+        protected function _add_plugin_image_size(){
+            $images = array(
+                'yith_vendors_gravatar' => array(
+                    'width'     => get_option( 'yith_vendors_gravatar_image_size', '62' ),
+                    'height'    => get_option( 'yith_vendors_gravatar_image_size', '62' ),
+                    'crop'      => true,
+                ),
+
+                'yith_vendors_header' => array(
+                    'width'     => get_option( 'yith_vendors_header_image_width', 0 ),
+                    'height'    => get_option( 'yith_vendors_header_image_height', 0 ),
+                    'crop'      => true
+                ),
+            );
+
+            foreach( $images as $image_name => $image_size ){
+                extract( $image_size );
+                add_image_size( $image_name, $width, $height, $crop );
+            }
+        }
+
+        /**
+         *
+         */
+        public function get_image_size( $image_type ){
+             return 'yith_vendors_' . $image_type;
+        }
 	}
 }
 

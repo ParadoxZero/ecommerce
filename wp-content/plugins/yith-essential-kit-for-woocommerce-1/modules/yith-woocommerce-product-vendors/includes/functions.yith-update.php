@@ -129,8 +129,61 @@ function yith_vendors_update_db_1_0_6() {
         if( $vendor_role instanceof WP_Role ){
             $vendor_role->add_cap( 'edit_posts' );    
         }
+        update_option( 'yith_product_vendors_db_version', '1.0.6' );
     }
-    update_option( 'yith_product_vendors_db_version', '1.0.6' );
+
+}
+
+//Add support to YITH Product Vendors plugin version 1.11.4
+function yith_vendors_update_db_1_0_7() {
+    $vendors_db_option = get_option( 'yith_product_vendors_db_version', '1.0.0' );
+    if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.7', '<' ) ) {
+        global $wpdb;
+        if( ! empty( $wpdb ) ){
+            $query = $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE meta_key IN( %s, %s )", '_parent__commission_included_coupon', '_parent__commission_included_tax' );
+            $wpdb->query( $query );
+        }
+        update_option( 'yith_product_vendors_db_version', '1.0.7' );
+    }
+
+}
+
+//Add support to YITH Product Vendors plugin version 1.12.0
+function yith_vendors_update_db_1_0_8(){
+    $vendors_db_option = get_option( 'yith_product_vendors_db_version', '1.0.0' );
+    if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.8', '<' ) ) {
+        $skin_option_id = 'yith_vendors_skin_header';
+        $background_option_id = 'yith_skin_background_color';
+        $font_color_option_id = 'yith_skin_font_color';
+
+        $old_skin = get_option( $skin_option_id, 'skin1');
+
+        if ('skin1' == $old_skin) {
+            update_option($background_option_id, '#000000');
+            update_option($font_color_option_id, '#ffffff');
+        } else {
+            update_option($background_option_id, '#ffffff');
+            update_option($font_color_option_id, '#000000');
+        }
+
+        update_option($skin_option_id, 'small-box');
+        update_option( 'yith_product_vendors_db_version', '1.0.8' );
+    }
+}
+
+//Add support to YITH Product Vendors plugin version 1.12.1
+function yith_vendors_update_db_1_0_9() {
+    $vendors_db_option = get_option( 'yith_product_vendors_db_version', '1.0.0' );
+    if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.9', '<' ) ) {
+        $vendor_role_name = YITH_Vendors()->get_role_name();
+        $vendor_role = get_role( $vendor_role_name );
+        if( $vendor_role instanceof WP_Role ){
+            //Fix: vendor admins can't edit orders
+            $vendor_role->add_cap( 'edit_others_shop_orders' );
+        }
+        update_option( 'yith_product_vendors_db_version', '1.0.9' );
+    }
+
 }
 
 add_action( 'admin_init', 'yith_vendors_update_db_1_0_1' );
@@ -139,6 +192,9 @@ add_action( 'admin_init', 'yith_vendors_update_db_1_0_3' );
 add_action( 'admin_init', 'yith_vendors_update_db_1_0_4' );
 add_action( 'admin_init', 'yith_vendors_update_db_1_0_5' );
 add_action( 'admin_init', 'yith_vendors_update_db_1_0_6' );
+add_action( 'admin_init', 'yith_vendors_update_db_1_0_7' );
+add_action( 'admin_init', 'yith_vendors_update_db_1_0_8' );
+add_action( 'admin_init', 'yith_vendors_update_db_1_0_9' );
 
 /**
  * Plugin Version Update

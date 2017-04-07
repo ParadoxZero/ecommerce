@@ -105,3 +105,148 @@ if ( !function_exists( 'yith_wcmv_create_capabilities' ) ) {
         return $capabilities;
     }
 }
+
+if ( !function_exists( 'yith_wcmv_get_wpml_vendor_id' ) ) {
+    /**
+     * Get original vendor id
+     *
+     * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+     *
+     * @param $vendor mixed vendor id or vendor object
+     *
+     * @return  string vendor id
+     * @since   1.11.2
+     */
+    function yith_wcmv_get_wpml_vendor_id( $vendor_id ) {
+        /**
+         * WPML Support
+         */
+        global $sitepress;
+        $has_wpml = ! empty( $sitepress ) ? true : false;
+        if( $has_wpml ){
+            $vendor_id = yit_wpml_object_id( $vendor_id, YITH_Vendors()->get_taxonomy_name(), true, wpml_get_default_language() );
+        }
+
+        return $vendor_id;
+    }
+}
+
+if( ! function_exists( 'yith_wcmv_get_email_order_number' ) ){
+    /**
+     * Get order number
+     *
+     * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+     *
+     * @return  WC_Order
+     * @since   1.12
+     */
+    function yith_wcmv_get_email_order_number( $order, $parent = false ){
+        $order_number = '';
+        if( $parent  ){
+            $order_id = yit_get_prop( $order, 'id' );
+            $parent_order_id = get_post_field( 'post_parent', $order_id );
+            $parent_order = wc_get_order( $parent_order_id );
+            $order_number = $parent_order->get_order_number();
+        }
+
+        else {
+            $order_number = $order->get_order_number();
+        }
+        return $order_number;
+    }
+}
+
+if( ! function_exists( 'yith_wcmv_show_gravatar' ) ){
+    /**
+     * Show avatar or not in frontend vendor page
+     *
+     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+     * @param null $vendor
+     * @return bool
+     */
+    function yith_wcmv_show_gravatar( $vendor = null, $where = 'admin' ){
+        $show_gravatar = false;
+
+        if( ! $vendor ){
+            $vendor = yith_get_vendor( 'current', 'user' );
+        }
+
+        switch( get_option( 'yith_vendors_show_gravatar_image', 'enabled' ) ){
+            case 'enabled':
+                $show_gravatar = true;
+                break;
+
+            case 'disabled':
+                $show_gravatar = false;
+                break;
+
+            case 'vendor':
+                $show_gravatar = 'admin' == $where ? true : 'yes' == $vendor->show_gravatar;
+                break;
+        }
+
+        return $show_gravatar;
+    }
+}
+
+if( ! function_exists( 'yith_wcmv_get_order_status' ) ){
+    /**
+     * Get the order status for retro compatibility
+     *
+     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+     * @param $order
+     * @param string $context
+     * @return string order status
+     */
+    function yith_wcmv_get_order_status( $order, $context = 'edit' ){
+        $order_status = yit_get_prop( $order, 'post_status', true );
+
+        if( YITH_Vendors()->is_wc_2_7_or_greather ){
+            //set the status in old wc style
+            $order_status = 'wc-' . $order_status;
+        }
+
+        if( 'display' == $context ){
+            $wc_order_status = wc_get_order_statuses();
+            $order_status = isset( $wc_order_status[ $order_status ] ) ? $wc_order_status[ $order_status ] : $order_status;
+        }
+
+        return $order_status;
+    }
+}
+
+if( ! function_exists( 'yith_wcmv_get_order_currency' ) ){
+    /**
+     * Get the order currency for retro compatibility
+     *
+     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+     * @param $order
+     * @return string order currency
+     */
+    function yith_wcmv_get_order_currency( $order ){
+        $get_currency = YITH_Vendors()->is_wc_2_7_or_greather ? 'get_currency' : 'get_order_currency';
+        return $order->$get_currency();
+    }
+}
+
+if( ! function_exists( 'yith_wcmv_get_meta_field' ) ){
+    /**
+     * get meta fields wrapper for wc 2.6 or lower
+     *
+     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+     * @param $meta
+     * @return  array meta order value
+     */
+    function yith_wcmv_get_meta_field( $meta ){
+
+        if( YITH_Vendors()->is_wc_2_7_or_greather && is_object ( $meta ) ){
+            $meta = array(
+                'meta_id'       => $meta->id,
+                'meta_key'      => $meta->key,
+                'meta_value'    => $meta->value
+            );
+        }
+
+        return $meta;
+    }
+}

@@ -152,8 +152,8 @@ if ( ! class_exists ( 'YITH_WCMG_Frontend' ) ) {
          * @since  1.0.0
          */
         public function available_variation ( $data, $wc_prod, $variation ) {
-
-            $attachment_id = get_post_thumbnail_id ( $variation->get_variation_id () );
+	
+	        $attachment_id = get_post_thumbnail_id ( version_compare ( WC ()->version, '3.0', '<' ) ? $variation->get_variation_id () : $variation->get_id () );
             $attachment    = wp_get_attachment_image_src ( $attachment_id, 'shop_magnifier' );
 
             $data[ 'image_magnifier' ] = $attachment ? current ( $attachment ) : '';

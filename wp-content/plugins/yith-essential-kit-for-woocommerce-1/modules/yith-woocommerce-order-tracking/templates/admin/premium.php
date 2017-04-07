@@ -283,6 +283,26 @@
             </div>
         </div>
     </div>
+    <div class="section section-even clear" style="background: url(<?php echo YITH_YWOT_ASSETS_IMAGES_URL ?>08-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_YWOT_ASSETS_IMAGES_URL ?>08.png" alt=<?php _e('Csv Import','yith-woocommerce-order-tracking');?> />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_YWOT_ASSETS_IMAGES_URL ?>08-icon.png" alt="icon-05" />
+                    <h2><?php _e('Delivery note','yith-woocommerce-order-tracking');?></h2>
+
+                </div>
+                <p>
+                    <?php echo sprintf( __('Have you already thought about how to generate invoices for your store? YITH %1$sWooCommerce PDF Invoice and Shipping List%2$s is one of the best solutions on the market and the perfect tool to create delivery notes for your shipping.','yith-woocommerce-order-tracking'),'<b>','</b>');?>
+                </p>
+                <p>
+                    <?php echo sprintf( __('Thanks to the compatibility between the two plugins, you could %1$sinsert all the tracking data related to the order into the delivery note%2$s that user will receive. ','yith-woocommerce-order-tracking'),'<b>','</b>');?>
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="section section-cta section-odd">
         <div class="landing-container">
             <div class="premium-cta">

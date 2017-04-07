@@ -459,18 +459,57 @@
         </div>
     </div>
     <div class="section section-even clear"
-         style="background: url(<?php echo YITH_WPV_URL ?>assets/images/11-bg.png) no-repeat #fff; background-position: 85% 100%">
+         style="background: url(<?php echo YITH_WPV_URL ?>assets/images/40-bg.png) no-repeat #fff; background-position: 85% 100%">
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YITH_WPV_URL ?>assets/images/11.png" alt="Screenshot"/>
+                <img src="<?php echo YITH_WPV_URL ?>assets/images/40.png"/>
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YITH_WPV_URL ?>assets/images/11-icon.png" alt="payments method"/>
-                    <h2><?php _e('Three widgets for your sidebars','yith_wc_product_vendors');?></h2>
+                    <img src="<?php echo YITH_WPV_URL ?>assets/images/40-icon.png">
+                    <h2><?php _e('Complete list of vendors ','yith_wc_product_vendors');?></h2>
                 </div>
                 <p>
-                    <?php echo sprintf( __('%1$sYITH Vendor List, YITH Vendor Quick Info%2$s and %1$sYITH Vendor Store Location%2$s: these are the three widgets that the plugin offers you. Thanks to these widgets, you will be able to show the list of the registered vendors of your shop, and enrich the detail page of the vendor shops with information about their locations, or a contact form users can use to send emails to the shop administrators.','yith_wc_product_vendors'), '<b>', '</b>' )?>
+                    <?php echo sprintf( __('The YITH Vendor List widget allows showing the complete list of all the vendors available on your site. %1$sA fast way to have access to the vendor detail page%2$s in whom they are interested.','yith_wc_product_vendors'), '<b>', '</b>' )?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YITH_WPV_URL ?>assets/images/41-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WPV_URL ?>assets/images/41-icon.png" />
+                    <h2><?php _e('Vendor location ','yith_wc_product_vendors');?></h2>
+                </div>
+                <p>
+                    <?php _e('Would you like to help your users to reach your store in an easy way? ','yith_wc_product_vendors','yith_wc_product_vendors');?>
+                </p>
+                <p>
+                    <?php echo sprintf( __('Just add the widget %1$sYITH Vendor Store Location%2$s to the vendor page sidebar. The system will show a different %1$sGoogle map%2$s on each shop detail page calculated basing on the address inserted in the vendor\'s profile.','yith_wc_product_vendors'), '<b>', '</b>' )?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_WPV_URL ?>assets/images/41.png" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear"
+         style="background: url(<?php echo YITH_WPV_URL ?>assets/images/42-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WPV_URL ?>assets/images/42.png" alt="Screenshot"/>
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WPV_URL ?>assets/images/42-icon.png" alt="payments method"/>
+                    <h2><?php _e('In contact with the vendor...','yith_wc_product_vendors');?></h2>
+                </div>
+                <p>
+                    <?php _e('Simplify the exchange of information between buyer and vendor thanks to the related contact form.','yith_wc_product_vendors'); ?>
+                </p>
+                <p>
+                    <?php echo sprintf( __('The form shows both in the sidebars of the shop and/or product detail pages. %3$s %1$sThe message sent by the user is forwarded directly to the vendor%2$s without any intermediary. ','yith_wc_product_vendors'), '<b>', '</b>', '<br>' )?>
                 </p>
             </div>
         </div>
