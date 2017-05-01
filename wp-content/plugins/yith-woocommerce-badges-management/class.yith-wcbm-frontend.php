@@ -265,7 +265,8 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
 
             $badge_overrides_default_on_sale = get_option( 'yith-wcbm-product-badge-overrides-default-on-sale', 'yes' ) == 'yes';
 
-            $bm_meta  = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
+            $product  = wc_get_product( $product_id );
+            $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
             $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
 
             if ( $hide_on_sale_default || ( $id_badge != '' && $badge_overrides_default_on_sale ) ) {
@@ -308,8 +309,12 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
                 return $val;
 
             $product_id = $this->get_wpml_parent_id( $product_id );
-            $bm_meta    = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
-            $id_badge   = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
+            $product    = wc_get_product( $product_id );
+            if ( !$product )
+                return $val;
+
+            $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
+            $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
 
             $badge_container = "<div class='container-image-and-badge'>" . $val;
             $badge_content   = '';

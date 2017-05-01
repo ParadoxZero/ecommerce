@@ -4,7 +4,7 @@ Tags: social,  login, social login, facebook, twitter, google, social connect, s
 Donate link: http://accesspressthemes.com/donation/
 Requires at least: 3.8
 Tested up to: 4.7
-Stable tag: 3.2.6
+Stable tag: 3.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,9 @@ Yes. You can use the AccessPress social login lite anywhere by using shortcode i
 4. Backend Other settings Section.
 
 == Changelog ==
+= 3.2.7 =
+* Done the update of the font-awesome icons to version 4.7.0 in the plugin.
+
 = 3.2.6 =
 * Done the modification of the callBackUrl function to work with custom login url.
 * Fixed the issue appearing for the database insert error due to gender input field.

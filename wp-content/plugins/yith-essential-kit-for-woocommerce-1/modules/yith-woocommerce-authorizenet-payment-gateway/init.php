@@ -72,8 +72,6 @@ if ( ! defined( 'YITH_WCAUTHNET_INC' ) ) {
 	define( 'YITH_WCAUTHNET_INC', YITH_WCAUTHNET_DIR . 'includes/' );
 }
 
-
-
 if( ! function_exists( 'yith_wcauthnet_constructor' ) ) {
 	function yith_wcauthnet_constructor(){
 		load_plugin_textdomain( 'yit', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );

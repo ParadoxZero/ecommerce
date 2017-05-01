@@ -180,7 +180,10 @@ $_product_btn_text_color 	= get_post_meta( $id, '_product_button_text_color', tr
 </style>
 <div <?php echo join(" ", $this->carousel_options($id)); ?>>
 	<?php foreach ( $posts as $post ): setup_postdata( $post );?>
-		<?php $product = wc_get_product( $post->ID ); ?>
+		<?php
+			$product = wc_get_product( $post->ID );
+			do_action( 'carousel_slider_product_loop' );
+		?>
 		<div class="product carousel-slider__product">
 			<?php
 				echo sprintf('<a class="woocommerce-LoopProduct-link" href="%s">', get_the_permalink( $post->ID ));

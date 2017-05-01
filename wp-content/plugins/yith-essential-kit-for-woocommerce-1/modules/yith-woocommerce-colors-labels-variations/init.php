@@ -66,8 +66,6 @@ if ( ! defined( 'YITH_WCCL_VERSION' ) ) {
 	define( 'YITH_WCCL_VERSION', '1.2.6' );
 }
 
-
-
 function yith_wccl_constructor() {
     global $woocommerce;
     if ( ! isset( $woocommerce ) ) return;

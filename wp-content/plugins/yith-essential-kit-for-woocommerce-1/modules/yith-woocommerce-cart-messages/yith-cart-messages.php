@@ -23,9 +23,6 @@ if ( ! defined( 'YITH_YWCM_DIR' ) ) {
     define( 'YITH_YWCM_DIR', plugin_dir_path( __FILE__ ) );
 }
 
-
-
-
 if ( defined( 'YITH_YWCM_PREMIUM' ) ) {
     function yith_ywcm_install_free_admin_notice() {
         ?>

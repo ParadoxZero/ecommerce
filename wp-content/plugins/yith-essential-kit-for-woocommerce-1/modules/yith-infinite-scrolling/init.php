@@ -87,7 +87,6 @@ if( ! defined( 'YITH_INFS_OPTION_NAME' ) ) {
 }
 
 
-
 function yith_infs_init() {
 
 	load_plugin_textdomain( 'yith-infinite-scrolling', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );

@@ -28,10 +28,6 @@ if ( ! defined( 'YITH_YWRAQ_DIR' ) ) {
     define( 'YITH_YWRAQ_DIR', plugin_dir_path( __FILE__ ) );
 }
 
-
-
-
-
 // This version can't be activate if premium version is active  ________________________________________
 if ( defined( 'YITH_YWRAQ_PREMIUM' ) ) {
     function yith_ywraq_install_free_admin_notice() {

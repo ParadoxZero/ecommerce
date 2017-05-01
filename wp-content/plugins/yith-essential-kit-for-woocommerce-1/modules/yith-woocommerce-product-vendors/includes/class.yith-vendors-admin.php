@@ -337,7 +337,8 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             /**
              * Get a list of post statuses.
              */
-            $stati = get_post_stati();
+            $stati      = get_post_stati();
+            $new_counts = new stdClass();
 
             // Update count object
             foreach ( $stati as $status ) {
@@ -350,8 +351,10 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
                     $posts = $vendor->get_orders( 'suborder', $status );
                 }
 
-                $counts->$status = count( $posts );
+                $new_counts->$status = count( $posts );
             }
+
+            $counts = $new_counts;
 
             return $counts;
         }
@@ -564,7 +567,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
         public function add_taxonomy_fields( $taxonomy ) {
             $args = array(
                 'commission'        => YITH_Vendors()->get_base_commission(),
-                'tax_label'         => apply_filters( 'yith_wcmv_tax_label_admin', __( 'VAT/SSN', 'yith-woocommerce-product-vendors' ) ),
+                'tax_label'         => get_option( 'yith_vat_label', __( 'VAT/SSN', 'yith-woocommerce-product-vendors' ) ),
                 'shop_owner_args'   => array(
                     'class'             => 'wc-customer-search',
                     'id'                => 'key_user',

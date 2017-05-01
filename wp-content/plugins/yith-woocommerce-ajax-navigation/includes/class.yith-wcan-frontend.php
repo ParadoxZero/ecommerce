@@ -277,8 +277,6 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
                                 'post_type' 	=> 'product',
                                 'numberposts' 	=> -1,
                                 'post_status' 	=> 'publish',
-                                'meta_key'      => '_visibility',
-                                'meta_value'    => 'visible',
                                 'fields' 		=> 'ids',
                                 'no_found_rows' => true,
                                 'suppress_filters'       => true,
@@ -291,6 +289,7 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
                                 )
                             );
 
+                            $args = yit_product_visibility_meta( $args );
 
                             if( $is_product_taxonomy ){
                                 $args['tax_query'][] = $is_product_taxonomy;
@@ -351,18 +350,17 @@ if ( ! class_exists( 'YITH_WCAN_Frontend' ) ) {
                     'post_type'        => 'product',
                     'numberposts'      => - 1,
                     'post_status'      => 'publish',
-                    'meta_key'         => '_visibility',
-                    'meta_value'       => 'visible',
                     'fields'           => 'ids',
                     'no_found_rows'    => true,
                     'suppress_filters' => true,
                     'tax_query'        => array()
                 );
 
-
                 if( $is_product_taxonomy ){
                     $args['tax_query'][] = $is_product_taxonomy;
                 }
+
+                $args = yit_product_visibility_meta( $args );
 
                 $queried_object = is_object( get_queried_object() ) ? get_queried_object() : false;
 

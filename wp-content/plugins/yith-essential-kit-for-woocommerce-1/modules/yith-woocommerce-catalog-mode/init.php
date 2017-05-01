@@ -61,8 +61,6 @@ if ( !defined( 'YWCTM_TEMPLATE_PATH' ) ) {
     define( 'YWCTM_TEMPLATE_PATH', YWCTM_DIR . 'templates/' );
 }
 
-
-
 function ywctm_init() {
 
     /* Load YWCTM text domain */

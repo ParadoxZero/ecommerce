@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 global $review_stats;
 global $product;
 $product_id = yit_get_prop( $product, 'id' );
+$customer_reviews_label = apply_filters( 'ywar_customer_review_label' , __('Customers\' review', 'yith-woocommerce-advanced-reviews' ) );
 ?>
 
 <div id="reviews_summary">

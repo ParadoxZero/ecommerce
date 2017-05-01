@@ -5,7 +5,7 @@ Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-advanced-reviews
 Description: Extends the basic functionality of woocommerce reviews and add a histogram table to the reviews of your products, such as you see in most trendy e-commerce sites.
 Author: YITHEMES
 Text Domain: yith-woocommerce-advanced-reviews
-Version: 1.2.5
+Version: 1.2.6
 Author URI: http://yithemes.com/
 */
 
@@ -45,7 +45,7 @@ register_activation_hook ( __FILE__, 'yith_plugin_registration_hook' );
 
 require_once ( plugin_dir_path ( __FILE__ ) . 'functions.php' );
 yith_define ( 'YITH_YWAR_FREE_INIT', plugin_basename ( __FILE__ ) );
-yith_define ( 'YITH_YWAR_VERSION', '1.2.5' );
+yith_define ( 'YITH_YWAR_VERSION', '1.2.6' );
 yith_define ( 'YITH_YWAR_FILE', __FILE__ );
 yith_define ( 'YITH_YWAR_DIR', plugin_dir_path ( __FILE__ ) );
 yith_define ( 'YITH_YWAR_URL', plugins_url ( '/', __FILE__ ) );
@@ -53,7 +53,6 @@ yith_define ( 'YITH_YWAR_ASSETS_URL', YITH_YWAR_URL . 'assets' );
 yith_define ( 'YITH_YWAR_TEMPLATE_PATH', YITH_YWAR_DIR . 'templates' );
 yith_define ( 'YITH_YWAR_TEMPLATES_DIR', YITH_YWAR_DIR . '/templates/' );
 yith_define ( 'YITH_YWAR_ASSETS_IMAGES_URL', YITH_YWAR_ASSETS_URL . '/images/' );
-
 
 
 function yith_ywar_init () {

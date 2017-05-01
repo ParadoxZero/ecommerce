@@ -98,11 +98,14 @@ else {
     $action_links[] = '<a class="activate-now button '.$active_class.'" data-slug="' . $plugin['slug'] . '" href="' . $url . '" aria-label="' . sprintf( __( 'activate %s now', 'yith-essential-kit-for-woocommerce-1' ), $plugin['slug'] ) . '" data-name="' . $plugin['name'] . '" >' . __( 'Activate', 'yith-essential-kit-for-woocommerce-1' ) . '</a>';
 }
 
-if(  ! $is_yith_repository ) {
-    $details_link = network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $plugin['slug'] .
-        '&amp;TB_iframe=true&amp;width=600&amp;height=550' );
-    /* translators: 1: Plugin name and version. */
-    $action_links[] = '<a href="' . esc_url( $details_link ) . '" class="thickbox" aria-label="' . esc_attr( sprintf( __( 'More information about %s' ), $name ) ) . '" data-title="' . esc_attr( $name ) . '">' . __( 'More Details' ) . '</a>';
+if ( ! $is_yith_repository ) {
+	$details_link = network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $plugin['slug'] .
+	                                   '&amp;TB_iframe=true&amp;width=600&amp;height=550' );
+	/* translators: 1: Plugin name and version. */
+	if ( ! empty( $details_link ) ):
+		$action_links[] = '<a href="' . esc_url( $details_link ) . '" class="thickbox" aria-label="' . esc_attr( sprintf( __( 'More information about %s' ), $name ) ) . '" data-title="' . esc_attr( $name ) . '">' . __( 'More Details' ) . '</a>';
+	endif;
+
 }
 
 if ( $is_premium_activated ) {
@@ -141,12 +144,18 @@ $last_updated_timestamp = strtotime( $plugin['last_updated'] );
                 <span class="product-icon"><img src="<?php echo YJP_ASSETS_URL . '/images/badge-recommended.png';?>" alt="New Icon"></span>
 
         <?php endif ?>
-
-        <a href="<?php echo esc_url( $details_link ); ?>" class="thickbox plugin-icon"><img src="<?php echo esc_attr( $plugin_icon_url ) ?>" /></a>
-
+        <?php if(!empty($details_link)):?>
+            <a href="<?php echo esc_url( $details_link ); ?>" class="thickbox plugin-icon"><img src="<?php echo esc_attr( $plugin_icon_url ) ?>" /></a>
+        <?php else:?>
+            <span  class="plugin-icon"><img src="<?php echo esc_attr( $plugin_icon_url ) ?>" /></span>
+        <?php endif;?>
         <div class="name column-name">
             <h3>
-                <a href="<?php echo esc_url( $details_link ); ?>" class="thickbox"><?php echo $title; ?></a>
+		        <?php if ( ! empty( $details_link ) ): ?>
+                    <a href="<?php echo esc_url( $details_link ); ?>" class="thickbox"><?php echo $title; ?></a>
+		        <?php else: ?>
+			        <?php echo $title; ?>
+		        <?php endif; ?>
             </h3>
             <span><?php echo $offline_version ? $offline_version : '' ; ?></span>
         </div>

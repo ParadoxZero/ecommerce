@@ -3,7 +3,7 @@
   Plugin name: Social Login WordPress Plugin - AccessPress Social Login Lite
   Plugin URI: https://accesspressthemes.com/wordpress-plugins/accesspress-social-login-lite/
   Description: A plugin to add various social logins to a site.
-  version: 3.2.6
+  version: 3.2.7
   Author: AccessPress Themes
   Author URI: https://accesspressthemes.com/
   Text Domain: accesspress-social-login-lite
@@ -12,7 +12,7 @@
 */
 //Declearation of the necessary constants for plugin
 if( !defined( 'APSL_VERSION' ) ) {
-    define( 'APSL_VERSION', '3.2.6' );
+    define( 'APSL_VERSION', '3.2.7' );
 }
 
 if( !defined( 'APSL_IMAGE_DIR' ) ) {
@@ -300,7 +300,7 @@ if( !class_exists( 'APSL_Lite_Class' ) ) {
         }
         //registration of the backend assets
         function register_admin_assets() {
-            wp_enqueue_style( 'fontawsome-css', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', '', APSL_VERSION );
+            wp_enqueue_style( 'fontawsome-css', APSL_CSS_DIR .'/font-awesome/font-awesome.min.css', '', APSL_VERSION );
             if( isset( $_GET['page'] ) && $_GET['page'] == 'accesspress-social-login-lite' ) {
                 //backend scripts
                 wp_enqueue_script( 'jquery-ui-sortable' );
@@ -315,7 +315,9 @@ if( !class_exists( 'APSL_Lite_Class' ) ) {
             wp_enqueue_script( 'apsl-frontend-js', APSL_JS_DIR . '/frontend.js', array('jquery'), APSL_VERSION );
             
             //register frontend css
-            wp_enqueue_style( 'fontawsome-css', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', '', APSL_VERSION );
+            // wp_enqueue_style( 'fontawsome-css', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', '', APSL_VERSION );
+            wp_enqueue_style( 'fontawsome-css', APSL_CSS_DIR .'/font-awesome/font-awesome.min.css', '', APSL_VERSION );
+
             wp_enqueue_style( 'apsl-frontend-css', APSL_CSS_DIR . '/frontend.css', '', APSL_VERSION );
         }
         //save the settings of a plugin

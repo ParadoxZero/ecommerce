@@ -102,6 +102,7 @@
     $('#yith_wpv_vendors_option_editor_management').yith_wpv_option_deps( '#yith_wpv_vendors_option_editor_media', 'checkbox', undefined, false );
     paypal_service.yith_wpv_option_deps( payment_method, 'select', 'standard', true );
     payment_method.yith_wpv_option_deps( '#payment_minimum_withdrawals', 'select', 'manual', true );
+    $('#yith_wpv_show_vendor_tab_in_single').yith_wpv_option_deps( '#yith_wpv_vendor_tab_text_text', 'checkbox', undefined, false );
 
     // Vendor taxonomy table
     var tax_table = $( '#the-list');

@@ -87,7 +87,9 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
 
             $vendor = yith_get_vendor( $product, 'product' );
 
-            if ( $vendor->is_valid() ) {
+            $show_tab = defined( 'YITH_WPV_FREE_INIT' ) ? true : 'yes' == get_option( 'yith_wpv_show_vendor_tab_in_single', 'yes' );
+
+            if ( $vendor->is_valid() && $show_tab ) {
 
                 $tab_title = apply_filters( 'yith_single_product_vendor_tab_name', get_option( 'yith_wpv_vendor_tab_text_text', YITH_Vendors()->get_vendors_taxonomy_label( 'singular_name' ) )  );
 

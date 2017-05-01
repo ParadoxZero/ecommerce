@@ -33,7 +33,6 @@ if ( ! defined( 'YITH_WCAS_DIR' ) ) {
 }
 
 
-
 if ( defined( 'YITH_WCAS_PREMIUM' ) ) {
     function yith_wcas_install_free_admin_notice() {
         ?>

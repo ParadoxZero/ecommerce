@@ -83,8 +83,6 @@ if ( ! defined( 'YITH_WOOCOMPARE_ASSETS_URL' ) ) {
 	define( 'YITH_WOOCOMPARE_ASSETS_URL', YITH_WOOCOMPARE_URL . 'assets' );
 }
 
-
-
 function yith_woocompare_constructor() {
 
 	global $woocommerce;

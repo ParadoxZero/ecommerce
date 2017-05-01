@@ -92,8 +92,6 @@ if ( ! defined( 'YITH_YWOT_ASSETS_IMAGES_URL' ) ) {
 }
 //endregion
 
-
-
 function yith_ywot_init() {
 
 	/**

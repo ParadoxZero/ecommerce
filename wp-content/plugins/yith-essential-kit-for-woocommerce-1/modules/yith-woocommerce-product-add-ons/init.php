@@ -2,7 +2,7 @@
 /**
  * Plugin Name: YITH WooCommerce Product Add-Ons
  * Description: YITH WooCommerce Product Add-Ons
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: YITHEMES
  * Author URI: http://yithemes.com/
  * Text Domain: yith-woocommerce-product-add-ons
@@ -13,7 +13,7 @@
  *
  * @author  YITHEMES
  * @package YITH WooCommerce Product Add-Ons
- * @version 1.0.4
+ * @version 1.0.6
  */
 /*  Copyright 2016  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -58,8 +58,6 @@ if ( ! function_exists( 'yith_plugin_registration_hook' ) ) {
 register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 ! defined( 'YITH_WAPO_DIR' ) && define( 'YITH_WAPO_DIR', plugin_dir_path( __FILE__ ) );
-
-
 
 // This version can't be activate if premium version is active  ________________________________________
 if ( defined( 'YITH_WAPO_PREMIUM' ) ) {

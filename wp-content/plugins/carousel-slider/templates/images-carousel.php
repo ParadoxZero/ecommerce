@@ -37,7 +37,10 @@ $_show_lightbox  = get_post_meta( $id, '_image_lightbox', true );
 	<?php
 		foreach ( $images_ids as $image_id ):
 
-			$get_post 			= get_post( $image_id );
+            $get_post           = get_post( $image_id );
+			$GLOBALS['cs_post'] = $get_post;
+            do_action( 'carousel_slider_image_gallery_loop' );
+
 			$image_title 		= $get_post->post_title;
 			$image_caption 		= $get_post->post_excerpt;
 			$image_description 	= $get_post->post_content;

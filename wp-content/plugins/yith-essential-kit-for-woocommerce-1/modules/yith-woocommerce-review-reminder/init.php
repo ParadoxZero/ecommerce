@@ -61,8 +61,6 @@ if ( !defined( 'YWRR_TEMPLATE_PATH' ) ) {
     define( 'YWRR_TEMPLATE_PATH', YWRR_DIR . 'templates/' );
 }
 
-
-
 function ywrr_init() {
 
     /* Load YWRR text domain */

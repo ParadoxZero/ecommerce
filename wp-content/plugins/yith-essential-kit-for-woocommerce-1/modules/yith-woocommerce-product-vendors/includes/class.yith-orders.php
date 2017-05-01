@@ -131,7 +131,7 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
             add_action( 'woocommerce_ajax_revoke_access_to_product_download', array( $this, 'revoke_access_to_product_download' ), 10, 3 );
             add_action( 'wp_ajax_woocommerce_grant_access_to_download', array( $this, 'grant_access_to_download' ), 5 );
 
-            if( is_ajax() ){
+            if( is_ajax() && is_callable( YITH_Vendors(), 'load_request_a_quote_module' ) ){
                 YITH_Vendors()->load_request_a_quote_module( true );
             }
         }
@@ -257,6 +257,10 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
 
                         $args['variation_id']   =  (  ! empty( $item['variation_id'] ) ) ? $item['variation_id'] : array();
                         $args['product_id']     =  (  ! empty( $item['product_id'] ) ) ? $item['product_id'] : array();
+
+                        if( ! empty( $item['name'] ) ){
+                            $args['name'] = $item['name'];
+                        }
 
                         if( isset( $item['line_subtotal'] ) ){
                             $args['totals']['subtotal'] = $item['line_subtotal'];
@@ -388,7 +392,7 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
                     }
                 }
 
-                if( YITH_Vendors()->is_wc_lower_2_6 ){
+                if( YITH_Vendors()->is_wc_2_6 ){
                     //Calculate Total
                     $order_in_total = $order_total + $shipping_cost + $order_tax;
 
@@ -1067,8 +1071,8 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
                 /**
                  * Product fields
                  */
-                $_product_id                    = yit_get_prop( $_product, 'id' );
-                $variation_id                   = yit_get_prop( $_product, 'variation_id' );
+                $_product_id                    = yit_get_base_product_id( $_product );
+                $variation_id                   = yit_get_prop( $_product, YITH_Vendors()->is_wc_2_7_or_greather ? 'id' : 'variation_id' );
                 $product_price_excluding_tax    = wc_format_decimal ( yit_get_price_excluding_tax( $_product ) );
 
                 $item[ 'product_id' ]        = $_product_id;
@@ -1611,7 +1615,7 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
                     $check = false;
 
                     if( $is_variable_product ){
-                        $check = $line_item[ 'variation_id' ] == $product->variation_id;
+                        $check = $line_item[ 'variation_id' ] == yit_get_prop( $product, YITH_Vendors()->is_wc_2_7_or_greather ? 'id' : 'variation_id' );
                     }
 
                     else {
@@ -2184,7 +2188,9 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
             if( $post_parent && ! $is_quote ){
                 $parent_order = wc_get_order( $post_parent );
 
-                if ( ! wc_shipping_enabled() ) {
+                $shipping_enabled = function_exists( 'wc_shipping_enabled' ) ? wc_shipping_enabled() : 'yes' == get_option( 'woocommerce_calc_shipping' );
+
+                if ( ! $shipping_enabled ) {
                     return false;
                 }
 

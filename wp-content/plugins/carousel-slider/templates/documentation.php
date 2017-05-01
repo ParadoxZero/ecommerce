@@ -61,6 +61,16 @@ if ( ! defined( 'WPINC' ) ) {
 							</tr>
 							<tr>
 								<th scope="row">
+									<label>WooCommerce Products Carousel</label>
+								</th>
+								<td>
+									<div class="iframe_wrapper">
+										<iframe width="1280" height="720" src="https://www.youtube.com/embed/yiAkvXyfakg" frameborder="0" allowfullscreen></iframe>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
 									<label>In Widget Areas</label>
 								</th>
 								<td>

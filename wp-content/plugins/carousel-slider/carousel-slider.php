@@ -2,8 +2,8 @@
 /*
 Plugin Name: 	Carousel Slider
 Plugin URI: 	http://wordpress.org/plugins/carousel-slider
-Description: 	The Easiest Way to Create Image, Logo, Video, Post and WooCommerce Product Carousel.
-Version: 		1.7.1
+Description: 	The Easiest Way to Create SEO friendly Image, Logo, Video, Post and WooCommerce Product Carousel.
+Version: 		1.7.2
 Author: 		Sayful Islam
 Author URI: 	https://sayfulislam.com
 Text Domain: 	carousel-slider
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Define Carousel Slider Version
 if ( ! defined( 'CAROUSEL_SLIDER_VERSION' ) ) {
-	define( 'CAROUSEL_SLIDER_VERSION', '1.7.1' );
+	define( 'CAROUSEL_SLIDER_VERSION', '1.7.2' );
 }
 
 if ( ! class_exists( 'Carousel_Slider' ) ):
@@ -73,14 +73,14 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 		 */
 		public function load_textdomain() {
 			// Set filter for plugin's languages directory
-			$shaplatools_lang_dir = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
+			$lang_dir = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
 
 			// Traditional WordPress plugin locale filter
 			$locale = apply_filters( 'plugin_locale', get_locale(), 'carousel-slider' );
 			$mofile = sprintf( '%1$s-%2$s.mo', 'carousel-slider', $locale );
 
 			// Setup paths to current locale file
-			$mofile_local  = $shaplatools_lang_dir . $mofile;
+			$mofile_local  = $lang_dir . $mofile;
 			$mofile_global = WP_LANG_DIR . '/carousel-slider/' . $mofile;
 
 			if ( file_exists( $mofile_global ) ) {
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 				load_textdomain( $this->plugin_name, $mofile_local );
 			} else {
 				// Load the default language files
-				load_plugin_textdomain( $this->plugin_name, false, $shaplatools_lang_dir );
+				load_plugin_textdomain( $this->plugin_name, false, $lang_dir );
 			}
 		}
 
@@ -145,6 +145,7 @@ if ( ! class_exists( 'Carousel_Slider' ) ):
 		public function frontend_includes() {
 			require_once $this->plugin_path() . '/shortcodes/class-carousel-slider-shortcode.php';
 			require_once $this->plugin_path() . '/shortcodes/class-carousel-slider-deprecated-shortcode.php';
+			require_once $this->plugin_path() . '/includes/class-carousel-slider-structured-data.php';
 
 			new Carousel_Slider_Shortcode( $this->plugin_path(), $this->plugin_url() );
 			new Carousel_Slider_Deprecated_Shortcode( $this->plugin_path() );

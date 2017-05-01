@@ -101,8 +101,6 @@ if ( ! defined( 'YITH_WCSTRIPE_INC' ) ) {
 	define( 'YITH_WCSTRIPE_INC', YITH_WCSTRIPE_DIR . 'includes/' );
 }
 
-
-
 if ( ! function_exists( 'YITH_WCStripe' ) ) {
 	/**
 	 * Unique access to instance of YITH_WCStripe class

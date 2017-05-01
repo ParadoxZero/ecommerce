@@ -278,9 +278,9 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
                         // need to handle an exception
                     }
                 }
+                    $_SESSION['apsl_login_error_flag'] = 1;
             }else{
                 if(isset($_REQUEST['denied'])){
-                    $_SESSION['apsl_login_error_flag'] = 1;
                     $redirect_url = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url();
                     $this->redirect($redirect_url);
                 }

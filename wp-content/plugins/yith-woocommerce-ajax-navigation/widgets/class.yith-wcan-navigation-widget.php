@@ -230,7 +230,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                                 if ( $name !== $taxonomy ) {
 
                                     // Exclude query arg for current term archive term
-                                    while ( $in_array_function( $current_term, $data['terms'] ) ) {
+                                    while ( $in_array_function( $term->slug, $data['terms'] ) ) {
                                         $key = array_search( $current_term, $data );
                                         unset( $data['terms'][$key] );
                                     }
@@ -633,7 +633,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                                 if ( $name !== $taxonomy ) {
 
                                     // Exclude query arg for current term archive term
-                                    while ( $in_array_function( $current_term, $data['terms'] ) ) {
+                                    while ( $in_array_function( $term->slug, $data['terms'] ) ) {
                                         $key = array_search( $current_term, $data );
                                         unset( $data['terms'][$key] );
                                     }
@@ -980,7 +980,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                 if( $echo ) {
 
                     // Get count based on current view - uses transients
-                    $transient_name = 'wc_ln_count_' . md5(sanitize_key($taxonomy) . sanitize_key($term->term_id));
+                    //$transient_name = 'wc_ln_count_' . md5(sanitize_key($taxonomy) . sanitize_key($term->term_id));
 
                     //if ( false === ( $_products_in_term = get_transient( $transient_name ) ) ) {
 

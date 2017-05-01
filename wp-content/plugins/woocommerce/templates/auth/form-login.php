@@ -28,17 +28,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php wc_print_notices(); ?>
 
-<p><?php printf( __( 'To connect to %1$s you need to be logged in. Log in to your store below, or %2$scancel and return to %1$s%3$s', 'woocommerce' ), wc_clean( $app_name ), '<a href="' . esc_url( $return_url ) . '">', '</a>' ); ?></p>
+	<p><?php printf( __( 'To connect to %1$s you need to be logged in. Log in to your store below, or <a href="%2$s">cancel and return to %1$s</a>', 'woocommerce' ), wc_clean( $app_name ), esc_url( $return_url ) ); ?></p>
 
 <form method="post" class="wc-auth-login">
 	<p class="form-row form-row-wide">
-
 		<label for="username"><?php _e( 'Username or email address', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input type="text" class="input-text" name="username" id="username" placeholder="Username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
+		<input type="text" class="input-text" name="username" id="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
 	</p>
 	<p class="form-row form-row-wide">
 		<label for="password"><?php _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input class="input-text" type="password" name="password" id="password" placeholder="Password" />
+		<input class="input-text" type="password" name="password" id="password" />
 	</p>
 	<p class="wc-auth-actions">
 		<?php wp_nonce_field( 'woocommerce-login' ); ?>

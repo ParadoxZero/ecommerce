@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
 
     var yith_wcmg = $('.images');
     var yith_wcmg_zoom = $('.yith_magnifier_zoom');
-    var yith_wcmg_image = $('.yith_magnifier_zoom img');
+    var yith_wcmg_image = $('.yith_magnifier_zoom img').first();
 
     var yith_wcmg_default_zoom = yith_wcmg.find('.yith_magnifier_zoom').attr('href');
     var yith_wcmg_default_image = yith_wcmg.find('.yith_magnifier_zoom img').attr('src');
@@ -20,8 +20,16 @@ jQuery(document).ready(function ($) {
     yith_wcmg.yith_magnifier(yith_magnifier_options);
 
     $(document).on('found_variation', 'form.variations_form', function (event, variation) {
+
         var image_magnifier = variation.image_magnifier ? variation.image_magnifier : yith_wcmg_default_zoom;
-        var image_src = variation.image_src ? variation.image_src : yith_wcmg_default_image;
+
+        var image_src = yith_wcmg_default_image;
+        if (ywzm_data.wc_before_3_0 && variation.image_src) {
+            image_src = variation.image_src;
+        }
+        else if (variation.image.src) {
+            image_src = variation.image.src;
+        }
 
         yith_wcmg_zoom.attr('href', image_magnifier);
         yith_wcmg_image.attr('src', image_src);
@@ -45,4 +53,6 @@ jQuery(document).ready(function ($) {
 
         yith_wcmg.yith_magnifier(yith_magnifier_options);
     });
+
+    $('form.variations_form .variations select').trigger('change');
 });

@@ -96,8 +96,6 @@ if ( !defined( 'YWTM_INC' ) ) {
 	define( 'YWTM_INC', YWTM_DIR . 'includes/' );
 }
 
-
-
 if ( ! function_exists( 'YITH_Tab_Manager_Init' ) ) {
 	/**
 	 * Unique access to instance of YITH_Tab_Manager class

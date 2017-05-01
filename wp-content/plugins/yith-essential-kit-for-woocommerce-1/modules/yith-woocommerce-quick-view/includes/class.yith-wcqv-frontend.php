@@ -67,7 +67,7 @@ if( ! class_exists( 'YITH_WCQV_Frontend' ) ) {
 
 			// add button
 			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'yith_add_quick_view_button' ), 15 );
-			add_action( 'yith_wcwl_table_after_product_name', array( $this, 'yith_add_quick_view_button' ), 15 );
+			add_action( 'yith_wcwl_table_after_product_name', array( $this, 'yith_add_quick_view_button' ), 15, 0 );
 
 			// load modal template
 			add_action( 'wp_footer', array( $this, 'yith_quick_view' ) );
@@ -121,10 +121,8 @@ if( ! class_exists( 'YITH_WCQV_Frontend' ) ) {
 
 			global $product;
 
-			if( ! $product_id ){
-				$product_id = yit_get_prop( $product, 'id', true );
-			}
-
+			// get product id
+			! $product_id && $product_id = yit_get_prop( $product, 'id', true );
 			// get label
 			! $label && $label = $this->get_button_label();
 

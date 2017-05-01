@@ -4,15 +4,15 @@ Tags: woocommerce, shortcode, images, carousel, carousel slider, image carousel,
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The Easiest Way to Create Image, Logo, Video, Post and Product Carousel.
+The Easiest Way to Create SEO friendly Image, Logo, Video, Post and Product Carousel.
 
 == Description ==
 
-**The Easiest Way to Create Image, Logo, Video, Post and Product Carousel.**
+**The Easiest Way to Create SEO friendly Image, Logo, Video, Post and Product Carousel.**
 Carousel Slider is a touch enabled WordPress plugin that lets you create highly customizable, stylish responsive carousel slider. With Carousel Slider, you can create image carousel using media gallery or custom url, post carousel, video carousel. We have integrated [Owl Carousel 2](http://www.owlcarousel.owlgraphic.com/) into our plugin for the ultimate device support.
 
 **If you like this plugin, please give us [5 star](https://wordpress.org/support/plugin/carousel-slider/reviews/?rate=5#new-post) to encourage for future improvement.**
@@ -91,7 +91,8 @@ function carousel_slider_load_scripts( $load_scripts ) {
 }`
 
 Now you can use the following function at your theme template file replacing `YOUR_SLIDER_ID` with actual carousel slider id.
-`<?php echo do_shortcode('[carousel_slide id='YOUR_SLIDER_ID']") ?>` 
+
+`echo do_shortcode('[carousel_slide id='YOUR_SLIDER_ID']");` 
 
 == Screenshots ==
 
@@ -104,6 +105,9 @@ Now you can use the following function at your theme template file replacing `YO
 7. Front-end example of image lightbox.
 
 == Changelog ==
+
+= version 1.7.2 - 2017-04-07 =
+* New   - Structured data generator using JSON-LD format for Product Carousel and Gallery Image Carousel.
 
 = version 1.7.1 - 2017-04-05 =
 * New   - WooCommerce 3.0.0 compatibility

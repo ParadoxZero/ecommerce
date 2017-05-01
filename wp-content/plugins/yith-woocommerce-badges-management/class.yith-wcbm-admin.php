@@ -105,7 +105,7 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
 
             // Action per le metabox
             add_action( 'save_post', array( $this, 'metabox_save' ) );
-            add_action( 'save_post', array( $this, 'badge_settings_save' ) );
+            add_action( 'woocommerce_process_product_meta', array( $this, 'badge_settings_save' ) );
 
             // Duplicate Badge
             add_action( 'admin_action_duplicate_badge', array( $this, 'admin_action_duplicate_badge' ) );
@@ -412,7 +412,8 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
 
         function badge_settings_tabs() {
             global $post;
-            $bm_meta  = get_post_meta( $post->ID, '_yith_wcbm_product_meta', true );
+            $product = wc_get_product($post->ID);
+            $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
             $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
             ?>
             <p class="form-field">
@@ -442,12 +443,17 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
         }
 
 
-        public function badge_settings_save( $post_id ) {
+        public function badge_settings_save( $product_id ) {
+            $product = wc_get_product( $product_id );
+            if ( !$product )
+                return;
+
             if ( !empty( $_POST[ '_yith_wcbm_product_meta' ] ) ) {
                 $product_meta               = $_POST[ '_yith_wcbm_product_meta' ];
                 $product_meta[ 'id_badge' ] = ( !empty( $product_meta[ 'id_badge' ] ) ) ? $product_meta[ 'id_badge' ] : '';
 
-                update_post_meta( $post_id, '_yith_wcbm_product_meta', $product_meta );
+                //update_post_meta( $post_id, '_yith_wcbm_product_meta', $product_meta );
+                yit_save_prop( $product, '_yith_wcbm_product_meta', $product_meta );
             }
         }
 

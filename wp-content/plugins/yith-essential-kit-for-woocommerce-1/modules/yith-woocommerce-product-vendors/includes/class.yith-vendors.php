@@ -136,6 +136,14 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 		 */
 		public $is_wc_lower_2_6;
 
+		/**
+		 * Check if WooCommerce run version 2.6.x
+		 *
+		 * @var string
+		 * @since 1.9.8
+		 */
+		public $is_wc_2_6;
+
         /**
          * Check if WooCommerce run version 2.7 or greather
          *
@@ -188,6 +196,7 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 
 			$this->is_wc_lower_2_6          = version_compare( $wc_version, '2.6', '<' );
 			$this->is_wc_2_7_or_greather    = version_compare( $wc_version, '2.7', '>=' );
+			$this->is_wc_2_6				= ! $this->is_wc_lower_2_6 && ! $this->is_wc_2_7_or_greather;
 
 			/* Check for WooCommerce Version */
 			add_action( 'init', array( $this, 'select_termmeta_table' ) );
@@ -627,6 +636,8 @@ if ( ! class_exists( 'YITH_Vendors' ) ) {
 				delete_option( 'yith_wcmv_setup');
 				delete_option( 'yith_wcmv_version');
 			}
+
+			do_action( 'yith_wcmv_after_setup' );
 
 			//regenerate permalink
 			flush_rewrite_rules();

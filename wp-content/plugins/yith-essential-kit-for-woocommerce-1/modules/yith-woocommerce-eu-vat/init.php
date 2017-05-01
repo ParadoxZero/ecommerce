@@ -100,8 +100,6 @@ if ( ! defined ( 'YITH_YWEV_LIB_DIR' ) ) {
 }
 //endregion
 
-
-
 function yith_ywev_init () {
 
     /**

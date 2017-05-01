@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: wishlist, woocommerce, products, themes, yit, e-commerce, shop, ecommerce wishlist, yith, woocommerce wishlist, woocommerce 2.3 ready, shop wishlist
 Requires at least: 4.0
 Tested up to: 4.7.3
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,14 @@ you should ask theme developers to update custom templates and replace the old t
 4. The Wishlist settings page
 
 == Changelog ==
+
+= 2.1.1 - Released: Apr, 21 - 2017 =
+
+* Tweak: improved endpoints creation, with dynamic flush
+* Tweak: added check over wc_print_notices existence, to avoid possible fatal errors
+* Tweak: updated plugin-fw
+* Fix: problem with duplicated meta
+* Fix: product created wince WC 3.0.x not being shown on wishlist
 
 = 2.1.0 - Released: Apr, 03 - 2017 =
 
