@@ -1,0 +1,168 @@
+
+body{
+    margin: 0;
+    background-color: lightblue;
+}
+p{
+    margin: 0;
+    height: auto;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    font-size: 18px;
+}
+.container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+#header,#slider,#section-1{
+    position: relative;
+}
+#header{
+     display:none;
+    width: 100%;
+    height: 121px;
+    background-color: #0a6682;
+}
+#slider{
+    width: 100%;
+    height: 270px;
+margin-top:8.1em;
+    background-color: #6f3662;
+}
+#section-1{
+    background-color: #080d31;
+    width: 100%;
+    height: 77vh;
+}
+.sec-1-col{
+    float: left;
+}
+#sec-1-colomn-1{
+    width: 30%;
+}
+#sec-1-colomn-2{
+    width: 40%;
+}
+#sec-1-colomn-3{
+    width: 30%;
+}
+.card{
+    margin: .4em;
+    margin-left: 0;
+}
+.card .front , .card .back{
+    box-shadow: 0 0 10px 0 black;
+}
+#sec-1-card-2,#sec-1-card-3{
+    height: 37vh;
+}
+#sec-1-card-1 , #sec-1-card-4{
+	height:75vh;
+}
+#section-2{
+    height: 45vh;
+    background-image: url("img/Intel_rearch-DC.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#section-3{
+    height: 77vh;
+    background-color: #CCFFCC;
+}
+#sec-3-colomn-1{
+    width: 25%;
+}
+#sec-3-colomn-2{
+    width: 60%;
+}
+#sec-3-colomn-3{
+    width: 15%;
+}
+#sec-3-card-1{
+    height: 44vh;
+}
+#sec-3-card-2{
+    height: 30vh;
+}
+#sec-3-card-3{
+	height: 75vh;
+}
+#sec-3-card-4,#sec-3-card-5,#sec-3-card-6{
+    height: 24.1vh;
+}
+#section-4{
+    height: 45vh;
+    background-color: coral;
+}
+#section-5{
+    height: 40vh;
+	background-color:lightblue;
+}
+#section-6{
+	display:none;
+    height: 60%;
+    background-color: #0a6682;
+}
+#sec-1-card-1 .front{
+    background-image: url("img/arduino-icon-17552.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#sec-1-card-2 .front{
+    background-image: url("img/Intel-Chipset-Driver-10-0-27-Is-Up-for-Grabs-Windows-10-is-Supported-480544-2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-1-card-3 .front{
+    background-image: url("img/o-ROBOTICS-facebook.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-1-card-4 .front{
+    background-image: url("img/12.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-3-card-1 .front{
+    background-image: url("img/18.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-3-card-2 .front{
+    background-image: url("img/19.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-3-card-3 .front{
+    background-image: url("img/17.jpg");
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-3-card-4 .front{
+    background-image: url("img/20.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-3-card-5 .front{
+    background-image: url("img/21.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#sec-3-card-6 .front{
+    background-image: url("img/22.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
