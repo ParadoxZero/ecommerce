@@ -364,6 +364,20 @@ function wp_flickity_html_admin(){
 									<label for="flickity_metadata[settings][customSliderClass]" class="prfx-row-title">Custom Class
 									</label>
 									<small class="flickity-helper-msg">You may want to add custom css classes to your slider.</em></small>
+								</span>	
+								<span class="flickity-setting">
+									<select type="text" name="flickity_metadata[settings][thumbSize]"  value="<?php echo ($customSliderClass)?$customSliderClass:''?>">
+										<option <?php echo (isset($flickity_metadata['settings']['thumbSize']) and !empty($flickity_metadata['settings']['thumbSize']))?'selected="selected"':''?> value="">Auto</option>
+										<?php foreach (get_intermediate_image_sizes() as $thumbSizeKey => $thumbSizeString): ?>
+											<option <?php if(isset($flickity_metadata['settings']['thumbSize']) and $flickity_metadata['settings']['thumbSize'] == $thumbSizeString)echo 'selected="selected"';?> value="<?php echo $thumbSizeString?>">
+												<?php echo $thumbSizeString?>
+												<?php if(intval( get_option( "{$thumbSizeString}_size_w") )) echo intval( get_option( "{$thumbSizeString}_size_w") ).'x'.intval( get_option( "{$thumbSizeString}_size_h") );?>
+											</option>
+										<?php endforeach; ?>
+									</select>
+									<label for="flickity_metadata[settings][thumbSize]" class="prfx-row-title">Image Size
+									</label>
+									<small class="flickity-helper-msg">Choose the resolution to use for images</em></small>
 								</span>						        						        
 						    </p>
 						</div>

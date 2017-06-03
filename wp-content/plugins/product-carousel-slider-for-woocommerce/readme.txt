@@ -2,8 +2,8 @@
 Contributors: AdlPlugins
 Tags: woocommerce product slider, product slider, woocommerce product carousel, product carousel, woocommerce products slider, products slider, woocommerce slider, woocommerce advance slider, woocommerce products carousel, products carousel, woocommerce product carousel slider, horizontal product carousel, horizontal products carousel, woocommerce, carousel, product, products, woo slider, product rotator, products rotator, product contents carousel, product content slider, woocommerce products, multiple product slider, responsive product slider, responsive product carousel, woocommerce recent product carousel, woocommerce recent products, woocommerce latest products, woocommerce older products, woocommerce on sale products, woocommerce most selling products, woocommerce best selling products, woocommerce featured products, woocommerce category slider, woocommerce tags slider, woocommerce image slider, woocommerce product images, woocommerce product gallery slider, slider for woocommerce, product slider carousel for woocommerce
 Requires at least: 3.5
-Tested up to: 4.7
-Stable tag: 2.0
+Tested up to: 4.7.4
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,8 @@ After successfully installing and activating the plugin, you will find "Woo Caro
 
 == Changelog ==
 
+= 2.1 =
+* Made WooCommerce 3.0.0 compatible
 = 2.0 =
 * Added features of displaying Product Star Ratings and options of changing its color and size.
 * Added Product Title, Pirce, Star Ratings and Cart button display/hide options.

@@ -1,18 +1,21 @@
 <?php
 /**
+ *
+
  * Plugin Name: WP Flickity
- * Plugin URI: http://dev.altercode.company/wordpress-plugins/plugins/wp-flickity/
+ * Plugin URI: http://blog.paolofalomo.it/wp-flickity/
  * Description: Wordpress Flickity Plugin
- * Version: 0.5.0
+ * Version: 0.5.1
  * Author: PaoloFalomo
  * Author URI: http://www.paolofalomo.it/
  * Requires at least: 3.5.1
- * Tested up to: 4.5.2
+ * Tested up to: 4.7.4
+ * Stable tag: 4.7.4
  * 
  * Text Domain: wp-flickity
  * Domain Path: /languages/ (CURRENTLY UNSUPPORTED)
  *
- * See more CHANGELOG at GITLAB https://gitlab.com/paolofalomo/wp-flickity.
+ * See more CHANGELOG at GITLAB https://gitlab.com/paolofalomo/wp-flickity
  * You can pull requests there!
  */
 

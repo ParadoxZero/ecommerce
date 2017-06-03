@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Product Carousel Slider
 Plugin URI:  http://adlplugins.com/plugin/woocommerce-product-carousel-slider
 Description: This plugin allows you to easily create WooCommerce product carousel slider. It is fully responsive and mobile friendly carousel slider which comes with lots of features.
-Version:     2.0
+Version:     2.1
 Author:      ADL Plugins
 Author URI:  http://adlplugins.com
 License:     GPL2 or later

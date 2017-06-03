@@ -2,8 +2,8 @@
 Contributors: xpol555
 Tags: slider, shortcode, responsive, easy-to-use, admin-pages, metafizzy, flickity, banner, best image slider, best slider, best slider plugin, carousel, carousel slider, content slider, content slideshow, flickity, flickity slider, flickity.js, free slider, gallery, gallery slider, Horizontal slider, HTML5 slider, image, image slider, image slider plugin, image slideshow, images, images slider, javascript, jquery, jquery slider, jquery slideshow, photo, Photo Slider, Photo Slideshow, photos, picture, picture slider, pictures, post slider, posts slider, responsive, responsive slider, responsive slideshow, revolution slider, shortcode, slide, slide show, slider, slider image, slider images, slider plugin, slider shortcode, slider widget, slides, slideshow, slideshow image, slideshow images, slideshow plugin, swipe, thumbnails slider, touch slider, wordpress slider, wordpress slideshow
 Requires at least: 3.5.1
-Tested up to: 4.6.1
-Stable tag: 4.6.1
+Tested up to: 4.7.4
+Stable tag: 4.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,10 @@ First Official Wordpress of Flickity Slider Plugin. Touch, responsive, flickable
 
 This plugin provide you the core system of flickity slider with core wordpress functionalities and shortcodes
 
-WATCH DEMO [HERE](http://dev.altercode.company/wordpress-plugins/plugins/wp-flickity/ "WP Flickity DEMO")
+WATCH DEMO or Wordpress Flickity Slider In action [HERE](http://blog.paolofalomo.it/wordpress-flickity-slider-demo/ "WP Flickity DEMO")
 
-_Want to contribute? Contact me! [info@paolofalomo.it](mailto:info@paolofalomo.it)_
+_Want to contribute? Contact me! [info@paolofalomo.it](mailto:info@paolofalomo.it)_ or visit the official [gitlab repo](http://gitlab.com/paolofalomo/wp-flickity/)
+
 
 **Plugin Features**:
 
@@ -40,6 +41,10 @@ Use the shortcode to display at frontend:
 3. Settings on each slider.
 
 == Changelog ==
+
+= 0.5.1 =
+* Fixed Demo link on this readme file
+* Fixed iframe previewer on backend forcing jquery to be present
 
 = 0.5.0 =
 * **New Feature!** [Use Posts as Slides #8](https://gitlab.com/paolofalomo/wp-flickity/issues/8) with a query builder

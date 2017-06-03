@@ -97,12 +97,24 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		elseif ($wpcs_products_type == "featured") {
-			  $featured_args = array(
-				'meta_key'    => '_featured', 
-				'meta_value'  => 'yes'
-				);
-			$args = array_merge($common_args, $featured_args);	
-		}
+            $meta_query  = WC()->query->get_meta_query();
+            $tax_query   = WC()->query->get_tax_query();
+
+            $tax_query[] = array(
+                'taxonomy' => 'product_visibility',
+                'field'    => 'name',
+                'terms'    => 'featured',
+                'operator' => 'IN',
+            );
+
+
+
+            $featured_args = array(
+                'meta_query' => $meta_query,
+                'tax_query' => $tax_query,
+            );
+            $args = array_merge($common_args, $featured_args);
+        }
 
 		else {
 			 $args = $common_args;

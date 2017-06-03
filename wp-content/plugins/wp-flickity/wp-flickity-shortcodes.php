@@ -32,6 +32,15 @@ function wp_flickity( $wp_fkty_props ) {
 
 	$customSliderSettings = array();
 	$customSliderClasses = array();
+	$sliderImageSize = 'large';
+
+	if(isset($flickity_slider_metadata['settings']['customSliderClass']) and !empty($flickity_slider_metadata['settings']['customSliderClass'])){
+		$customSliderClasses[]=$flickity_slider_metadata['settings']['customSliderClass'];
+	}
+	if(isset($flickity_slider_metadata['settings']['thumbSize']) and !empty($flickity_slider_metadata['settings']['thumbSize'])){
+		$sliderImageSize=$flickity_slider_metadata['settings']['thumbSize'];
+	}
+
 	if(!empty($flickity_slider_settings)){
 		if(isset($flickity_slider_settings['wrapAround'])){
 			$customSliderSettings['wrapAround']="wrapAround:true";
@@ -66,18 +75,19 @@ function wp_flickity( $wp_fkty_props ) {
 	if($flickity_post_enabled) $customSliderClasses[]='wp-flickity-post-enabled';
 
 	$h = '<div id="wpflickity-'.$flickity_slider_id.'" class="gallery '.implode(' ',$customSliderClasses).'" wp-flickity-sliderid="'.$flickity_slider_id.'">';
+	
 	if($flickity_post_enabled){
 		$wpFlickityPosts = get_posts($flickity_slider_metadata['posts']['query']);
 		foreach ( $wpFlickityPosts as $post ) : setup_postdata( $post ); 
 			$h .= '<div class="gallery-cell post-id-'.get_the_ID().'">
-				'.get_the_post_thumbnail(get_the_ID(),'large').'
+				'.get_the_post_thumbnail(get_the_ID(),$sliderImageSize).'
 				<a href="'.get_permalink().'">'.get_the_title().'</a>
 			</div>';
 		endforeach; 
 		wp_reset_postdata();
 	}else{
 		foreach ( $flickity_slider_images as $image_id) {
-			$image = wp_get_attachment_image_src($image_id,'large');
+			$image = wp_get_attachment_image_src($image_id,$sliderImageSize);
 			$h.='<img width="'.$image[1].'" height="'.$image[2].'" 
 				class="gallery-cell-image" 
 				src="'.$image[0].'" />';

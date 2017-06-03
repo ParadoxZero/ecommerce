@@ -90,12 +90,12 @@ function wp_ajax_flickity_preview(){
 		<head>
 			<meta charset="utf-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<?php wp_head(); ?>
+            <?php wp_head();?>
 			<link rel="stylesheet" type="text/css" href="<?=WP_FLICKITY_PLUGIN_URL . 'assets/wp-flickity-admin-preview.css'?>">
 		</head>
 		<body>
 			<?=do_shortcode('[wp-flickity id="'.$_GET['flickity-id'].'"]' );?>
-			<?php wp_foot(); ?>
+			<?php //wp_footer(); ?>
 		</body>
 	</html>
 

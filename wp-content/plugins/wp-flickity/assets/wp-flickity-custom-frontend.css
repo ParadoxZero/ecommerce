@@ -1,4 +1,6 @@
-.forceFullWidth .gallery-cell-image,.forceFullWidth .gallery-cell {
+.forceFullWidth .gallery-cell-image,
+.forceFullWidth .gallery-cell,
+.forceFullWidth .gallery-cell > img {
     width: 100%;
 }
 
