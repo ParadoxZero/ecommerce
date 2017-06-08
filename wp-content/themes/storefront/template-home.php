@@ -48,7 +48,7 @@
 <script src="https://www.trymake.com/wp-content/themes/storefront/js/flip.js"></script>
                </div>
         </header><!-- #masthead -->
-<header id="masthead" class="site-header" role="banner" style="position:relative; z-index:0;<?php storefront_header_styles(); ?>">
+<header id="masthead" class="site-header" role="banner" style="position:relative; z-index:0; margin-bottom:0 !important;<?php storefront_header_styles(); ?>">
                 <div class="col-full">
 
                         <?php
