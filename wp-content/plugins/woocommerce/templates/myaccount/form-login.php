@@ -29,31 +29,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
 
 <div class="u-columns col2-set" id="customer_login">
-
-	<div class="u-column1 col-1">
+<div class="u-column1 col-1">
 
 <?php endif; ?>
-
-		<h2><?php _e( 'Login', 'woocommerce' ); ?></h2>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+<div  style="margin-top:50px;" class=" col-md-7 col-md-offset-3 col-sm-10  ">
+            <div class="panel panel-info">
+</strong>
+                <div class="panel-heading">
+                    <div class="panel-title" style="text-align:center"> <h2>Login</h2></div>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+		<!--<h2><?php //_e( 'Login', 'woocommerce' ); ?></h2>-->
 
 		<form class="woocomerce-form woocommerce-form-login login" method="post">
 
 			<?php do_action( 'woocommerce_login_form_start' ); ?>
 
-			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-				<label for="username"><?php _e( 'Username or email address', 'woocommerce' ); ?> <span class="required">*</span></label>
-				<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" value="<?php if ( ! empty( $_POST['username'] ) ) echo esc_attr( $_POST['username'] ); ?>" />
-			</p>
-			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-				<label for="password"><?php _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
-				<input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" />
-			</p>
+			<!--<p class="woocommerce-form-row woocommerce-form-row-wide form-row form-row-wide">
+				<label for="username"><?php //_e( 'Username or email address', 'woocommerce' ); ?> <span class="required">*</span></label>
+				<input type="text" class="woocommerce-Input woocommerce-Input-text input-text" name="username" id="username" value="<?php //if ( ! empty( $_POST['username'] ) ) echo esc_attr( $_POST['username'] ); ?>" />
+			</p>-->
+			<div style="margin-bottom: 25px ; " class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="username" type="text" class="form-control" name="username" value="" placeholder="Enter your E-mail" style="font-style: italic;" required>
+                        </div>
+			<!--<p class="woocommerce-form-row woocommerce-form-row-wide form-row form-row-wide">
+				<label for="password"><?php// _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
+				<input class="woocommerce-Input woocommerce-Input-text input-text" type="password" name="password" id="password" />
+			</p>-->
+			<div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Enter your password" style="font-style: italic;" required > 
+                        </div>
 
 			<?php do_action( 'woocommerce_login_form' ); ?>
 
 			<p class="form-row">
 				<?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
-				<input type="submit" class="woocommerce-Button button" name="login" value="<?php esc_attr_e( 'Login', 'woocommerce' ); ?>" />
+				<input type="submit" class="woocommerce-Button button col-sm-offset-4" name="login" value="<?php esc_attr_e( 'Login', 'woocommerce' ); ?>" style="width:40%">
 				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox inline">
 					<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span><?php _e( 'Remember me', 'woocommerce' ); ?></span>
 				</label>

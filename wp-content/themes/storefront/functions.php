@@ -173,6 +173,10 @@ function customer_redirected_displaying_message() {
 }
 
 function loop_columns() {
-return 4; // 5 products per row
+	return 4; // 5 products per row
 }
 add_filter('loop_shop_columns', 'loop_columns', 999);
+
+
+remove_action( 'register_form', 'dokan_seller_reg_form_fields' );
+remove_action( 'woocommerce_after_my_account', 'dokan_account_migration_button' );

@@ -17,7 +17,7 @@ wp_enqueue_script( 'wc-password-strength-meter' );
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<?php wc_print_notices(); ?>
     <div class="container">
-        <div id="regbox" style="margin-top:50px;" class="mainbox col-md-7 col-md-offset-3 col-sm-10  ">
+        <div id="regbox" style="margin-top:50px;" class="mainbox col-md-7 col-md-offset-4 col-sm-12  ">
             <div class="panel panel-info" >
                 <div class="panel-heading">
                     <div class="panel-title"> <h2><?php _e( 'Register', 'woocommerce' ); ?></h2></div>
@@ -70,7 +70,7 @@ wp_enqueue_script( 'wc-password-strength-meter' );
 		<?php endif; ?>
 
 		<!-- Spam Trap -->
-		<div style="<?php echo ( ( is_rtl() ) ? 'right' : 'left' ); ?>: -999em; position: absolute;"><label for="trap"><?php _e( 'Anti-spam', 'woocommerce' ); ?></label><input type="text" name="email_2" id="trap" tabindex="-1" /></div>
+		<div style="<?php echo ( ( is_rtl() ) ? 'right' : 'left' ); ?>: -999em; position: absolute;"><label for="trap"><?php _e( 'Anti-spam', 'woocommerce' ); ?></label><input type="text" name="email_2" id="trap" tabindex="-1" autocomplete="off" style="display:None;"/></div>
 
 		<?php do_action( 'woocommerce_register_form' ); ?>
 		<?php do_action( 'register_form' ); ?>

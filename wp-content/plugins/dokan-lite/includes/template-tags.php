@@ -499,7 +499,7 @@ function dokan_seller_reg_form_fields() {
     ) );
 }
 
-add_action( 'woocommerce_register_form', 'dokan_seller_reg_form_fields' );
+//add_action( 'woocommerce_register_form', 'dokan_seller_reg_form_fields' );
 
 if ( !function_exists( 'dokan_seller_not_enabled_notice' ) ) :
 
