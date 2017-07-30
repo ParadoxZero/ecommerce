@@ -1,4 +1,4 @@
-/*! Custom Sidebars - v3.0.5
+/*! Custom Sidebars - v3.0.8
  * https://premium.wpmudev.org/project/custom-sidebars-pro/
  * Copyright (c) 2017; * Licensed GPLv2+ */
 /*global window:false */
@@ -644,6 +644,26 @@ window.csSidebars = null;
 			popup.show();
 			popup.$().find( '#csb-name' ).focus();
 
+			/**
+			 * handle enter key on new sidebar name
+			 */
+			popup.$().on( 'keypress', '#csb-name', function(e) {
+				if ( 13 === e.keyCode ) {
+					if ( 0 < $(this).val().length ) {
+						$('#csb-description').focus();
+					}
+				}
+			});
+
+			/**
+			 * handle enter key on new sidebar description
+			 */
+			popup.$().on( 'keypress', '#csb-description', function(e) {
+				if ( 13 === e.keyCode ) {
+					popup.$('.btn-save').click();
+				}
+			});
+
 			// Add event hooks to the editor.
 			popup.$().on( 'click', '#csb-more', toggle_extras );
 			popup.$().on( 'click', '.btn-save', save_data );
@@ -977,6 +997,16 @@ window.csSidebars = null;
 				popup.$().find( '.sb-name' ).text( resp.sidebar.name );
 				var sb_id = resp.sidebar.id;
 
+				/**
+				 * hide message
+				 */
+				popup.$().find('.message.no-sidebars').hide();
+
+				/**
+				 * Count sidebars
+				 */
+				var visible_sidebars = 0;
+
 				// Only show settings for replaceable sidebars
 				var sidebars = popup.$().find( '.cs-replaceable' );
 				sidebars.hide();
@@ -986,6 +1016,15 @@ window.csSidebars = null;
 						continue;
 					}
 					sidebars.filter( '.' + resp.replaceable[key0] ).show();
+					visible_sidebars++;
+				}
+
+				/**
+				 * no visible_sidebars - show information about it
+				 */
+				if ( 0 === visible_sidebars ) {
+					popup.$().find( '.wpmui-box, .message, .button-primary' ).hide();
+					popup.$().find('.message.no-sidebars').show().parent().addClass('notice notice-error').removeClass('hidden');
 				}
 
 				// Add a new option to the replacement list.

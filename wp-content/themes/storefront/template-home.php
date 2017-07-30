@@ -77,86 +77,70 @@
         <div id="section-0"></div>
 	<div id="section-1">
             <div id="sec-1-colomn-1" class="sec-1-col">
-                <div id="sec-1-card-1" class="card" onclick="location.href='#';">
+                <div id="sec-1-card-1" class="card" onclick="location.href='https://www.trymake.com/product-category/development-boards/raspberry-pi/';">
                     <div class="front" style="background-color: #19979c ;"></div>
                     <div class="back" style="background-color: #19979c ;">
 
 			<h3  style="margin-top:0; text-align: center;font-style: italic ">Rasberry pi</h3>
-                        <br/><br/>
-                        <p style="margin: 1em">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nam viverra vestibulum arcu quis condimentum. Mauris malesuada
-                            sed est tincidunt sodales. Curabitur ligula eros, ullamcorper ac
-                            risus fermentum, ullamcorper tincidunt justo. Sed sit amet aliquet
-                            ante, quis blandit lorem. In sit amet nibh quis sem condimentum ornare.</p>
+                        <br/>
+                        <p style="margin: 1em">The Raspberry Pi is a tiny and affordable computer that you can use to learn programming through fun, practical projects.</p>
                                      </div>
                 </div>
-                <div id="sec-1-card-1-1" class="card" onclick="location.href='#';" >
+                <div id="sec-1-card-1-1" class="card" onclick="location.href='https://www.trymake.com/product-category/development-boards/intel/';" >
                     <div class="front" style="background-color: #19979c ;"></div>
                     <div class="back" style="background-color: #19979c ;">
 	       
-			<h3  style="margin-top:0; text-align: center;font-style: italic ">Robo - Display</h3>
-                        <br/><br/>
-                        <p style="margin: 1em">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nam viverra vestibulum arcu quis condimentum. Mauris malesuada
-                            sed est tincidunt sodales. Curabitur ligula eros, ullamcorper ac
-                            risus fermentum, ullamcorper tincidunt justo. Sed sit amet aliquet
-                            ante, quis blandit lorem. In sit amet nibh quis sem condimentum ornare.</p>
+			<h3  style="margin-top:0; text-align: center;font-style: italic ">Intel Galileo</h3>
+                        <br/>
+                        <p style="margin: 1em">Intel Galileo is the first in a line of Arduino-certified development boards based on Intel x86 architecture and is designed for the maker and education communities. Intel released two versions of Galileo, referred to as Gen 1 and Gen 2. These development boards are sometimes called "Breakout boards".</p>
                                      </div>
                 </div>
             </div>
             <div id="sec-1-colomn-2" class="sec-1-col">
-                <div id="sec-1-card-2" class="card" onclick="location.href='#';">
+                <div id="sec-1-card-2" class="card" onclick="location.href='https://www.trymake.com/product-category/robotic-accessories/';">
                     <div class="front" >
 
                     </div>
                     <div class="back" style="background-color: #00adef ; ">
-                        <h3 style="margin-top:0; text-align: center;font-style: italic ">Arduino - kit Complete set</h3>
-                        <br/><br/>
-                        <p style="margin: 3em">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nam viverra vestibulum arcu quis condimentum. Mauris malesuada
-                            sed est tincidunt sodales. Curabitur ligula eros, ullamcorper ac
-                            risus fermentum, ullamcorper tincidunt justo. Sed sit amet aliquet
-                            ante, quis blandit lorem. In sit amet nibh quis sem condimentum ornare.</p>
+                        <h3 style="margin-top:0; text-align: center;font-style: italic ">Robotic Arm</h3>
+                        <br/>
+                        <p style="margin: 3em">A perfect arm for your robotic projects.</p>
                     
                     </div>
                 </div>
-                <div id="sec-1-card-3" class="card" onclick="location.href='#';" >
+                <div id="sec-1-card-3" class="card" onclick="location.href='https://www.trymake.com/product-category/robotic-accessories/';" >
                     <div class="front" style="background-color: #B7695C ;" ></div>
                     <div class="back" style="background-color: #acbbb7 ; ">
-                        <h3 style="margin-top:0; text-align: center;font-style: italic ">All Terrian Cart</h3>
-                        <br/><br/>
-                        <p style="margin: 3em">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nam viverra vestibulum arcu quis condimentum. Mauris malesuada
-                            sed est tincidunt sodales. Curabitur ligula eros, ullamcorper ac
-                            risus fermentum, ullamcorper tincidunt justo. Sed sit amet aliquet
-                            ante, quis blandit lorem. In sit amet nibh quis sem condimentum ornare.</p>
+                        <h3 style="margin-top:0; text-align: center;font-style: italic ">Robotics Accessories</h3>
+                        <br/>
+                        <p style="margin: 3em">Robotic Accessories- Accessories to help you make your own robot.</p>
                     
                     </div>
                 </div>
             </div>
             <div id="sec-1-colomn-3" class="sec-1-col">
-                <div id="sec-1-card-4" class="card" onclick="location.href='#';" >
+                <div id="sec-1-card-4" class="card" onclick="location.href='https://www.trymake.com/product-category/development-boards/arduino/';" >
                     <div class="front" style="background-color: #26bdce ; "></div>
                     <div class="back" style="background-color: #26bdce ;">
-                        <h3 style="margin-top:0; text-align: center;font-style: italic ">Plastic ball - Caster wheel</h3>
-                        <br/><br/>
-                        <p style="margin: 1em">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nam viverra vestibulum arcu quis condimentum. Mauris malesuada
-                            sed est tincidunt sodales. Curabitur ligula eros, ullamcorper ac
-                            risus fermentum, ullamcorper tincidunt justo. Sed sit amet aliquet
-                            ante, quis blandit lorem. In sit amet nibh quis sem condimentum ornare.</p>
+                        <h3 style="margin-top:0; text-align: center;font-style: italic ">Arduino</h3>
+                        <br/>
+                        <p style="margin: 1em">Arduino-Open-source electronic prototyping platform enabling users to create interactive electronic objects.</p>
                     
                     </div>
                 </div>
-                <div id="sec-1-card-4-1" class="card" onclick="location.href='#';" >
+                <div id="sec-1-card-4-1" class="card" onclick="location.href='https://www.trymake.com/product-category/development-boards/beaglebone/';" >
                     <div class="front" style="background-color: #26bdce ; "></div>
                     <div class="back" style="background-color: #26bdce ;">
-                        Back content
+                        <h3 style="margin-top:0; text-align: center;font-style: italic ">BeagleBone</h3>
+                        <br/>
+                        <p style="margin: 1em">BeagleBone Black is a low-cost, community-supported development platform for developers and hobbyists.</p>
+                    
+
                     </div>
                 </div>
             </div>
         </div>
-        <div id="section-2">
+        <div id="section-2"  onclick="location.href='https://www.trymake.com/drona-aviation';">
         </div>
         <div id="section-3">
             <div id="sec-3-colomn-1" class="sec-1-col">

@@ -52,7 +52,7 @@ function dokan_content_nav( $nav_id, $query = null ) {
         </ul>
 
 
-        <?php if ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
+        <?php if ( $wp_query->max_num_pages > 1 && ( dokan_is_store_page() || is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
             <?php dokan_page_navi( '', '', $wp_query ); ?>
         <?php endif; ?>
 
@@ -131,7 +131,7 @@ endif;
 function dokan_product_dashboard_errors() {
     $type = isset( $_GET['message'] ) ? $_GET['message'] : '';
 
-    switch ($type) {
+    switch ( $type ) {
         case 'product_deleted':
             dokan_get_template_part( 'global/dokan-success', '', array( 'deleted' => true, 'message' => __( 'Product succesfully deleted', 'dokan-lite' ) ) );
             break;
@@ -139,6 +139,11 @@ function dokan_product_dashboard_errors() {
         case 'error':
             dokan_get_template_part( 'global/dokan-error', '', array( 'deleted' => false, 'message' =>  __( 'Something went wrong!', 'dokan-lite' ) ) );
             break;
+
+        default:
+            do_action( 'dokan_product_dashboard_errors', $type );
+            break;
+
     }
 }
 
@@ -499,7 +504,7 @@ function dokan_seller_reg_form_fields() {
     ) );
 }
 
-//add_action( 'woocommerce_register_form', 'dokan_seller_reg_form_fields' );
+add_action( 'woocommerce_register_form', 'dokan_seller_reg_form_fields' );
 
 if ( !function_exists( 'dokan_seller_not_enabled_notice' ) ) :
 
@@ -590,14 +595,17 @@ function dokan_store_listing( $atts ) {
     if ( 'yes' == $attr['search'] ) {
         $search_term = isset( $_GET['dokan_seller_search'] ) ? sanitize_text_field( $_GET['dokan_seller_search'] ) : '';
         if ( '' != $search_term ) {
-            $seller_args['search']         = "*{$search_term}*";
-            $seller_args['search_columns'] = array( 'display_name' );
 
             $seller_args['meta_query'] = array(
                 array(
                     'key'     => 'dokan_enable_selling',
                     'value'   => 'yes',
                     'compare' => '='
+                ),
+                 array(
+                    'key'     => 'dokan_store_name',
+                    'value'   => $search_term,
+                    'compare' => 'LIKE'
                 )
             );
         }

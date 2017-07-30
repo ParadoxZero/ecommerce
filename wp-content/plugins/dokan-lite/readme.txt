@@ -3,7 +3,7 @@ Contributors: tareq1988, wedevs, rafsuntaskin, sabbir1991
 Donate Link: http://tareq.co/donate/
 Tags: woocommerce, multivendor, multi-vendor, paypal, shop, vendor, seller, store, sell, online, amazon, dokan, ebay, Etsy, multi seller, multi store, multi vendor, multi vendors, multistore, multivendor, product vendor, product vendors, vendor, vendor system, vendors, wc market place, wc marketplace, wc vendors, woo vendors, woocommerce market place, woocommerce marketplace, woocommerce multi vendor,  commission rate, e-commerce, ebay, ecommerce, yith, yithemes
 Requires at least: 4.4
-Tested up to: 4.7.4
+Tested up to: 4.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The pioneer multi-vendor plugin for WordPress. Start your own marketplace in minutes!
 
 == Description ==
+
+= Dokan Multivendor Marketplace Plugin For WordPress =
 
 Dokan is the best front end multi vendor marketplace on WordPress, powered by WooCommerce. Build your own Amazon, Shopify, eBay, Magento like marketplace in just 30 minutes. Dokan is the fastest way to start ecommerce and earn through commissions with products ranging from digital, physical to variable.
 
@@ -175,6 +177,34 @@ A. Just install and activate the PRO version without deleting the free plugin. A
 19. Frontend &rarr; Individual Seller Store-3
 
 == Changelog ==
+
+v2.6.4 -> June 22, 2017
+---------------------
+- [fix] Store page product loop pagination not showing
+- [fix] Order exporting not working properly
+- [fix] Earning calculation date range issue
+- [tweak] Banner upload is now available in store settings for all appearances
+- [tweak] Profile completion progress custom values logic updated
+- [tweak] Downloadable product section performance tweaks
+
+v2.6.3 -> June 08, 2017
+---------------------
+- [fix] Missing text domains updated
+- [fix] Featured Seller, Best Seller and Top Seller query fixed for older version of WooCommerce
+- [fix] Translation issue fixed on withdraw template
+- [fix] Store pages template conflitcs with theme home page
+- [tweak] Various other code improvements
+
+v2.6.2 -> May 18, 2017
+---------------------
+- [new] Dynamic state select option for Vendor Setup Wizard
+- [fix] Change Product Seller from admin not working properly for variation products
+- [fix] Store listing search not showing same result if submitted
+- [fix] Store listing search sending multiple requests on AJAX
+- [fix] Feature products, Best selling products and Top rated seller queries fixed
+- [fix] Fixed Order status label issue in seller order listing
+- [tweak] Added currency argument for wc_price
+- [tweak] Various helper text labels updated
 
 v2.6.1 -> May 04, 2017
 ---------------------
